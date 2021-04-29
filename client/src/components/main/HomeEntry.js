@@ -1,7 +1,7 @@
 import React, { useState }  from 'react';
 import { WNavItem, WInput } from 'wt-frontend';
 
-const SidebarEntry = (props) => {
+const HomeEntry = (props) => {
     const [editing, toggleEditing] = useState(false);
     const [preEdit, setPreEdit] = useState(props.name);
     const handleEditing = (e) => {
@@ -13,15 +13,14 @@ const SidebarEntry = (props) => {
     const handleSubmit = (e) => {
         handleEditing(e);
         const { name, value } = e.target;
-        props.updateListField(props._id, name, value, preEdit);
+        //props.updateListField(props._id, name, value, preEdit);
     };
 
-    const entryStyle = props._id === props.activeid ? 'list-item-active' : 'list-item ';
     
     return (
         <WNavItem 
-            className={entryStyle} onDoubleClick={handleEditing} 
-            onClick={() => { props.handleSetActive(props._id) }} 
+            className="list-item" onDoubleClick={handleEditing} 
+            onClick={() => { }} 
         >
             {
                 editing ?   <WInput className="list-item-edit" inputClass="list-item-edit-input"
@@ -36,4 +35,4 @@ const SidebarEntry = (props) => {
     );
 };
 
-export default SidebarEntry;
+export default HomeEntry;

@@ -248,3 +248,35 @@ html, body {
     text-align: center;
     
 }
+
+.home{
+    width: 70%;
+    background-color: red;
+    position: absolute;
+    left: 15%;
+    top: 15%;
+    height: 75%;
+}
+.basic{
+    width: 100%;
+    position: absolute;
+}
+
+.MapHeader{
+    background-color: black;
+    color: white;
+    height: 13%;
+    margin-top: 10px;
+    text-align: center;
+}
+.MapLeft{
+    width: 50%;
+    height: 85.5%;
+    background-color: pink;
+}
+.MapRight{
+    width: 50%;
+    height: 85.5%;
+    right : 50%;
+    background-color: white;
+}

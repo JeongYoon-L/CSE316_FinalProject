@@ -1,9 +1,12 @@
 import React 			from 'react';
 import Homescreen 		from './components/homescreen/Homescreen';
+import Home 					from './components/main/Home';
+import Navbar 					from './components/navbar/Navbar.js';
 import { useQuery } 	from '@apollo/client';
 import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
  
 const App = () => {
 	let user = null;
@@ -19,17 +22,21 @@ const App = () => {
     }
 	return(
 		<BrowserRouter>
-			<Switch>
-				<Redirect exact from="/" to={ {pathname: "/welcome"} } />
-				<Route 
-					path="/welcome" 
-					name="welcome" 
-					render={() => 
-						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps}/>
-					} 
-				/>
-				<Route/>
+		<WLayout wLayout="header" className = "basic">
+			<WLHeader>
+				<Navbar fetchUser={refetch} user={user} refreshTps={refreshTps}/>	
+			</WLHeader>
+			<WLMain className = "maincolor" >
+			
+			
+			<Switch>					
+				<Route path = "/home" render={() => <Home fetchUser={refetch} user={user} refreshTps={refreshTps} />}/>
+				
 			</Switch>
+
+			</WLMain>
+			</WLayout>
+			
 		</BrowserRouter>
 	);
 }
