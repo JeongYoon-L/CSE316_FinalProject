@@ -20,3 +20,18 @@ export const GET_DB_MAPS = gql`
 		}
 	}
 `;
+
+export const GET_DB_REGIONS = gql`
+	query GetAllRegions($parentID : String!) {
+		getAllRegions(parentID : $parentID) {
+			_id
+    		id
+    		capital
+			name
+    		leader
+    		Flag
+    		parentRegion
+    		landmark
+		}
+	}
+`;

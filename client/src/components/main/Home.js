@@ -1,6 +1,6 @@
 import React, { useState } 				from 'react';
 import HomeContents    from './HomeContents';
-import { WButton, WCHeader, WCContent, WCMedia, WCard } from 'wt-frontend';
+import { WButton, WCHeader, WCContent, WCMedia, WCard, WRow, WCol } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_MAPS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
@@ -48,14 +48,28 @@ const Home = (props) => {
 			<WCHeader className = "MapHeader">
                 Your Maps
 			</WCHeader>
-			<WCContent className = "MapLeft" >
-                <HomeContents 
-                    todolists = {todolists} />
-                
-			</WCContent>
-            <WCMedia  className = "MapRight" >
-            <WButton onClick = {setShowCreateMap} wType="texted" >Create New Map</WButton>
-                </WCMedia>
+
+            <WRow >
+            <WCol size="6" className = "MapLeft" >
+                {
+                    
+
+			<WCContent >
+            <HomeContents 
+                todolists = {todolists} />
+            
+        </WCContent>
+                }
+            </WCol>
+
+            <WCol size="6">
+                {
+                               <WCMedia  className = "MapRight" >
+                               <WButton onClick = {setShowCreateMap} wType="texted" >Create New Map</WButton>
+                                   </WCMedia>
+                }
+            </WCol>
+            </WRow>
                 {
 				showCreateMap && (<CreateMapModal setShowCreateMap={setShowCreateMap} createNewMap = {createNewMap} />)
 			    }

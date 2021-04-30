@@ -11,9 +11,10 @@ type Region {
     _id: String!
     id: Int!
     capital: String!
+    name: String!
     leader: String!
     Flag: String!
-    parentRegion:  Boolean!
+    parentRegion:  String!
     landmark: [String]
 }
 extend type Query {
@@ -42,9 +43,10 @@ input RegionInput {
     _id: String
     id: Int
     capital: String
+    name : String
     leader: String
     Flag: String
-    parentRegion:  Boolean
+    parentRegion:  String
     landmark: [String]
 }
 `;

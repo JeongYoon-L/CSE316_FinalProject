@@ -270,13 +270,28 @@ html, body {
     text-align: center;
 }
 .MapLeft{
-    width: 50%;
-    height: 85.5%;
+    height: 483px;
     background-color: pink;
 }
 .MapRight{
-    width: 50%;
-    height: 85.5%;
-    right : 50%;
     background-color: white;
+}
+.regionPage{
+    width: 70%;
+    background-color: gray;
+    position: absolute;
+    left: 15%;
+    top: 15%;
+    height: 75%;
+}
+.RegionHeader{
+    background-color: red;
+    color: white;
+    height: 13%;
+    text-align: center;
+}
+.regionNavbarPage{
+    background-color: black;
+    color: white;
+    height: 7%;
 }

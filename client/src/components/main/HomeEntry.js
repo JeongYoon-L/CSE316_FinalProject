@@ -1,9 +1,15 @@
 import React, { useState }  from 'react';
+import { useHistory } from "react-router-dom";
 import { WNavItem, WInput } from 'wt-frontend';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Region   from './Region';
 
 const HomeEntry = (props) => {
     const [editing, toggleEditing] = useState(false);
     const [preEdit, setPreEdit] = useState(props.name);
+    let history = useHistory();
+    const RouteRegionID = "/region/" + props._id;
+
     const handleEditing = (e) => {
         e.stopPropagation();
         setPreEdit(props.name);
@@ -16,11 +22,16 @@ const HomeEntry = (props) => {
         //props.updateListField(props._id, name, value, preEdit);
     };
 
+    const gotoRegionRouter= (e) => {   
+        history.replace(RouteRegionID);   
+        
+    }
+
     
     return (
         <WNavItem 
             className="list-item" onDoubleClick={handleEditing} 
-            onClick={() => { }} 
+            onClick={gotoRegionRouter } 
         >
             {
                 editing ?   <WInput className="list-item-edit" inputClass="list-item-edit-input"

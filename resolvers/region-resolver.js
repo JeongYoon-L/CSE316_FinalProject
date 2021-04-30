@@ -1,12 +1,42 @@
+const ObjectId = require('mongoose').Types.ObjectId;
+const Region = require('../models/region-model');
+
 module.exports = {
 	Query: {
-		getAllRegions: async (_, __, { req }) => { },
+		getAllRegions: async (_, args) => { 
+			const { parentID } = args;
+			if(!parentID) { return };
+			const _id = new ObjectId(parentID);
+			const todolists = await Region.find({parentRegion: _id});
+			console.log(todolists);
+			if(todolists) {
+				return (todolists);
+			} 
+		},
 		getAllLandmark: async (_, __, { req }) => { },
 		getViewerRegions: async (_, __, { req }) => { },
 		getRegionById: async (_, args) => {},
 	},
 	Mutation: {
-		addRegion: async(_, args) => {},		
+		addRegion: async(_, args) => {
+			const { region } = args;
+			const objectId = new ObjectId();
+			const { id , parentRegion, capital, name, leader, Flag} = region;
+			const newList = new Region({
+				_id: objectId,
+				id: id,
+                capital: capital,
+				name : name,
+                leader: leader,
+                Flag: Flag,
+                parentRegion: parentRegion,
+                landmark: [] ,
+			});
+			const updated = await newList.save();
+			
+			if(updated) return objectId;
+			else return ('Could not add region');
+		},		
 		deleteRegion: async (_, args) => {},
 		updateRegionField: async (_, args) => {},
 		updateParent_RegionIDField: async (_, args) => {}, // update ParentRegionID

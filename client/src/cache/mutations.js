@@ -118,3 +118,9 @@ export const CREATE_MAP = gql`
 		createMap(map: $map) 
 	}
 `;
+
+export const CREATE_SUBREGION = gql`
+	mutation AddRegion($region: RegionInput!) {
+		addRegion(region: $region) 
+	}
+`;

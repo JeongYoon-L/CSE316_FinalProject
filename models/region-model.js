@@ -1,4 +1,5 @@
-const regionSchema = new Schema(
+const { model, Schema, ObjectId } = require('mongoose');
+const RegionSchema = new Schema(
 	{
 		_id: {
 			type: ObjectId,
@@ -21,7 +22,7 @@ const regionSchema = new Schema(
 			required: true
 		},
 		Flag: {
-			type: photo,
+			type: String,
 			required: true
 		},
         parentRegion: { // ParentRegion's unique ID
@@ -34,3 +35,5 @@ const regionSchema = new Schema(
 		}
 	}
 );
+const Region = model('Region', RegionSchema);
+module.exports = Region;

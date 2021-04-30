@@ -1,11 +1,12 @@
 import React 			from 'react';
 import Homescreen 		from './components/homescreen/Homescreen';
 import Home 					from './components/main/Home';
+import Region 					from './components/main/Region';
 import Navbar 					from './components/navbar/Navbar.js';
 import { useQuery } 	from '@apollo/client';
 import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect, useParams } from 'react-router-dom';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
  
 const App = () => {
@@ -31,13 +32,28 @@ const App = () => {
 			
 			<Switch>					
 				<Route path = "/home" render={() => <Home fetchUser={refetch} user={user} refreshTps={refreshTps} />}/>
-				
+            	<Route path = "/region" render={() => <Region user={user} />}/>
+				<Route path = "/region/:id" children={<Child />}/>
+            
 			</Switch>
 
 			</WLMain>
 			</WLayout>
 			
 		</BrowserRouter>
+	);
+}
+
+function Child(){
+	let {id} = useParams();
+	return (
+		<div>
+			<h3>
+				ID: {id}
+			</h3>
+		</div>
+
+
 	);
 }
 
