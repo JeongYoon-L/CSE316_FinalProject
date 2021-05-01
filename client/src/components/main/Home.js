@@ -9,6 +9,7 @@ import GlobalMapImage from '../imageSrc/globalMap.png';
 
 const Home = (props) => {
     const [CreateMap] 			= useMutation(mutations.CREATE_MAP);
+    const [DeleteMap] 			= useMutation(mutations.DELETE_MAP);
     const [editMapName] 			= useMutation(mutations.EDIT_MAP_NAME);
     const { loading, error, data, refetch } = useQuery(GET_DB_MAPS);
     const [showCreateMap, toggleShowCreateMap] 	= useState(false);
@@ -25,7 +26,7 @@ const Home = (props) => {
     const setShowCreateMap = () => {
 		toggleShowCreateMap(!showCreateMap)
 	}
-
+    
     const createNewMap = async (newname) => {
         const length = todolists.length;
 		//const id = length >= 1 ? todolists[length - 1].id + Math.floor((Math.random() * 100) + 1) : 1;
@@ -45,6 +46,9 @@ const Home = (props) => {
 		
     };
 
+    const DeleteMapHere = async (_id) => {
+        const { data } = await DeleteMap({ variables: { _id: _id},refetchQueries: [{ query: GET_DB_MAPS }] });
+    };
 
     const updateMapName = async (_id, value, prev) => {
 		//let transaction = new UpdateListField_Transaction(_id, field, prev, value, UpdateTodolistField);
@@ -65,6 +69,7 @@ const Home = (props) => {
 			    <WCContent >
                     <HomeContents 
                         updateMapName= {updateMapName}
+                        DeleteMapHere = {DeleteMapHere}
                         todolists = {todolists} />
                 </WCContent>
                 }

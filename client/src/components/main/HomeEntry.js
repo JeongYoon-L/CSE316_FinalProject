@@ -4,13 +4,19 @@ import { WNavItem, WInput, WCol, WRow} from 'wt-frontend';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Region   from './Region';
 import WButton from 'wt-frontend/build/components/wbutton/WButton';
+import Delete 							from '../modals/Delete';
 
 const HomeEntry = (props) => {
     const [editing, toggleEditing] = useState(false);
     const [preEdit, setPreEdit] = useState(props.name);
     let history = useHistory();
     const RouteRegionID = "/region/" + props._id;
-
+    const [showDeleteMap, toggleShowDeleteMap] 	= useState(false);
+    
+    const setShowDeleteMap = () => {
+		toggleShowDeleteMap(!showDeleteMap)
+	}
+    
     const handleEditing = (e) => {
         e.stopPropagation();
         setPreEdit(props.name);
@@ -55,7 +61,7 @@ const HomeEntry = (props) => {
                                 </WButton>
                             </WCol>
                             <WCol size = "1">
-                                <WButton className = "iconHandle">
+                                <WButton className = "iconHandle" onClick = {setShowDeleteMap}>
                                     <i className = "material-icons ">
                                         delete
                                     </i>
@@ -64,6 +70,9 @@ const HomeEntry = (props) => {
                         </WRow>   
                             
             }
+            {
+				showDeleteMap && (<Delete _id = {props._id} setShowDeleteMap={setShowDeleteMap} DeleteMapHere = {props.DeleteMapHere} setShowDeleteMap = {setShowDeleteMap} />)
+			    }
         </WNavItem>
     );
 };

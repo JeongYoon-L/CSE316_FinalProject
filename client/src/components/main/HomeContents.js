@@ -8,8 +8,8 @@ const HomeContents = (props) => {
                 props.todolists &&
                 props.todolists.map(todo => (
                     <HomeEntry
-                        id={todo.id} key={todo.id} name={todo.name} _id={todo._id}
-                        updateMapName = {props.updateMapName}
+                        id={todo.id} key={todo.id} name={todo.name} _id={todo._id} DeleteMapHere = {props.DeleteMapHere}
+                        updateMapName = {props.updateMapName} 
                         
                     />
                 ))

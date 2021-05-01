@@ -130,6 +130,12 @@ export const CREATE_MAP = gql`
 	}
 `;
 
+export const DELETE_MAP = gql`
+	mutation DeleteMap($_id: String!) {
+		deleteMap(_id: $_id) 
+	}
+`;
+
 export const EDIT_MAP_NAME = gql`
 	mutation EditMapName($_id : String! , $name : String!) {
 		editMapName(_id : $_id , name : $name)
