@@ -22,7 +22,7 @@ const RegionEntry = (props) => {
     
     let history = useHistory();
     const RouteViewerRegionID = "/viewer/" + props._id;
-
+    const regionName = props.name;
     const handleLandmarkEdit = (e) => {
         toggleLandmarkEdit(false);
         // const newAssign = e.target.value ? e.target.value : 'No Assigned';
@@ -65,7 +65,11 @@ const RegionEntry = (props) => {
             <WCol size="3">
                 {
                     <div className="table-text"
-                    onClick={() => history.push(RouteSubRegionID)}
+                    onClick={() => history.push({
+                        pathname : RouteSubRegionID,
+                        state : {regionName:regionName}}
+                        )} 
+
                 >
                 {name}
                 </div>

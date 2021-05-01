@@ -332,3 +332,27 @@ html, body {
 .VeiwerText{
     color : white;
 }
+.iconHandle{
+    color : var(--darkblue-gray);
+    background-color: pink;
+}
+img{
+    position : absolute;
+    object-fit: fill;
+    height: 75%;
+    width: 50%;
+}
+
+.BlueRegionNameText{
+    font-size: bold;
+    color : rgb(100, 170, 194);
+}
+
+.RegionNameDesc{
+    text-align: right;
+}
+.createMapButton{    
+    margin-top: 81%;
+    margin-left: 35%;
+    background-color: white;
+}

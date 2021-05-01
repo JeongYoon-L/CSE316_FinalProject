@@ -12,6 +12,14 @@ const RegionNavbar = (props) => {
             <WCol size="1">
                 <WButton className={`${headerStyle}`} onClick = {() =>props.createNewSubRegion() } wType="texted" >+</WButton>
             </WCol>
+            <WCol size ="4" className = "RegionNameDesc" >
+                <div>Region Name : 
+                </div>
+            </WCol>
+            <WCol size ="4" className = "BlueRegionNameText"  >
+                <div>{props.RegionNameHere}</div>
+            </WCol>
+            
 
 
 

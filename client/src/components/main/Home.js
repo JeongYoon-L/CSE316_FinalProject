@@ -5,7 +5,7 @@ import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_MAPS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import CreateMapModal 							from '../modals/CreateMapModal';
-
+import GlobalMapImage from '../imageSrc/globalMap.png';
 
 const Home = (props) => {
     const [CreateMap] 			= useMutation(mutations.CREATE_MAP);
@@ -62,23 +62,16 @@ const Home = (props) => {
             <WRow >
             <WCol size="6" className = "MapLeft" >
                 {
-                    
-
-			<WCContent >
-            <HomeContents 
-                updateMapName= {updateMapName}
-                todolists = {todolists} />
-            
-        </WCContent>
+			    <WCContent >
+                    <HomeContents 
+                        updateMapName= {updateMapName}
+                        todolists = {todolists} />
+                </WCContent>
                 }
             </WCol>
-
             <WCol size="6">
-                {
-                               <WCMedia  className = "MapRight" >
-                               <WButton onClick = {setShowCreateMap} wType="texted" >Create New Map</WButton>
-                                   </WCMedia>
-                }
+                <img src ={GlobalMapImage}></img>
+                <WButton className = "createMapButton" onClick = {setShowCreateMap} wType="texted" >Create New Map</WButton>
             </WCol>
             </WRow>
                 {

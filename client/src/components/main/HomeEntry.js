@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { WNavItem, WInput, WCol, WRow} from 'wt-frontend';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Region   from './Region';
+import WButton from 'wt-frontend/build/components/wbutton/WButton';
 
 const HomeEntry = (props) => {
     const [editing, toggleEditing] = useState(false);
@@ -23,7 +24,12 @@ const HomeEntry = (props) => {
     };
 
     const gotoRegionRouter= (e) => {   
-        history.push(RouteRegionID);   
+        //history.push(RouteRegionID);   
+        const regionName = props.name;
+        history.push({
+            pathname : RouteRegionID,
+            state : {regionName : regionName}}
+            );
         
     }
 
@@ -42,10 +48,18 @@ const HomeEntry = (props) => {
                                 {props.name}
                             </WCol>
                             <WCol size = "1" onClick={handleEditing}  >
-                                E
+                                <WButton className = "iconHandle">
+                                    <i className = "material-icons ">
+                                        edit
+                                    </i>
+                                </WButton>
                             </WCol>
                             <WCol size = "1">
-                                X
+                                <WButton className = "iconHandle">
+                                    <i className = "material-icons ">
+                                        delete
+                                    </i>
+                                </WButton>
                             </WCol>
                         </WRow>   
                             

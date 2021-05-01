@@ -8,7 +8,7 @@ import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_REGIONS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import CreateMapModal 							from '../modals/CreateMapModal';
-
+import {useLocation} from "react-router";
 
 const Region = (props) => {
     const [AddRegion] 			= useMutation(mutations.CREATE_SUBREGION);
@@ -16,6 +16,10 @@ const Region = (props) => {
     let subregions 	= [];
     let pathname =useHistory().location.pathname;
     let connectedParendId = pathname.substring(8, pathname.length);
+
+
+    const location = useLocation();
+    const RegionNameHere =location.state.regionName ;
 
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS, {variables : {parentID : connectedParendId}});
 
@@ -59,7 +63,7 @@ const Region = (props) => {
         
         <WCard wCard="header-content-media" className = "regionPage">
             <RegionNavbar 
-                createNewSubRegion = {createNewSubRegion} 
+                createNewSubRegion = {createNewSubRegion} RegionNameHere = {RegionNameHere}
                 />
 			<WCHeader className = "RegionHeader">
                 <RegionHeader>
