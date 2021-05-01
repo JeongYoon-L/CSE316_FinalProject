@@ -332,6 +332,16 @@ html, body {
 .VeiwerText{
     color : white;
 }
+.viewerTextBlue{
+    margin : 5px;
+    padding-left: 10%;
+    text-align: left;
+    height : 50px;
+    width : 100%;
+    color : rgb(31, 106, 204);
+    font-style: bold;
+    cursor: pointer;
+}
 .iconHandle{
     color : var(--darkblue-gray);
     background-color: pink;

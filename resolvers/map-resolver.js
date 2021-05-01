@@ -11,6 +11,12 @@ module.exports = {
 				return (todolists);
 			} 
 		},
+		getAllCurrentMaps: async (_, args) => {
+			const { CurrentID } = args;
+			const _id = CurrentID;
+			const updated = await Map.findOne({_id: _id});
+			if(updated) return updated;
+		},
 		getMapById: async (_, args) => {},
 	},
 	Mutation: {

@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 import { WButton, WCHeader, WCContent, WCMedia, WCard } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_REGIONS } 				from '../../cache/queries';
+import { GET_DB_CURRENT_REGIONS } 				from '../../cache/queries';
+import { GET_DB_CURRENT_MAPS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import CreateMapModal 							from '../modals/CreateMapModal';
 import {useLocation} from "react-router";
@@ -17,11 +19,6 @@ const Region = (props) => {
     let subregions 	= [];
     let pathname =useHistory().location.pathname;
     let connectedParendId = pathname.substring(8, pathname.length);
-
-
-    const location = useLocation();
-    const RegionNameHere =location.state.regionName ;
-
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS, {variables : {parentID : connectedParendId}});
 
 	if(loading) { console.log(loading, 'loading'); }
@@ -34,6 +31,33 @@ const Region = (props) => {
 		}
     }
     }
+
+    //const location = useLocation();
+    //const RegionNameHere =location.state.regionName ;
+    let RegionNameHereM = "";
+    let RegionNameHereR = "";
+    let RegionNameHere = "";
+
+    const { data : dataM, error: errorM } = useQuery(GET_DB_CURRENT_MAPS, {variables : {CurrentID : connectedParendId}});
+    if(errorM) { console.log(errorM, 'error'); }
+    if(dataM && dataM.getAllCurrentMaps && dataM.getAllCurrentMaps !== null) { 
+        RegionNameHereM = dataM.getAllCurrentMaps; 
+    }
+
+    const { data : dataR } = useQuery(GET_DB_CURRENT_REGIONS, {variables : {CurrentID : connectedParendId}});
+    if(dataR && dataR.getAllCurrentRegions && dataR.getAllCurrentRegions !== null) { 
+        RegionNameHereR = dataR.getAllCurrentRegions; 
+    }
+        
+ if(RegionNameHereM.name == "" || RegionNameHereM.name == undefined ||RegionNameHereM.name == null){
+        RegionNameHere = RegionNameHereR.name;
+ }
+ else{
+    RegionNameHere = RegionNameHereM.name;
+ }
+
+
+    
     const setShowCreateMap = () => {
 		toggleShowCreateMap(!showCreateMap)
 	}
@@ -78,7 +102,7 @@ const Region = (props) => {
 			</WCHeader>
 			<WCContent  >
                 <RegionContents 
-                    subregions = {subregions} DeleteRegionHere = {DeleteRegionHere}/>
+                    subregions = {subregions} DeleteRegionHere = {DeleteRegionHere} RegionNameHere = {RegionNameHere}/>
                 
 			</WCContent>
             

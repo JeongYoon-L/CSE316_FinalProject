@@ -12,6 +12,7 @@ import CreateMapModal 							from '../modals/CreateMapModal';
 const Viewer = (props) => {
     const location = useLocation();
     const ViewerInfomation =location.state.todo ;
+    const ParentName =location.state.regionNameViewer ;
 
 
     return (
@@ -44,7 +45,7 @@ const Viewer = (props) => {
 
 			<WCContent >
             <LeftViewer 
-                ViewerInfomation = {ViewerInfomation} />
+                ViewerInfomation = {ViewerInfomation} ParentName = {ParentName}/>
             
         </WCContent>
                 }

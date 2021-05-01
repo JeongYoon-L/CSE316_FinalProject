@@ -10,6 +10,7 @@ const RegionContents = (props) => {
                     <RegionEntry
                         todo = {todo}    
                     id={todo.id} key={todo.id} name={todo.name} _id={todo._id} DeleteRegionHere = {props.DeleteRegionHere}
+                    RegionNameHere = {props.RegionNameHere}
                         
                     />
                 ))

@@ -24,8 +24,10 @@ const RegionEntry = (props) => {
     
     
     let history = useHistory();
+    const regionNameViewer = props.RegionNameHere;
     const RouteViewerRegionID = "/viewer/" + props._id;
     const regionName = props.name;
+    
 
     const setShowDeleteRegion = () => {
 		toggleShowDeleteRegion(!showDeleteRegion)
@@ -120,7 +122,7 @@ const RegionEntry = (props) => {
                     <WButton 
                     onClick={() => history.push({
                         pathname : RouteViewerRegionID,
-                        state : {todo : todo}}
+                        state : {todo : todo, regionNameViewer : regionNameViewer}}
                         )} 
                 >{landmark}
                 </WButton>

@@ -6,6 +6,7 @@ extend type Query {
     getRegionById(_id: String!): Region
     getAllLandmark(_id : String!) : [String]
     getViewerRegions(_id : String!): Region
+    getAllCurrentRegions(CurrentID: String!):Region
 }
 extend type Mutation {
     addRegion(region: RegionInput!): String

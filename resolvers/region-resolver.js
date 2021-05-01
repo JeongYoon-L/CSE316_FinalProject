@@ -13,6 +13,12 @@ module.exports = {
 				return (todolists);
 			} 
 		},
+		getAllCurrentRegions: async (_, args) => {
+			const { CurrentID } = args;
+			const _id = CurrentID;
+			const updated = await Region.findOne({_id: _id});
+			if(updated) return updated;
+		},
 		getAllLandmark: async (_, __, { req }) => { },
 		getViewerRegions: async (_, __, { req }) => { },
 		getRegionById: async (_, args) => {},

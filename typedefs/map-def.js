@@ -20,6 +20,7 @@ type Region {
 extend type Query {
     getAllMaps: [Map]
     getMapById(_id: String!): Map 
+    getAllCurrentMaps(CurrentID: String!):Map
 }
 extend type Mutation {
     createMap(map: MapInput!): String
