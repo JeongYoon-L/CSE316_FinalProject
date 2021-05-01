@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import Viewer    from './Viewer';
 import { WNavItem, WInput, WCol, WRow, WButton } from 'wt-frontend';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import DeleteRegion 							from '../modals/DeleteRegion';
 
 const RegionEntry = (props) => {
 //    const { data } = props;
@@ -19,10 +20,18 @@ const RegionEntry = (props) => {
     const [editingLeader, toggleLeaderEdit] = useState(false);
     const [editingFlag, toggleFlagEdit] = useState(false);
     const [editingLandmark, toggleLandmarkEdit] = useState(false);
+    const [showDeleteRegion, toggleShowDeleteRegion] 	= useState(false);
+    
     
     let history = useHistory();
     const RouteViewerRegionID = "/viewer/" + props._id;
     const regionName = props.name;
+
+    const setShowDeleteRegion = () => {
+		toggleShowDeleteRegion(!showDeleteRegion)
+	}
+
+
     const handleLandmarkEdit = (e) => {
         toggleLandmarkEdit(false);
         // const newAssign = e.target.value ? e.target.value : 'No Assigned';
@@ -62,18 +71,23 @@ const RegionEntry = (props) => {
     
     return (
         <WRow className='table-entry'>
-            <WCol size="3">
-                {
+            <WCol size = "1">
+                <WButton>
+                <i className = "material-icons " onClick = {setShowDeleteRegion}>
+                    delete
+                    </i>
+                </WButton>
+            </WCol>
+            <WCol size="2">
                     <div className="table-text"
                     onClick={() => history.push({
                         pathname : RouteSubRegionID,
                         state : {regionName:regionName}}
                         )} 
-
                 >
                 {name}
                 </div>
-                }
+                
             </WCol>
 
             <WCol size="2">
@@ -112,7 +126,9 @@ const RegionEntry = (props) => {
                 </WButton>
                 }
             </WCol>
-
+            {
+				showDeleteRegion && (<DeleteRegion _id = {props._id} setShowDeleteRegion={setShowDeleteRegion} DeleteRegionHere = {props.DeleteRegionHere} setShowDeleteRegion = {setShowDeleteRegion} />)
+			    }
         </WRow>
     );
 };

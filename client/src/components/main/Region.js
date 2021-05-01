@@ -12,6 +12,7 @@ import {useLocation} from "react-router";
 
 const Region = (props) => {
     const [AddRegion] 			= useMutation(mutations.CREATE_SUBREGION);
+    const [DeleteRegion] 			= useMutation(mutations.DELETE_REGION);
     const [showCreateMap, toggleShowCreateMap] 	= useState(false);
     let subregions 	= [];
     let pathname =useHistory().location.pathname;
@@ -59,6 +60,11 @@ const Region = (props) => {
 		
     };
 
+    const DeleteRegionHere = async (_id) => {
+        const { data } = await DeleteRegion({ variables: { _id: _id}});
+        refetch();
+    }
+
     return (
         
         <WCard wCard="header-content-media" className = "regionPage">
@@ -72,7 +78,7 @@ const Region = (props) => {
 			</WCHeader>
 			<WCContent  >
                 <RegionContents 
-                    subregions = {subregions} />
+                    subregions = {subregions} DeleteRegionHere = {DeleteRegionHere}/>
                 
 			</WCContent>
             

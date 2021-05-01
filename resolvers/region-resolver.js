@@ -37,7 +37,13 @@ module.exports = {
 			if(updated) return objectId;
 			else return ('Could not add region');
 		},		
-		deleteRegion: async (_, args) => {},
+		deleteRegion: async (_, args) => {
+			const { _id } = args;
+			const objectId = new ObjectId(_id);
+			const deleted = await Region.deleteOne({_id: objectId});
+			if(deleted) return true;
+			else return false;
+		},
 		updateRegionField: async (_, args) => {},
 		updateParent_RegionIDField: async (_, args) => {}, // update ParentRegionID
         deleteLandMarkField: async (_, args) => {},

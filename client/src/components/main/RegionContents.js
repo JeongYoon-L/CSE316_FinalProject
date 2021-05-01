@@ -9,7 +9,7 @@ const RegionContents = (props) => {
                 props.subregions.map(todo => (
                     <RegionEntry
                         todo = {todo}    
-                    id={todo.id} key={todo.id} name={todo.name} _id={todo._id}
+                    id={todo.id} key={todo.id} name={todo.name} _id={todo._id} DeleteRegionHere = {props.DeleteRegionHere}
                         
                     />
                 ))
