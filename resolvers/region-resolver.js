@@ -8,7 +8,7 @@ module.exports = {
 			if(!parentID) { return };
 			const _id = new ObjectId(parentID);
 			const todolists = await Region.find({parentRegion: _id});
-			console.log(todolists);
+
 			if(todolists) {
 				return (todolists);
 			} 

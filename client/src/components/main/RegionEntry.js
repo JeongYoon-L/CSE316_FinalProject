@@ -1,17 +1,18 @@
 import React, { useState }  from 'react';
 import { useHistory } from "react-router-dom";
-import { WNavItem, WInput, WCol, WRow } from 'wt-frontend';
+import Viewer    from './Viewer';
+import { WNavItem, WInput, WCol, WRow, WButton } from 'wt-frontend';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Region   from './Region';
 
 const RegionEntry = (props) => {
 //    const { data } = props;
-
+    const todo = props.todo;
     const name = props.todo.name;
     const capital = props.todo.capital;
     const leader = props.todo.leader;
     const landmark = props.todo.landmark;
     const flag = props.todo.Flag;
+    const RouteSubRegionID = "/region/" + props._id;
     
     const [editingName, toggleNameEdit] = useState(false);
     const [editingCapital, toggleCapitalEdit] = useState(false);
@@ -19,6 +20,8 @@ const RegionEntry = (props) => {
     const [editingFlag, toggleFlagEdit] = useState(false);
     const [editingLandmark, toggleLandmarkEdit] = useState(false);
     
+    let history = useHistory();
+    const RouteViewerRegionID = "/viewer/" + props._id;
 
     const handleLandmarkEdit = (e) => {
         toggleLandmarkEdit(false);
@@ -55,14 +58,16 @@ const RegionEntry = (props) => {
         //     props.editItem(data._id, 'completed', newStatus, prevStatus);
         // }
     };
+
     
     return (
         <WRow className='table-entry'>
             <WCol size="3">
                 {
                     <div className="table-text"
-                    onClick={() => toggleNameEdit(!editingName)}
-                >{name}
+                    onClick={() => history.push(RouteSubRegionID)}
+                >
+                {name}
                 </div>
                 }
             </WCol>
@@ -94,10 +99,13 @@ const RegionEntry = (props) => {
             </WCol>
             <WCol size="3">
                 {
-                    <div 
-                    onClick={() => toggleLandmarkEdit(!editingLandmark)} 
+                    <WButton 
+                    onClick={() => history.push({
+                        pathname : RouteViewerRegionID,
+                        state : {todo : todo}}
+                        )} 
                 >{landmark}
-                </div>
+                </WButton>
                 }
             </WCol>
 

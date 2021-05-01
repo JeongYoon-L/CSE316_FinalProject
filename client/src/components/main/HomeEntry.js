@@ -23,7 +23,7 @@ const HomeEntry = (props) => {
     };
 
     const gotoRegionRouter= (e) => {   
-        history.replace(RouteRegionID);   
+        history.push(RouteRegionID);   
         
     }
 

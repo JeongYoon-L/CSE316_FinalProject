@@ -2,6 +2,7 @@ import React 			from 'react';
 import Homescreen 		from './components/homescreen/Homescreen';
 import Home 					from './components/main/Home';
 import Region 					from './components/main/Region';
+import Viewer 					from './components/main/Viewer';
 import Navbar 					from './components/navbar/Navbar.js';
 import { useQuery } 	from '@apollo/client';
 import * as queries 	from './cache/queries';
@@ -34,7 +35,9 @@ const App = () => {
 				<Route path = "/home" render={() => <Home fetchUser={refetch} user={user} refreshTps={refreshTps} />}/>
             	<Route path = "/region" render={() => <Region user={user} />}/>
 				<Route path = "/region/:id" children={<Child />}/>
-            
+				<Route path = "/viewer" render={() => <Viewer user={user} />}/>
+				<Route path = "/viewer/:id" children={<Child />}/>
+		
 			</Switch>
 
 			</WLMain>
