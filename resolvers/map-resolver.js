@@ -29,7 +29,12 @@ module.exports = {
 			else return ('Could not add map');
 		},
 		deleteMap: async (_, args) => {},
-		editMap: async (_, args) => {},
+		editMapName: async (_, args) => {
+			const { _id, name } = args;
+			const updated = await Map.updateOne({_id: _id}, { name: name });
+			if(updated) return _id;
+			else return ('Could not edit map name');
+		},
 		currentMapOnTop: async (_, args) => {},
         updateRegionfromMap: async (_, args) => {}
 

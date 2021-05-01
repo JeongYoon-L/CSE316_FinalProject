@@ -130,6 +130,12 @@ export const CREATE_MAP = gql`
 	}
 `;
 
+export const EDIT_MAP_NAME = gql`
+	mutation EditMapName($_id : String! , $name : String!) {
+		editMapName(_id : $_id , name : $name)
+	}
+`;
+
 export const CREATE_SUBREGION = gql`
 	mutation AddRegion($region: RegionInput!) {
 		addRegion(region: $region) 

@@ -24,7 +24,7 @@ extend type Query {
 extend type Mutation {
     createMap(map: MapInput!): String
     deleteMap(_id: String!): Boolean
-    editMap(_id: String!): String
+    editMapName(_id: String! , name : String! ): String
     currentMapOnTop(listID: String!) : String
     updateRegionfromMap(listID : String!) : String
 }

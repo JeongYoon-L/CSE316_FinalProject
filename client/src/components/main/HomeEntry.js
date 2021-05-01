@@ -1,6 +1,6 @@
 import React, { useState }  from 'react';
 import { useHistory } from "react-router-dom";
-import { WNavItem, WInput } from 'wt-frontend';
+import { WNavItem, WInput, WCol, WRow} from 'wt-frontend';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Region   from './Region';
 
@@ -19,7 +19,7 @@ const HomeEntry = (props) => {
     const handleSubmit = (e) => {
         handleEditing(e);
         const { name, value } = e.target;
-        //props.updateListField(props._id, name, value, preEdit);
+        props.updateMapName(props._id, value, preEdit);
     };
 
     const gotoRegionRouter= (e) => {   
@@ -30,17 +30,25 @@ const HomeEntry = (props) => {
     
     return (
         <WNavItem 
-            className="list-item" onDoubleClick={handleEditing} 
-            onClick={gotoRegionRouter } 
+            className="list-item"  
         >
             {
                 editing ?   <WInput className="list-item-edit" inputClass="list-item-edit-input"
                                 onKeyDown={(e) => {if(e.keyCode === 13) handleSubmit(e)}}
                                 name='name' onBlur={handleSubmit} autoFocus={true} defaultValue={props.name} 
                             />
-                        :   <div className='list-text'>
+                        :<WRow>
+                            <WCol size = "10" className='list-text' onClick={gotoRegionRouter }>
                                 {props.name}
-                            </div>
+                            </WCol>
+                            <WCol size = "1" onClick={handleEditing}  >
+                                E
+                            </WCol>
+                            <WCol size = "1">
+                                X
+                            </WCol>
+                        </WRow>   
+                            
             }
         </WNavItem>
     );

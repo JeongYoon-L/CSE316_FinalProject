@@ -9,6 +9,7 @@ import CreateMapModal 							from '../modals/CreateMapModal';
 
 const Home = (props) => {
     const [CreateMap] 			= useMutation(mutations.CREATE_MAP);
+    const [editMapName] 			= useMutation(mutations.EDIT_MAP_NAME);
     const { loading, error, data, refetch } = useQuery(GET_DB_MAPS);
     const [showCreateMap, toggleShowCreateMap] 	= useState(false);
     let todolists 	= [];
@@ -43,6 +44,15 @@ const Home = (props) => {
         }
 		
     };
+
+
+    const updateMapName = async (_id, value, prev) => {
+		//let transaction = new UpdateListField_Transaction(_id, field, prev, value, UpdateTodolistField);
+		//props.tps.addTransaction(transaction);
+		//tpsRedo();
+        const { data } = await editMapName({ variables: { _id: _id,  name: value },refetchQueries: [{ query: GET_DB_MAPS }] });
+        
+    };
     return (
         <WCard wCard="header-content-media" className = "home">
 			<WCHeader className = "MapHeader">
@@ -56,6 +66,7 @@ const Home = (props) => {
 
 			<WCContent >
             <HomeContents 
+                updateMapName= {updateMapName}
                 todolists = {todolists} />
             
         </WCContent>
