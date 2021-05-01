@@ -80,6 +80,22 @@ module.exports = {
 			res.clearCookie('refresh-token');
 			res.clearCookie('access-token');
 			return true;
+		},
+
+		update: async (_, args, { res }) => {
+			const { email, password, Name, CurrentUserId} = args;
+			console.log(CurrentUserId);
+			const hashed = await bcrypt.hash(password, 10);
+			const updated = await User.updateOne({_id: CurrentUserId}, { Name: Name , email: email, password : hashed })
+			const user = await User.findOne({_id: CurrentUserId});
+			if(!user) return({});
+			// After registering the user, their tokens are generated here so they
+			// are automatically logged in on account creation.
+			const accessToken = tokens.generateAccessToken(user);
+			const refreshToken = tokens.generateRefreshToken(user);
+			res.cookie('refresh-token', refreshToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			res.cookie('access-token', accessToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			return user;
 		}
 	}
 }

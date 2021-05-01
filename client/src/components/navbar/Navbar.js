@@ -5,6 +5,7 @@ import Logo 							from '../navbar/Logo';
 import { GET_DB_MAPS } 				from '../../cache/queries';
 import { useMutation, useQuery } 		from '@apollo/client';
 import CreateAccount 					from '../modals/CreateAccount';
+import UpdateAccount 					from '../modals/UpdateAccount';
 import Login 							from '../modals/Login';
 
 const Navbar = (props) => {
@@ -15,13 +16,19 @@ const Navbar = (props) => {
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showWelcome, toggleShowWelcome] 	= useState(true);
+	const [showUpdate, toggleShowUpdate] 	= useState(false);
 
     const loadTodoList = (list) => {
 		setActiveList(list);
 
 	}
 
-    
+	const setShowUpdate = () => {
+		toggleShowUpdate(!showUpdate);
+		toggleShowCreate(false);
+		toggleShowLogin(false);
+	};
+
 	const setShowLogin = () => {
 		toggleShowDelete(false);
 		toggleShowCreate(false);
@@ -55,10 +62,10 @@ const Navbar = (props) => {
 					</ul>
 					<ul>
 						<NavbarOptions
-							fetchUser={props.fetchUser} 	auth={auth} 
+							fetchUser={props.fetchUser} 	auth={auth} user = {props.user}
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
 							reloadTodos={refetch} 			setActiveList={loadTodoList}
-							setShowWelcome={setShowWelcome} 
+							setShowWelcome={setShowWelcome} setShowUpdate = {setShowUpdate}
 						/>
 					</ul>
 
@@ -68,6 +75,9 @@ const Navbar = (props) => {
 
 			{
 				showLogin && (<Login fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin}/>)
+			}
+			{
+				showUpdate && (<UpdateAccount fetchUser={props.fetchUser} user = {props.user} reloadTodos={refetch}setShowUpdate={setShowUpdate}/>)
 			}
 				</WNavbar>
     );
