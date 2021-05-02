@@ -20,6 +20,19 @@ export const GET_DB_MAPS = gql`
 		}
 	}
 `;
+
+export const GET_MAP_BY_ID = gql`
+	query GetMapById ($_id: String!){
+		getMapById (_id: $_id) {
+			_id
+			id
+			name
+			owner
+		}
+	}
+`;
+
+
 export const GET_DB_CURRENT_MAPS = gql`
 	query GetAllCurrentMaps($CurrentID : String!) {
 		getAllCurrentMaps(CurrentID : $CurrentID) {
@@ -56,6 +69,21 @@ export const GET_DB_CURRENT_REGIONS = gql`
     		Flag
     		parentRegion
     		landmark
+		}
+	}
+`;
+
+
+// export const GET_ALLPARENTS_BRANCHMAP = gql`
+// query GetAllParentsBranchMap($_id: String!) {
+// 		getAllParentsBranchMap(_id: $_id) 
+// 	}
+// `;
+export const GET_ALLPARENTS_BRANCHREGION = gql`
+query GetAllParentsBranchRegion($_id: String!) {
+		getAllParentsBranchRegion(_id: $_id) {
+			_id
+    		name
 		}
 	}
 `;

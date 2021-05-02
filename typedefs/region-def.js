@@ -1,12 +1,16 @@
 const { gql } = require('apollo-server');
 const typeDefs = gql `
-
+type forName {
+    _id: String
+    name: String
+}
 extend type Query {
     getAllRegions(parentID : String! ): [Region]
     getRegionById(_id: String!): Region
     getAllLandmark(_id : String!) : [String]
     getViewerRegions(_id : String!): Region
     getAllCurrentRegions(CurrentID: String!):Region
+    getAllParentsBranchRegion(_id: String!): [forName]
 }
 extend type Mutation {
     addRegion(region: RegionInput!): String

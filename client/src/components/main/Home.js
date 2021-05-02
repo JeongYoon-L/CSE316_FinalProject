@@ -69,7 +69,7 @@ const Home = (props) => {
 			    <WCContent >
                     <HomeContents 
                         updateMapName= {updateMapName}
-                        DeleteMapHere = {DeleteMapHere}
+                        DeleteMapHere = {DeleteMapHere} setParentBranch = {props.setParentBranch } 
                         todolists = {todolists} />
                 </WCContent>
                 }

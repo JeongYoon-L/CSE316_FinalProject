@@ -1,5 +1,6 @@
 const ObjectId = require('mongoose').Types.ObjectId;
 const Region = require('../models/region-model');
+const Map = require('../models/map-model');
 
 module.exports = {
 	Query: {
@@ -21,6 +22,32 @@ module.exports = {
 		},
 		getAllLandmark: async (_, __, { req }) => { },
 		getViewerRegions: async (_, __, { req }) => { },
+		getAllParentsBranchRegion: async (_, args) => {
+			let { _id } = args;
+			let array = [];
+			let updated = "A";
+			while(updated || updated !== null){
+				const updated = await Region.findOne({_id: _id});
+				if(!updated || updated == null){
+					const mapSelect = await Map.findOne({_id: _id});
+					if(mapSelect || mapSelect !== null){
+						let ar = {
+							_id : mapSelect._id,
+							name : mapSelect.name
+						};
+						array.push(ar);
+					}
+					break;
+				}
+				let ar1 = {
+					_id : updated._id,
+					name : updated.name
+				};
+				array.push(ar1);
+				_id = updated.parentRegion;
+			}				
+			if(array) return array;
+		},
 		getRegionById: async (_, args) => {},
 	},
 	Mutation: {

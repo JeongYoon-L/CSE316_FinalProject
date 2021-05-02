@@ -31,6 +31,7 @@ const HomeEntry = (props) => {
 
     const gotoRegionRouter= (e) => {   
         //history.push(RouteRegionID);   
+        props.setParentBranch([]);
         const regionName = props.name;
         history.push({
             pathname : RouteRegionID,
@@ -41,6 +42,7 @@ const HomeEntry = (props) => {
 
     
     return (
+        <div>
         <WNavItem 
             className="list-item"  
         >
@@ -70,10 +72,11 @@ const HomeEntry = (props) => {
                         </WRow>   
                             
             }
+        </WNavItem>
             {
 				showDeleteMap && (<Delete _id = {props._id} setShowDeleteMap={setShowDeleteMap} DeleteMapHere = {props.DeleteMapHere} setShowDeleteMap = {setShowDeleteMap} />)
 			    }
-        </WNavItem>
+        </div>
     );
 };
 

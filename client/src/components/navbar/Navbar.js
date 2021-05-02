@@ -1,6 +1,7 @@
 import React, { useState } 				from 'react';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import NavbarOptions 					from '../navbar/NavbarOptions';
+import NavigateToParent 					from '../navbar/NavigateToParent';
 import Logo 							from '../navbar/Logo';
 import { GET_DB_MAPS } 				from '../../cache/queries';
 import { useMutation, useQuery } 		from '@apollo/client';
@@ -57,8 +58,11 @@ const Navbar = (props) => {
         <WNavbar color="colored">
 					<ul>
 						<WNavItem>
-							<Logo className='logo' />
+							<Logo className='logo' setParentBranch = {props.setParentBranch } />
 						</WNavItem>
+					</ul>
+					<ul>
+						<NavigateToParent setParentBranch = {props.setParentBranch } />
 					</ul>
 					<ul>
 						<NavbarOptions

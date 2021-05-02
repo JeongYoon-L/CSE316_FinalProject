@@ -286,7 +286,7 @@ html, body {
     height: 75%;
 }
 .RegionHeader{
-    background-color: red;
+    background-color: rgb(208,47,47);
     color: white;
     height: 13%;
     text-align: center;
@@ -365,4 +365,8 @@ img{
     margin-top: 81%;
     margin-left: 35%;
     background-color: white  !important;
+}
+.branch{
+    cursor: pointer;
+    color: white;
 }

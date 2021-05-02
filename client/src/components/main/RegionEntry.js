@@ -21,12 +21,12 @@ const RegionEntry = (props) => {
     const [editingFlag, toggleFlagEdit] = useState(false);
     const [editingLandmark, toggleLandmarkEdit] = useState(false);
     const [showDeleteRegion, toggleShowDeleteRegion] 	= useState(false);
+    const [showWelcome, toggleShowWelcome] 	= useState(true);
     
     
     let history = useHistory();
     const regionNameViewer = props.RegionNameHere;
     const RouteViewerRegionID = "/viewer/" + props._id;
-    const regionName = props.name;
     
 
     const setShowDeleteRegion = () => {
@@ -70,8 +70,24 @@ const RegionEntry = (props) => {
         // }
     };
 
+    const changeRoute = async () => {
+        props.setParentBranch([]);
+        history.push(RouteSubRegionID);
+        
+    }
+
+    const changeRouteToLandmark = async () => {
+        props.setParentBranch([]);
+        history.push({
+            pathname : RouteViewerRegionID,
+            state : {todo : todo, regionNameViewer : regionNameViewer}}
+            );
+        
+    }
+
     
     return (
+        <div>
         <WRow className='table-entry'>
             <WCol size = "1">
                 <WButton>
@@ -82,10 +98,7 @@ const RegionEntry = (props) => {
             </WCol>
             <WCol size="2">
                     <div className="table-text"
-                    onClick={() => history.push({
-                        pathname : RouteSubRegionID,
-                        state : {regionName:regionName}}
-                        )} 
+                    onClick={changeRoute } 
                 >
                 {name}
                 </div>
@@ -120,18 +133,16 @@ const RegionEntry = (props) => {
             <WCol size="3">
                 {
                     <WButton 
-                    onClick={() => history.push({
-                        pathname : RouteViewerRegionID,
-                        state : {todo : todo, regionNameViewer : regionNameViewer}}
-                        )} 
+                    onClick={changeRouteToLandmark} 
                 >{landmark}
                 </WButton>
                 }
             </WCol>
-            {
-				showDeleteRegion && (<DeleteRegion _id = {props._id} setShowDeleteRegion={setShowDeleteRegion} DeleteRegionHere = {props.DeleteRegionHere} setShowDeleteRegion = {setShowDeleteRegion} />)
-			    }
         </WRow>
+        {
+            showDeleteRegion && (<DeleteRegion _id = {props._id} setShowDeleteRegion={setShowDeleteRegion} DeleteRegionHere = {props.DeleteRegionHere} setShowDeleteRegion = {setShowDeleteRegion} />)
+            }
+            </div>
     );
 };
 

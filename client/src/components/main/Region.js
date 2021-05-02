@@ -1,4 +1,4 @@
-import React, { useState } 				from 'react';
+import React, { useState , useEffect} 				from 'react';
 import RegionHeader    from './RegionHeader';
 import RegionNavbar    from './RegionNavbar';
 import RegionContents    from './RegionContents';
@@ -57,6 +57,7 @@ const Region = (props) => {
  }
 
 
+
     
     const setShowCreateMap = () => {
 		toggleShowCreateMap(!showCreateMap)
@@ -102,6 +103,7 @@ const Region = (props) => {
 			</WCHeader>
 			<WCContent  >
                 <RegionContents 
+                 setParentBranch = {props.setParentBranch } 
                     subregions = {subregions} DeleteRegionHere = {DeleteRegionHere} RegionNameHere = {RegionNameHere}/>
                 
 			</WCContent>
