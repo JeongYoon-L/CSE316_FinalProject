@@ -28,8 +28,8 @@ export const LOGOUT = gql`
 `;
 
 export const UPDATE = gql`
-	mutation Update($email: String!, $password: String!,  $Name: String!, $CurrentUserId : String!) {
-		update(email: $email, password: $password,  Name: $Name , CurrentUserId : $CurrentUserId) {
+	mutation Update($email: String!, $password: String!,  $Name: String!, $CurrentUserId : String!, $CurrentUserEmail : String!) {
+		update(email: $email, password: $password,  Name: $Name , CurrentUserId : $CurrentUserId, CurrentUserEmail : $CurrentUserEmail) {
 			email
 			password
 			Name

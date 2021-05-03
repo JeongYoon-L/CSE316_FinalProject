@@ -38,7 +38,8 @@ const UpdateAccount = (props) => {
             
 		}
         const CurrentUserId = CurrentUser._id;
-		const { loading, error, data } = await Update({ variables: { ...input,  CurrentUserId } });
+		const CurrentUserEmail = CurrentUser.email;
+		const { loading, error, data } = await Update({ variables: { ...input,  CurrentUserId, CurrentUserEmail } });
 
         console.log(input);
 		if (loading) { toggleLoading(true) };
@@ -102,8 +103,8 @@ const UpdateAccount = (props) => {
 							</WCol>
 							<WCol size="7">
 							<WInput 
-								className="modal-input" onBlur={updateInput} name="password" labelAnimation="up" 
-								barAnimation="solid" labelText='"Enter Password Here"' wType="outlined" inputType="password" 
+								className="modal-input" onBlur={updateInput} name="password" 
+								barAnimation="solid" placeholderText= "*****" wType="outlined" inputType="password" 
 							/>
 						</WCol>
 						<WCol size = "1" ></WCol>
@@ -117,7 +118,8 @@ const UpdateAccount = (props) => {
 			</WMMain>
 			}
 			<WMFooter  className = "ColorBlack " >
-			<WButton className="modal-button grayButton" onClick={handleUpdateAccount} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" >
+			<label className="col-spacer">&nbsp;</label>
+			<WButton className="modal-button grayButton-update " onClick={handleUpdateAccount} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" >
 					Update
 				</WButton>
 

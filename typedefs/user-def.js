@@ -15,7 +15,7 @@ const typeDefs = gql `
 	extend type Mutation {
 		login(email: String!, password: String!): User
 		register(email: String!, password: String!,  Name: String!): User
-		update(email: String!, password: String!,  Name: String!, CurrentUserId : String!): User
+		update(email: String!, password: String!,  Name: String!, CurrentUserId : String!, CurrentUserEmail : String! ): User
 		logout: Boolean!
 	}
 `;

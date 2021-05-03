@@ -3,15 +3,22 @@ import React, { useState } 	from 'react';
 import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput } from 'wt-frontend';
 
 const CreateMapModal = (props) => {
+    const [showCreateMapErr, displayCreateMapErrorMsg] = useState(false);
     let newName = "";
+    const CreateMaperrorMsg = "*Should Enter New Map Name";
     
     const updateInput = (e) => {
         newName = e.target.value;
     }
 
     const handleCreateMapHere = async () => {
-        props.createNewMap(newName);
-        props.setShowCreateMap(false);
+        if(!newName){
+            displayCreateMapErrorMsg(true);
+        }
+        else{
+            props.createNewMap(newName);
+            props.setShowCreateMap(false);
+        }
     }
 	return (
 		<WModal className="login-modal" visible={true}>
@@ -23,6 +30,12 @@ const CreateMapModal = (props) => {
 
             <WInput className="modal-input"  onBlur={updateInput} name='New Name' labelAnimation="up" barAnimation="solid" labelText="New Name" wType="outlined" inputType='text' />
             <div className="modal-spacer">&nbsp;</div>
+            {
+							showCreateMapErr ? <div className='modal-error'>
+								{CreateMaperrorMsg}
+							</div>
+								: <div className='modal-error'>&nbsp;</div>
+						}
 
             </WMMain >
 

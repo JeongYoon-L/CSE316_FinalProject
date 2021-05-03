@@ -106,6 +106,7 @@ const CreateAccount = (props) => {
 					</WMMain>
 			}
 			<WMFooter  className = "ColorBlack " >
+			<label className="col-spacer">&nbsp;</label>
 				<WButton className="modal-button grayButton" onClick={handleCreateAccount} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
 					Create Account
 				</WButton>
