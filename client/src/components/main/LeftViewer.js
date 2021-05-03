@@ -15,6 +15,7 @@ const LeftViewer = (props) => {
     let history = useHistory();
 
     const gobacktoParentRegion = async () => {
+        props.setParentBranch([]);
         const gotoParent = "/region/"+ ViewerInfomation.parentRegion;
         history.replace(gotoParent);
 

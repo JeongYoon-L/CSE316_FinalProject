@@ -45,7 +45,7 @@ const Viewer = (props) => {
 
 			<WCContent >
             <LeftViewer 
-                ViewerInfomation = {ViewerInfomation} ParentName = {ParentName}/>
+                ViewerInfomation = {ViewerInfomation} ParentName = {ParentName} setParentBranch={props.setParentBranch} />
             
         </WCContent>
                 }

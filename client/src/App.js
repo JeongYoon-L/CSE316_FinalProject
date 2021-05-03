@@ -1,5 +1,4 @@
 import React, { useState } 				from 'react';
-import Homescreen 		from './components/homescreen/Homescreen';
 import Home 					from './components/main/Home';
 import Welcome 					from './components/main/Welcome';
 import Region 					from './components/main/Region';
