@@ -33,16 +33,14 @@ const HomeEntry = (props) => {
         props.updateMapName(props._id, value, preEdit);
     };
 
-    const gotoRegionRouter= async (e) => {   
-        const { data } = await currentTopMap({ variables: { mapID: props._id }, refetchQueries: [{ query: GET_DB_MAPS }] });
-        //history.push(RouteRegionID);   
+    const gotoRegionRouter= async (e) => {      
         props.setParentBranch([]);
         const regionName = props.name;
         history.push({
             pathname : RouteRegionID,
             state : {regionName : regionName}}
             );
-        
+            const { data } = await currentTopMap({ variables: { mapID: props._id }, refetchQueries: [{ query: GET_DB_MAPS }] });
     }
 
     

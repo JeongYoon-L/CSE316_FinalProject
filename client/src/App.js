@@ -34,7 +34,8 @@ const App = () => {
 			</WLHeader>
 			<WLMain className = "maincolor" >
 			
-			<Switch>			
+			<Switch>		
+				<Redirect exact from="/" to={ {pathname: "/welcome"} } />	
 				<Route path = "/welcome" render={() => <Welcome />}/>		
 				<Route path = "/home" render={() => <Home fetchUser={refetch} user={user} refreshTps={refreshTps} setParentBranch = {setParentBranch } />}/>
 				<Route path = "/home/:id" children={<Child />}/>
