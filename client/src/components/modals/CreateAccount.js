@@ -7,7 +7,9 @@ import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput, WRow, WCol } from 
 const CreateAccount = (props) => {
 	const [input, setInput] = useState({ email: '', password: '', Name: '' });
 	const [loading, toggleLoading] = useState(false);
+	const [showErr, displayErrorMsg] = useState(false);
 	const [Register] = useMutation(REGISTER);
+	const errorMsg = "User with that email already registered.";
 
 	
 	const updateInput = (e) => {
@@ -27,15 +29,19 @@ const CreateAccount = (props) => {
 		if (loading) { toggleLoading(true) };
 		if (error) { return `Error: ${error.message}` };
 		if (data) {
-			console.log(data)
 			toggleLoading(false);
 			if(data.register.email === 'already exists') {
-				alert('User with that email already registered');
+				displayErrorMsg(true);
+				//alert('User with that email already registered');
 			}
 			else {
-				props.fetchUser();
+				//props.fetchUser();
+				//props.reloadTodos();
+				//console.log(data);
+				alert("Your Account is created. Please Login");
+				props.setShowCreate(false);
 			}
-			props.setShowCreate(false);
+			
 
 		};
 	};
@@ -43,37 +49,75 @@ const CreateAccount = (props) => {
 	return (
 		<WModal className="signup-modal"  cover="true" visible={props.setShowCreate}>
 			<WMHeader  className="modal-header" onClose={() => props.setShowCreate(false)}>
-				Sign Up
+				Create A New Account
 			</WMHeader>
 
 			{
 				loading ? <div />
-					: <WMMain>
+					: <WMMain className = "ColorBlack " >
 							<WRow className="modal-col-gap signup-modal">
-								<WCol size="6">
+								<WCol size="3">
+									<div className = "AccountText" >Name:</div>
+									</WCol>
+									<WCol size="7">
 									<WInput 
-										className="" onBlur={updateInput} name="Name" labelAnimation="up" 
-										barAnimation="solid" labelText="Name" wType="outlined" inputType="text" 
+										className="modal-input" onBlur={updateInput} name="Name" labelAnimation="up" 
+										barAnimation="solid" labelText='"Enter Name Here"' wType="outlined" inputType="text" 
 									/>
 								</WCol>
+								<WCol size = "1" ></WCol>
 							</WRow>
 
 							<div className="modal-spacer">&nbsp;</div>
-							<WInput 
-								className="modal-input" onBlur={updateInput} name="email" labelAnimation="up" 
-								barAnimation="solid" labelText="Email Address" wType="outlined" inputType="text" 
-							/>
+							<WRow className="modal-col-gap signup-modal">
+								<WCol size="3">
+									<div className = "AccountText" >Email:</div>
+									</WCol>
+									<WCol size="7">
+									<WInput 
+										className="modal-input" onBlur={updateInput} name="email" labelAnimation="up" 
+										barAnimation="solid" labelText='"Enter Email Here"' wType="outlined" inputType="text" 
+									/>
+								</WCol>
+								<WCol size = "1" ></WCol>
+							</WRow>
+
 							<div className="modal-spacer">&nbsp;</div>
-							<WInput 
-								className="modal-input" onBlur={updateInput} name="password" labelAnimation="up" 
-								barAnimation="solid" labelText="Password" wType="outlined" inputType="password" 
-							/>
+							<WRow className="modal-col-gap signup-modal">
+								<WCol size="3">
+									<div className = "AccountText" >Password:</div>
+									</WCol>
+									<WCol size="7">
+									<WInput 
+										className="modal-input" onBlur={updateInput} name="password" labelAnimation="up" 
+										barAnimation="solid" labelText='"Enter Password Here"' wType="outlined" inputType="password" 
+									/>
+								</WCol>
+								<WCol size = "1" ></WCol>
+							</WRow>
+							{
+							showErr ? <div className='modal-error'>
+								{errorMsg}
+							</div>
+								: <div className='modal-error'>&nbsp;</div>
+						}
+
+
 					</WMMain>
 			}
-			<WMFooter>
-				<WButton className="modal-button" onClick={handleCreateAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
-					Submit
+			<WMFooter  className = "ColorBlack " >
+				<WButton className="modal-button grayButton" onClick={handleCreateAccount} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+					Create Account
 				</WButton>
+
+				<label className="col-spacer">&nbsp;</label>
+				<label className="col-spacer">&nbsp;</label>
+				
+
+				<WButton className="modal-button grayButton-cancel" onClick={() => props.setShowCreate(false)} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+                    Cancel
+				</WButton>
+    
 			</WMFooter>
 			
 		</WModal>

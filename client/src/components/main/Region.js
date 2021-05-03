@@ -36,7 +36,7 @@ const Region = (props) => {
     //const RegionNameHere =location.state.regionName ;
     let RegionNameHereM = "";
     let RegionNameHereR = "";
-    let RegionNameHere = "";
+    let RegionNameHere = "";    
 
     const { data : dataM, error: errorM } = useQuery(GET_DB_CURRENT_MAPS, {variables : {CurrentID : connectedParendId}});
     if(errorM) { console.log(errorM, 'error'); }

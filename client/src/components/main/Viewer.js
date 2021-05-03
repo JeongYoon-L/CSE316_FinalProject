@@ -19,19 +19,19 @@ const Viewer = (props) => {
         <WCard wCard="header-content-media" className = "viewerPage">
 			<WCHeader className = "ViewerHeader">
             <WRow>
+                <WCol size="1">
+                <i className="material-icons">undo</i>
+                </WCol>
+                <WCol size="1" className = "redoStyle ">
+                <i className="material-icons">redo</i>
+                </WCol>
                 <WCol size="1"></WCol>
-                <WCol size="1">
-                    <WButton  wType="texted" className = "VeiwerText " >Undo</WButton>
-                </WCol>
-                <WCol size="1">
-                    <WButton  wType="texted" className = "VeiwerText " >Redo</WButton>
-                </WCol>
                 <WCol size="1"></WCol>
                 <WCol size="1"></WCol>
                 <WCol size="1"></WCol>
                 <WCol size="1"></WCol>
                 <WCol size="3">{
-                    <div className = "VeiwerText "> Region Landmark</div>
+                    <div className = "VeiwerText "> Region Landmarks: </div>
                     }</WCol>
                 <WCol size="1"></WCol>
                 <WCol size="1"></WCol>

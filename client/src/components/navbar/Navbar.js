@@ -61,7 +61,7 @@ const Navbar = (props) => {
 							<Logo className='logo' setParentBranch = {props.setParentBranch } user = {props.user} />
 						</WNavItem>
 					</ul>
-					<ul>
+					<ul className = "branchLeft">
 						{showWelcome ?
 					<NavigateToParent setParentBranch = {props.setParentBranch } />	:
 					<></>
@@ -77,7 +77,7 @@ const Navbar = (props) => {
 					</ul>
 
             {
-				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} />)
+				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} reloadTodos={refetch} />)
 			}
 
 			{

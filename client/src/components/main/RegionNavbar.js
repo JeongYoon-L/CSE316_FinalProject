@@ -10,16 +10,23 @@ const RegionNavbar = (props) => {
     return (
         <WRow className="regionNavbarPage">
             <WCol size="1">
-                <WButton className={`${headerStyle}`} onClick = {() =>props.createNewSubRegion() } wType="texted" >+</WButton>
+                <WButton className = "addButton" onClick = {() =>props.createNewSubRegion() } wType="texted" >
+                <i className="material-icons">add</i>
+                </WButton>
             </WCol>
-            <WCol size ="4" className = "RegionNameDesc" >
+                <WButton className = "subregionButton" >
+                <i className="material-icons">undo</i>
+                </WButton>
+                <WButton className = "subregionButton ">
+                <i className="material-icons">redo</i>
+                </WButton>
+            <WCol size ="3" className = "RegionNameDesc" >
                 <div>Region Name : 
                 </div>
             </WCol>
             <WCol size ="4" className = "BlueRegionNameText"  >
                 <div>{props.RegionNameHere}</div>
             </WCol>
-            
 
 
 

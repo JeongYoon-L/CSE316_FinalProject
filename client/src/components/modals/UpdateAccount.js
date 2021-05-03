@@ -9,11 +9,13 @@ const UpdateAccount = (props) => {
 	const [loading, toggleLoading] = useState(false);
 	const [Update] = useMutation(UPDATE);
     const CurrentUser = props.user;
+	const errorMsg = "User with that email already registered.";
+	const [showErr, displayErrorMsg] = useState(false);
 	
 	const updateInput = (e) => {
 		const { name, value } = e.target;
         if (value == null || value == undefined){
-            value = CurrentUser.name;
+            value = CurrentUser.Name;
         }
 		const updated = { ...input, [name]: value };
 		setInput(updated);
@@ -42,10 +44,17 @@ const UpdateAccount = (props) => {
 		if (loading) { toggleLoading(true) };
 		if (error) { return `Error: ${error.message}` };
 		if (data) {
-			console.log(data)
-			toggleLoading(false);
-			props.fetchUser();
-			props.setShowUpdate(false);
+			if(data.update.email === 'already exists') {
+				displayErrorMsg(true);
+				//alert('User with that email already registered');
+			}
+			else{
+				console.log(data)
+				toggleLoading(false);
+				props.fetchUser();
+				props.setShowUpdate(false);
+			}
+			
 
 		};
 	};
@@ -58,32 +67,68 @@ const UpdateAccount = (props) => {
 
 			{
 				loading ? <div />
-					: <WMMain>
-							<WRow className="modal-col-gap signup-modal">
-								<WCol size="6">
-									<WInput 
-										className="" onBlur={updateInput} name="Name" labelAnimation="up" 
-										barAnimation="solid" labelText="Name" wType="outlined" inputType="text" 
-									/>
-								</WCol>
-							</WRow>
+					:  <WMMain className = "ColorBlack " >
+					<WRow className="modal-col-gap signup-modal">
+						<WCol size="3">
+							<div className = "AccountText" >Name:</div>
+							</WCol>
+							<WCol size="7">
+							<WInput 
+								className="modal-input" onBlur={updateInput} name="Name" labelAnimation="up" 
+								barAnimation="solid" labelText= {props.user.Name} wType="outlined" inputType="text" 
+							/>
+						</WCol>
+						<WCol size = "1" ></WCol>
+					</WRow>
 
-							<div className="modal-spacer">&nbsp;</div>
+					<div className="modal-spacer">&nbsp;</div>
+					<WRow className="modal-col-gap signup-modal">
+						<WCol size="3">
+							<div className = "AccountText" >Email:</div>
+							</WCol>
+							<WCol size="7">
 							<WInput 
 								className="modal-input" onBlur={updateInput} name="email" labelAnimation="up" 
-								barAnimation="solid" labelText="Email Address" wType="outlined" inputType="text" 
+								barAnimation="solid" labelText={props.user.email} wType="outlined" inputType="text" 
 							/>
-							<div className="modal-spacer">&nbsp;</div>
+						</WCol>
+						<WCol size = "1" ></WCol>
+					</WRow>
+
+					<div className="modal-spacer">&nbsp;</div>
+					<WRow className="modal-col-gap signup-modal">
+						<WCol size="3">
+							<div className = "AccountText" >Password:</div>
+							</WCol>
+							<WCol size="7">
 							<WInput 
 								className="modal-input" onBlur={updateInput} name="password" labelAnimation="up" 
-								barAnimation="solid" labelText="Password" wType="outlined" inputType="password" 
+								barAnimation="solid" labelText='"Enter Password Here"' wType="outlined" inputType="password" 
 							/>
-					</WMMain>
+						</WCol>
+						<WCol size = "1" ></WCol>
+					</WRow>
+					{
+							showErr ? <div className='modal-error'>
+								{errorMsg}
+							</div>
+								: <div className='modal-error'>&nbsp;</div>
+						}
+			</WMMain>
 			}
-			<WMFooter>
-				<WButton className="modal-button" onClick={handleUpdateAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
-					Submit
+			<WMFooter  className = "ColorBlack " >
+			<WButton className="modal-button grayButton" onClick={handleUpdateAccount} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" >
+					Update
 				</WButton>
+
+				<label className="col-spacer">&nbsp;</label>
+				<label className="col-spacer">&nbsp;</label>
+				
+
+				<WButton className="modal-button grayButton-cancel" onClick={() => props.setShowUpdate(false)} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+                    Cancel
+				</WButton>
+    
 			</WMFooter>
 			
 		</WModal>

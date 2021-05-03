@@ -17,23 +17,30 @@ const RegionHeader = (props) => {
     }
     return (
         <WRow className="table-header">
-            <WCol size="3">
-                <WButton className={`${headerStyle}`} onClick = {props.disabled ? clickDisabled : () => props.sortItem( "Task") } wType="texted" >Name</WButton>
+            <WCol size="3" className = "NameHeader" >
+                <WButton className={`${headerStyle}`} wType="texted" >
+                    Name
+                <i className="material-icons">expand_more</i></WButton>
+                
             </WCol>
 
             <WCol size="2">
-                <WButton className={`${headerStyle}`} onClick = {props.disabled ? clickDisabled : () => props.sortItem( "Date")} wType="texted">Capital</WButton>
+                <WButton className={`${headerStyle}`} wType="texted">Capital
+                <i className="material-icons">expand_more</i></WButton>
             </WCol>
 
             <WCol size="2">
-                <WButton className={`${headerStyle}`} onClick = {props.disabled ? clickDisabled : () => props.sortItem( "Status")} wType="texted" >Leader</WButton>
+                <WButton className={`${headerStyle}`} wType="texted" >Leader
+                <i className="material-icons">expand_more</i></WButton>
             </WCol>
             
             <WCol size="2">
-                <WButton className={`${headerStyle}`} onClick = {props.disabled ? clickDisabled : () => props.sortItem( "Assigned")}  wType="texted" >Flag</WButton>
+                <WButton className={`${headerStyle}`}   wType="texted" >Flag
+                <i className="material-icons">expand_more</i></WButton>
             </WCol>
             <WCol size="3">
-                <WButton className={`${headerStyle}`} onClick = {props.disabled ? clickDisabled : () => props.sortItem( "Assigned")}  wType="texted" >Landmark</WButton>
+                <WButton className={`${headerStyle}`}  wType="texted" >Landmark
+                <i className="material-icons">expand_more</i></WButton>
             </WCol>
 
 

@@ -84,20 +84,20 @@ const RegionEntry = (props) => {
             );
         
     }
-
+    
     
     return (
         <div>
         <WRow className='table-entry'>
             <WCol size = "1">
-                <WButton>
+                <WButton  className = "regionDeleteButton " >
                 <i className = "material-icons " onClick = {setShowDeleteRegion}>
                     delete
                     </i>
                 </WButton>
             </WCol>
             <WCol size="2">
-                    <div className="table-text"
+                    <div className="table-text-blue"
                     onClick={changeRoute } 
                 >
                 {name}
@@ -116,14 +116,15 @@ const RegionEntry = (props) => {
 
             <WCol size="2">
                 {
-                    <div onClick={() => toggleLeaderEdit(!editingLeader)} >
+                    <div className="table-text"
+                    onClick={() => toggleLeaderEdit(!editingLeader)} >
                     {leader}
                 </div>
                 }
             </WCol>
             <WCol size="2">
                 {
-                    <div 
+                    <div className="table-text"
                     onClick={() => toggleFlagEdit(!editingFlag)} 
                 >{flag}
                 </div>
@@ -132,10 +133,11 @@ const RegionEntry = (props) => {
             </WCol>
             <WCol size="3">
                 {
-                    <WButton 
+                    <div 
+                    className="table-text-blue"
                     onClick={changeRouteToLandmark} 
-                >{landmark}
-                </WButton>
+                >Insert Landmark
+                </div>
                 }
             </WCol>
         </WRow>
