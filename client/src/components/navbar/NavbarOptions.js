@@ -13,8 +13,8 @@ const LoggedIn = (props) => {
 
 
     const handleLogout = async (e) => {
+        props.setShowWelcome(false);
         history.replace("/welcome");
-        props.setShowWelcome();
         Logout();
         const { data } = await props.fetchUser();
         if (data) {

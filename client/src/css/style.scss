@@ -345,7 +345,6 @@ html, body {
 }
 .viewerTextBlue{
     margin : 5px;
-    padding-left: 10%;
     text-align: left;
     height : 50px;
     width : 100%;
@@ -357,7 +356,10 @@ html, body {
     color : var(--darkblue-gray);
     background-color: pink;
 }
-
+.iconHandleViewer{
+    color: rgb(238, 187, 49);
+    background-color: #282828;
+}
 .HomeImg{
     position : absolute;
     object-fit: fill;
