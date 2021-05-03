@@ -18,7 +18,7 @@ const MapSchema = new Schema(
 			type: String,
 			required: true
 		},
-		
+		top: Number,
 	},
 	{ timestamps: true }
 );

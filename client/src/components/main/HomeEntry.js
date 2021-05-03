@@ -5,6 +5,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Region   from './Region';
 import WButton from 'wt-frontend/build/components/wbutton/WButton';
 import Delete 							from '../modals/Delete';
+import { useMutation, useQuery } 		from '@apollo/client';
+import * as mutations 					from '../../cache/mutations';
+import { GET_DB_MAPS } 				from '../../cache/queries';
 
 const HomeEntry = (props) => {
     const [editing, toggleEditing] = useState(false);
@@ -12,6 +15,7 @@ const HomeEntry = (props) => {
     let history = useHistory();
     const RouteRegionID = "/region/" + props._id;
     const [showDeleteMap, toggleShowDeleteMap] 	= useState(false);
+    const [currentTopMap] 			= useMutation(mutations.TOP_MAP);
     
     const setShowDeleteMap = () => {
 		toggleShowDeleteMap(!showDeleteMap)
@@ -29,7 +33,8 @@ const HomeEntry = (props) => {
         props.updateMapName(props._id, value, preEdit);
     };
 
-    const gotoRegionRouter= (e) => {   
+    const gotoRegionRouter= async (e) => {   
+        const { data } = await currentTopMap({ variables: { mapID: props._id }, refetchQueries: [{ query: GET_DB_MAPS }] });
         //history.push(RouteRegionID);   
         props.setParentBranch([]);
         const regionName = props.name;

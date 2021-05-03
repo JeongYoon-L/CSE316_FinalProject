@@ -153,3 +153,9 @@ export const DELETE_REGION = gql`
 		deleteRegion(_id: $_id) 
 	}
 `;
+
+export const TOP_MAP = gql`
+	mutation currentMapOnTop($mapID: String!) {
+		currentMapOnTop(mapID: $mapID) 
+	}
+`;

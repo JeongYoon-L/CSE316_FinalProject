@@ -6,7 +6,7 @@ module.exports = {
 		getAllMaps: async (_, __, { req }) => {
 			const _id = new ObjectId(req.userId);
 			if(!_id) { return([])};
-			const todolists = await Map.find({owner: _id}).sort({updatedAt: 'descending'});
+			const todolists = await Map.find({owner: _id}).sort('top');
 			if(todolists) {
 				return (todolists);
 			} 
@@ -29,6 +29,7 @@ module.exports = {
 				id: id,
 				name: name,
 				owner: owner,
+				top: 1,
 			});
 			const updated = await newList.save();
 			if(updated) return objectId;
@@ -47,7 +48,22 @@ module.exports = {
 			if(updated) return _id;
 			else return ('Could not edit map name');
 		},
-		currentMapOnTop: async (_, args) => {},
+		currentMapOnTop: async (_, args) => {
+			const {mapID} = args;
+			
+			await Map.updateMany({top: 1});
+			await Map.updateOne({_id: mapID}, {top: 0});
+			const prevFirst = await Map.findOne();
+			let prevFirstId = prevFirst._id;
+			const updateList = await Map.updateOne({_id : prevFirstId}, {top: 1});
+			if(updateList){
+				await Map.find().sort('top');
+				//console.log(prevFirst);
+			}
+			
+			
+			return ("A");
+		},
         updateRegionfromMap: async (_, args) => {}
 
 	}

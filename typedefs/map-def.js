@@ -6,6 +6,7 @@ type Map {
     id: Int!
     name: String!
     owner: String!
+    top: Int!
 }
 type Region {
     _id: String!
@@ -26,7 +27,7 @@ extend type Mutation {
     createMap(map: MapInput!): String
     deleteMap(_id: String!): Boolean
     editMapName(_id: String! , name : String! ): String
-    currentMapOnTop(listID: String!) : String
+    currentMapOnTop(mapID: String!) : String
     updateRegionfromMap(listID : String!) : String
 }
 input FieldInput {
