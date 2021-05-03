@@ -25,7 +25,6 @@ module.exports = {
 		getAllParentsBranchRegion: async (_, args) => {
 			let { _id } = args;
 			if(!_id) { return };
-			if( !mongoose.Types.ObjectId.isValid(_id) ) return ;
 			 let array = [];
 			let updated = "A";
 			while(updated || updated !== null){

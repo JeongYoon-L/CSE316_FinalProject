@@ -13,6 +13,13 @@ const NavigateToParent = (props) => {
     connectedParendId = pathname.substring(8, pathname.length);
     console.log(connectedParendId);
 
+    if(pathname.startsWith("/home")){
+        connectedParendId = pathname.substring(6, pathname.length);
+    }
+    else if(pathname.startsWith("/welcome")){
+        connectedParendId = pathname.substring(9, pathname.length);
+    }
+
     let parents = [];
  const { data : dataBranch, error: errorBranch, refetch:BranchRefetch } = useQuery(GET_ALLPARENTS_BRANCHREGION, {variables : {_id : connectedParendId}});
     if(errorBranch) { console.log(errorBranch, 'error'); }
