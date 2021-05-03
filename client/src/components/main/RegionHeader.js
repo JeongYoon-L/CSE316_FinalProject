@@ -20,27 +20,27 @@ const RegionHeader = (props) => {
             <WCol size="3" className = "NameHeader" >
                 <WButton className={`${headerStyle}`} wType="texted" >
                     Name
-                <i className="material-icons">expand_more</i></WButton>
+                <i className="material-icons">arrow_downward</i></WButton>
                 
             </WCol>
 
             <WCol size="2">
                 <WButton className={`${headerStyle}`} wType="texted">Capital
-                <i className="material-icons">expand_more</i></WButton>
+                <i className="material-icons">arrow_downward</i></WButton>
             </WCol>
 
             <WCol size="2">
                 <WButton className={`${headerStyle}`} wType="texted" >Leader
-                <i className="material-icons">expand_more</i></WButton>
+                <i className="material-icons">arrow_downward</i></WButton>
             </WCol>
             
             <WCol size="2">
                 <WButton className={`${headerStyle}`}   wType="texted" >Flag
-                <i className="material-icons">expand_more</i></WButton>
+                <i className="material-icons">arrow_downward</i></WButton>
             </WCol>
             <WCol size="3">
                 <WButton className={`${headerStyle}`}  wType="texted" >Landmark
-                <i className="material-icons">expand_more</i></WButton>
+                <i className="material-icons">arrow_downward</i></WButton>
             </WCol>
 
 

@@ -1,5 +1,5 @@
 import React, { useState } 				from 'react';
-import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
+import { WNavbar, WSidebar, WNavItem , WRow, WCol} 	from 'wt-frontend';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import NavigateToParent 					from '../navbar/NavigateToParent';
 import Logo 							from '../navbar/Logo';
@@ -8,6 +8,7 @@ import { useMutation, useQuery } 		from '@apollo/client';
 import CreateAccount 					from '../modals/CreateAccount';
 import UpdateAccount 					from '../modals/UpdateAccount';
 import Login 							from '../modals/Login';
+import { useHistory } from "react-router-dom";
 
 const Navbar = (props) => {
     const { loading, error, data, refetch } = useQuery(GET_DB_MAPS);
@@ -22,6 +23,14 @@ const Navbar = (props) => {
     const loadTodoList = (list) => {
 		setActiveList(list);
 
+	}
+	let toggleArrow = false;
+	let pathname =useHistory().location.pathname;
+	if(pathname.startsWith("/viewer")){
+		toggleArrow = true;
+	}
+	else{
+		toggleArrow = false;
 	}
 
 	const setShowUpdate = () => {
@@ -64,6 +73,21 @@ const Navbar = (props) => {
 					<ul className = "branchLeft">
 						{showWelcome ?
 					<NavigateToParent setParentBranch = {props.setParentBranch } />	:
+					<></>
+						}
+					</ul> 
+					<ul className = "arrowMid" >
+						{toggleArrow ?
+						<WRow>
+							<WCol>
+							<i className="material-icons">arrow_backward</i>
+							</WCol>
+							<WCol>
+							<i className="material-icons">arrow_forward</i>
+							</WCol>
+						</WRow>
+
+					:
 					<></>
 						}
 					</ul> 
