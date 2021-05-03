@@ -6,7 +6,14 @@ const Logo = (props) => {
     let history = useHistory();
     const changeRoute = async () => {
         props.setParentBranch([]);
-        history.replace("/home")
+        if(props.user == null){
+            history.replace("/welcome");    
+        }
+        else{
+        let UserRoute = "/home/" + props.user._id;
+        history.replace(UserRoute);
+        }
+        
         
     }
     

@@ -16,7 +16,7 @@ const Navbar = (props) => {
     const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
-	const [showWelcome, toggleShowWelcome] 	= useState(true);
+	const [showWelcome, toggleShowWelcome] 	= useState(false);
 	const [showUpdate, toggleShowUpdate] 	= useState(false);
 
     const loadTodoList = (list) => {
@@ -34,14 +34,13 @@ const Navbar = (props) => {
 		toggleShowDelete(false);
 		toggleShowCreate(false);
 		toggleShowLogin(!showLogin);
-		toggleShowWelcome(showLogin);
+		toggleShowWelcome(true);
 	};
 
 	const setShowCreate = () => {
 		toggleShowDelete(false);
 		toggleShowLogin(false);
 		toggleShowCreate(!showCreate);
-		toggleShowWelcome(showCreate);
 	};
 
 	const setShowDelete = () => {
@@ -50,6 +49,7 @@ const Navbar = (props) => {
 		toggleShowDelete(!showDelete)
 	};
 	const setShowWelcome = () => {
+		toggleShowWelcome(false);
 		
 	};	
 
@@ -58,15 +58,18 @@ const Navbar = (props) => {
         <WNavbar color="colored">
 					<ul>
 						<WNavItem>
-							<Logo className='logo' setParentBranch = {props.setParentBranch } />
+							<Logo className='logo' setParentBranch = {props.setParentBranch } user = {props.user} />
 						</WNavItem>
 					</ul>
 					<ul>
-						<NavigateToParent setParentBranch = {props.setParentBranch } />
-					</ul>
+						{showWelcome ?
+					<NavigateToParent setParentBranch = {props.setParentBranch } />	:
+					<></>
+						}
+					</ul> 
 					<ul>
 						<NavbarOptions
-							fetchUser={props.fetchUser} 	auth={auth} user = {props.user}
+							fetchUser={props.fetchUser} 	auth={auth} user = {props.user} setParentBranch = {props.setParentBranch }
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
 							reloadTodos={refetch} 			setActiveList={loadTodoList}
 							setShowWelcome={setShowWelcome} setShowUpdate = {setShowUpdate}

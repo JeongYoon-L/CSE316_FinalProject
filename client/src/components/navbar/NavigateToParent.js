@@ -8,7 +8,10 @@ import { useMutation, useQuery } 		from '@apollo/client';
 const NavigateToParent = (props) => {
     let history = useHistory();
     let pathname =useHistory().location.pathname;
-    let connectedParendId = pathname.substring(8, pathname.length);
+    let connectedParendId = " ";
+    
+    connectedParendId = pathname.substring(8, pathname.length);
+    console.log(connectedParendId);
 
     let parents = [];
  const { data : dataBranch, error: errorBranch, refetch:BranchRefetch } = useQuery(GET_ALLPARENTS_BRANCHREGION, {variables : {_id : connectedParendId}});

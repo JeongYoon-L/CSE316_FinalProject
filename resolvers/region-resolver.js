@@ -24,10 +24,11 @@ module.exports = {
 		getViewerRegions: async (_, __, { req }) => { },
 		getAllParentsBranchRegion: async (_, args) => {
 			let { _id } = args;
+			if(!_id) { return };
 			let array = [];
 			let updated = "A";
 			while(updated || updated !== null){
-				const updated = await Region.findOne({_id: _id});
+				let updated = await Region.findOne({_id: _id});
 				if(!updated || updated == null){
 					const mapSelect = await Map.findOne({_id: _id});
 					if(mapSelect || mapSelect !== null){

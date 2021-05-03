@@ -1,6 +1,7 @@
 import React, { useState } 				from 'react';
 import Homescreen 		from './components/homescreen/Homescreen';
 import Home 					from './components/main/Home';
+import Welcome 					from './components/main/Welcome';
 import Region 					from './components/main/Region';
 import Viewer 					from './components/main/Viewer';
 import Navbar 					from './components/navbar/Navbar.js';
@@ -29,14 +30,15 @@ const App = () => {
 		<WLayout wLayout="header" className = "basic">
 			<WLHeader>
 				<Navbar fetchUser={refetch} user={user} refreshTps={refreshTps} setParentBranch = {setParentBranch }>
-					<Route path = {"/region/:id", "/viewer/:id"} render = {() => <NavigateToParent setParentBranch = {setParentBranch }   />}></Route>
+					
 				</Navbar>
 			</WLHeader>
 			<WLMain className = "maincolor" >
 			
-			
-			<Switch>					
+			<Switch>			
+				<Route path = "/welcome" render={() => <Welcome />}/>		
 				<Route path = "/home" render={() => <Home fetchUser={refetch} user={user} refreshTps={refreshTps} setParentBranch = {setParentBranch } />}/>
+				<Route path = "/home/:id" children={<Child />}/>
             	<Route path = "/region" render={() => <Region user={user} fetchUser={refetch} setParentBranch = {setParentBranch } />}/>
 				<Route path = "/region/:id" children={<Child />}/>
 				<Route path = "/viewer" render={() => <Viewer user={user} fetchUser={refetch}  setParentBranch = {setParentBranch} />}/>

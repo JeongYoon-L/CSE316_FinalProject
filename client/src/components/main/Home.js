@@ -1,5 +1,6 @@
 import React, { useState } 				from 'react';
 import HomeContents    from './HomeContents';
+import Welcome    from './Welcome';
 import { WButton, WCHeader, WCContent, WCMedia, WCard, WRow, WCol } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_MAPS } 				from '../../cache/queries';
@@ -58,6 +59,9 @@ const Home = (props) => {
         
     };
     return (
+        <>{
+        props.user ?
+
         <WCard wCard="header-content-media" className = "home">
 			<WCHeader className = "MapHeader">
                 Your Maps
@@ -75,7 +79,7 @@ const Home = (props) => {
                 }
             </WCol>
             <WCol size="6">
-                <img src ={GlobalMapImage}></img>
+                <img className = "HomeImg" src ={GlobalMapImage}></img>
                 <WButton className = "createMapButton" onClick = {setShowCreateMap} wType="texted" >Create New Map</WButton>
             </WCol>
             </WRow>
@@ -83,6 +87,9 @@ const Home = (props) => {
 				showCreateMap && (<CreateMapModal setShowCreateMap={setShowCreateMap} createNewMap = {createNewMap} />)
 			    }
 		</WCard>
+            :
+            <Welcome></Welcome>
+        }</>
 		
         
     );

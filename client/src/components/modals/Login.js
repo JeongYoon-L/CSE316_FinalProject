@@ -31,7 +31,8 @@ const Login = (props) => {
 			props.fetchUser();
 			props.reloadTodos();
 			toggleLoading(false)
-			history.replace("/home");
+			let UserRoute = "/home/" + data.login._id;
+			history.replace(UserRoute);
 			props.setShowLogin(false)
 		};
 	};

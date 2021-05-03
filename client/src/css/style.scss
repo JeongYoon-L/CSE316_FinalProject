@@ -247,7 +247,7 @@ html, body {
     color : white;
     font-weight: bold;
     text-align: center;
-    
+    font-size: 40px;
 }
 
 .home{
@@ -346,11 +346,20 @@ html, body {
     color : var(--darkblue-gray);
     background-color: pink;
 }
-img{
+
+.HomeImg{
     position : absolute;
     object-fit: fill;
     height: 75%;
     width: 50%;
+}
+.WelcomeImg{
+    position: relative;
+    margin-left: 36%;
+    margin-top: 5%;
+    height: 64%;
+    width: 30%;
+    
 }
 
 .BlueRegionNameText{

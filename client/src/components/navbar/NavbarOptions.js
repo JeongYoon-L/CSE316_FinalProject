@@ -2,15 +2,19 @@ import React                                from 'react';
 import { LOGOUT }                           from '../../cache/mutations';
 import { useMutation, useApolloClient }     from '@apollo/client';
 import { WButton, WNavItem }                from 'wt-frontend';
+import { useHistory } from "react-router-dom";
+import NavigateToParent 					from '../navbar/NavigateToParent';
 
 const LoggedIn = (props) => {
     const client = useApolloClient();
 	const [Logout] = useMutation(LOGOUT);
     const userName = props.user === null ? " " : props.user.Name;
-
+    let history = useHistory();
 
 
     const handleLogout = async (e) => {
+        history.replace("/welcome");
+        props.setShowWelcome();
         Logout();
         const { data } = await props.fetchUser();
         if (data) {
@@ -57,8 +61,14 @@ const NavbarOptions = (props) => {
     return (
         <>
             {
-                props.auth === false ? <LoggedOut setShowLogin={props.setShowLogin} setShowCreate={props.setShowCreate}/>
-                : <LoggedIn fetchUser={props.fetchUser} setActiveList={props.setActiveList} logout={props.logout} user = {props.user} setShowUpdate = {props.setShowUpdate} />
+                props.auth === false ? 
+                
+                 <LoggedOut setShowLogin={props.setShowLogin} setShowCreate={props.setShowCreate}/>
+                
+                : 
+                <LoggedIn fetchUser={props.fetchUser} setActiveList={props.setActiveList} logout={props.logout} user = {props.user} setShowUpdate = {props.setShowUpdate} 
+                setShowWelcome={props.setShowWelcome} />
+                
             }
         </>
 
