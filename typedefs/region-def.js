@@ -15,7 +15,7 @@ extend type Query {
 extend type Mutation {
     addRegion(region: RegionInput!): String
     deleteRegion(_id: String!): Boolean
-    updateRegionField(_id: String!, field: String!, value: String!): String
+    updateRegionField(itemId: String!, field: String!, value: String!): String
     updateParent_RegionIDField(_id: String!, parentID : String!): String
     sortRegions(_id : String!, updateitems: [String]!): [String]
     deleteLandMarkField(_id : String! , deleteValue : String!) : [String]

@@ -45,11 +45,11 @@ const RegionEntry = (props) => {
 
     const handleCapitalEdit = (e) => {
         toggleCapitalEdit(false);
-        // const newDate = e.target.value ? e.target.value : 'No Date';
-        // const prevDate = due_date;
-        // if(newDate !== prevDate){
-        //     props.editItem(data._id, 'due_date', newDate, prevDate);
-        // }
+         const newCapital = e.target.value ? e.target.value : 'No Capital';
+         const prevCapital = capital;
+         if(newCapital !== prevCapital){
+             props.editItem(props._id, 'capital', newCapital, prevCapital);
+         }
     };
 
     const handleNameEdit = (e) => {
@@ -63,11 +63,11 @@ const RegionEntry = (props) => {
 
     const handleLeaderEdit = (e) => {
         toggleLeaderEdit(false);
-        // const newStatus = e.target.value ? e.target.value : false;
-        // const prevStatus = status;
-        // if(newStatus !== prevStatus){
-        //     props.editItem(data._id, 'completed', newStatus, prevStatus);
-        // }
+        const newLeader = e.target.value ? e.target.value : 'No Leader';
+        const prevLeader = leader;
+        if(newLeader !== prevLeader){
+            props.editItem(props._id, 'leader', newLeader, prevLeader);
+        }
     };
 
     const changeRoute = async () => {
@@ -107,19 +107,31 @@ const RegionEntry = (props) => {
 
             <WCol size="2">
                 {
-                   <div className="table-text"
-                   onClick={() => toggleCapitalEdit(!editingCapital)}
-               >{capital}
-               </div>
+                    editingCapital || capital === ''
+                        ? <WInput
+                            className='table-input' onBlur={handleCapitalEdit}
+                            autoFocus={true} defaultValue={capital} type='text'
+                            wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                        />
+                        : <div className="table-text"
+                        onClick={() => toggleCapitalEdit(!editingCapital)}
+                        >{capital}
+                        </div>
                 }
             </WCol>
 
             <WCol size="2">
-                {
-                    <div className="table-text"
-                    onClick={() => toggleLeaderEdit(!editingLeader)} >
-                    {leader}
-                </div>
+            {
+                    editingLeader || leader === ''
+                        ? <WInput
+                            className='table-input' onBlur={handleLeaderEdit}
+                            autoFocus={true} defaultValue={leader} type='text'
+                            wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                        />
+                        : <div className="table-text"
+                        onClick={() => toggleLeaderEdit(!editingLeader)} >
+                        {leader}
+                    </div>
                 }
             </WCol>
             <WCol size="2">

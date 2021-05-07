@@ -10,7 +10,7 @@ const RegionContents = (props) => {
                     <RegionEntry
                         todo = {todo}  setParentBranch = {props.setParentBranch } 
                     id={todo.id} key={todo.id} name={todo.name} _id={todo._id} DeleteRegionHere = {props.DeleteRegionHere}
-                    RegionNameHere = {props.RegionNameHere}
+                    RegionNameHere = {props.RegionNameHere} editItem= {props.editItem}
                         
                     />
                 ))

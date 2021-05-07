@@ -39,9 +39,9 @@ const App = () => {
 				<Route path = "/welcome" render={() => <Welcome />}/>		
 				<Route path = "/home" render={() => <Home fetchUser={refetch} user={user} refreshTps={refreshTps} setParentBranch = {setParentBranch } />}/>
 				<Route path = "/home/:id" children={<Child />}/>
-            	<Route path = "/region" render={() => <Region user={user} fetchUser={refetch} setParentBranch = {setParentBranch } />}/>
+            	<Route path = "/region" render={() => <Region tps={transactionStack} user={user} fetchUser={refetch} setParentBranch = {setParentBranch } />}/>
 				<Route path = "/region/:id" children={<Child />}/>
-				<Route path = "/viewer" render={() => <Viewer user={user} fetchUser={refetch}  setParentBranch = {setParentBranch} />}/>
+				<Route path = "/viewer" render={() => <Viewer tps={transactionStack} user={user} fetchUser={refetch}  setParentBranch = {setParentBranch} />}/>
 				<Route path = "/viewer/:id" children={<Child />}/>
 		
 			</Switch>

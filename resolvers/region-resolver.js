@@ -8,7 +8,7 @@ module.exports = {
 			const { parentID } = args;
 			if(!parentID) { return };
 			const _id = new ObjectId(parentID);
-			const todolists = await Region.find({parentRegion: _id});
+			const todolists = await Region.find({parentRegion: _id}).sort({updatedAt: 'descending'});
 
 			if(todolists) {
 				return (todolists);
@@ -78,7 +78,28 @@ module.exports = {
 			if(deleted) return true;
 			else return false;
 		},
-		updateRegionField: async (_, args) => {},
+		updateRegionField: async (_, args) => {
+			const { itemId, field } = args;
+			let { value } = args
+			const RegionId = new ObjectId(itemId);
+			let updated = await Region.findOne({_id: RegionId});
+			
+			switch(field) {
+				case 'capital':
+					updated = await Region.updateOne({_id: RegionId}, { capital: value })
+					break;
+				case 'leader':
+					updated = await Region.updateOne({_id: RegionId}, { leader: value })
+					break;
+				case 'name':
+					updated = await Region.updateOne({_id: RegionId}, { name: value })
+					break;
+				default:
+					return ;
+			}
+			if(updated) return "a";
+			else return;
+		},
 		updateParent_RegionIDField: async (_, args) => {}, // update ParentRegionID
         deleteLandMarkField: async (_, args) => {},
         addLandMarkField: async (_, args) => {},

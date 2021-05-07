@@ -11,10 +11,18 @@ import { GET_DB_CURRENT_MAPS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import CreateMapModal 							from '../modals/CreateMapModal';
 import {useLocation} from "react-router";
+import { UpdateListField_Transaction, 
+	UpdateListItems_Transaction, 
+	ReorderItems_Transaction, 
+	SortItems_Transaction,
+	EditItem_Transaction } 				from '../../utils/jsTPS';
 
 const Region = (props) => {
     const [AddRegion] 			= useMutation(mutations.CREATE_SUBREGION);
     const [DeleteRegion] 			= useMutation(mutations.DELETE_REGION);
+    const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
+    const [checkUndo, togglecheckUndo] 	= useState(false);
+	const [checkRedo, togglecheckRedo] 	= useState(false);
     const [showCreateMap, toggleShowCreateMap] 	= useState(false);
     let subregions 	= [];
     let pathname =useHistory().location.pathname;
@@ -57,6 +65,21 @@ const Region = (props) => {
  }
 
 
+ const tpsUndo = async () => {
+    const retVal = await props.tps.undoTransaction();
+    refetch();
+    togglecheckUndo(props.tps.hasTransactionToUndo());
+    togglecheckRedo(props.tps.hasTransactionToRedo());
+    return retVal;
+}
+
+const tpsRedo = async () => {
+    const retVal = await props.tps.doTransaction();
+    refetch();
+    togglecheckUndo(props.tps.hasTransactionToUndo());
+    togglecheckRedo(props.tps.hasTransactionToRedo());
+    return retVal;
+}
 
     
     const setShowCreateMap = () => {
@@ -89,12 +112,19 @@ const Region = (props) => {
         const { data } = await DeleteRegion({ variables: { _id: _id}});
         refetch();
     }
+    const editItem = async (itemID, field, value, prev) => {
+//		let listID = activeList._id;
+		let transaction = new EditItem_Transaction(itemID, field, prev, value, UpdateTodoItemField);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+
+	};
 
     return (
         
         <WCard wCard="header-content-media" className = "regionPage">
             <RegionNavbar 
-                createNewSubRegion = {createNewSubRegion} RegionNameHere = {RegionNameHere}
+                createNewSubRegion = {createNewSubRegion} RegionNameHere = {RegionNameHere} undo={tpsUndo} redo={tpsRedo}
                 />
 			<WCHeader className = "RegionHeader">
                 <RegionHeader>
@@ -104,7 +134,8 @@ const Region = (props) => {
 			<WCContent  >
                 <RegionContents 
                  setParentBranch = {props.setParentBranch } 
-                    subregions = {subregions} DeleteRegionHere = {DeleteRegionHere} RegionNameHere = {RegionNameHere}/>
+                    subregions = {subregions} DeleteRegionHere = {DeleteRegionHere} RegionNameHere = {RegionNameHere}
+                    editItem = {editItem} />
                 
 			</WCContent>
             

@@ -14,10 +14,10 @@ const RegionNavbar = (props) => {
                 <i className="material-icons">add</i>
                 </WButton>
             </WCol>
-                <WButton className = "subregionButton" >
+                <WButton className = "subregionButton" onClick={props.undo} >
                 <i className="material-icons">undo</i>
                 </WButton>
-                <WButton className = "subregionButton ">
+                <WButton className = "subregionButton "onClick={props.redo} >
                 <i className="material-icons">redo</i>
                 </WButton>
             <WCol size ="3" className = "RegionNameDesc" >

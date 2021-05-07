@@ -36,6 +36,11 @@ export const UPDATE = gql`
 		}
 	}
 `;
+export const UPDATE_ITEM_FIELD = gql`
+	mutation UpdateRegionField($itemId: String!, $field: String!, $value: String!) {
+		updateRegionField(itemId: $itemId, field: $field, value: $value) 
+	}
+`;
 
 
 // export const ADD_ITEM = gql`
