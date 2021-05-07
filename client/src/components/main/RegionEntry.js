@@ -154,7 +154,7 @@ const RegionEntry = (props) => {
             </WCol>
         </WRow>
         {
-            showDeleteRegion && (<DeleteRegion _id = {props._id} setShowDeleteRegion={setShowDeleteRegion} DeleteRegionHere = {props.DeleteRegionHere} setShowDeleteRegion = {setShowDeleteRegion} />)
+            showDeleteRegion && (<DeleteRegion _id = {props._id} todo = {props.todo} setShowDeleteRegion={setShowDeleteRegion} DeleteRegionHere = {props.DeleteRegionHere} setShowDeleteRegion = {setShowDeleteRegion} />)
             }
             </div>
     );

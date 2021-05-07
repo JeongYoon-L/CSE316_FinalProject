@@ -8,7 +8,7 @@ module.exports = {
 			const { parentID } = args;
 			if(!parentID) { return };
 			const _id = new ObjectId(parentID);
-			const todolists = await Region.find({parentRegion: _id}).sort({updatedAt: 'descending'});
+			const todolists = await Region.find({parentRegion: _id}).sort({updatedAt: 'ascending'});
 
 			if(todolists) {
 				return (todolists);
@@ -53,36 +53,69 @@ module.exports = {
 	},
 	Mutation: {
 		addRegion: async(_, args) => {
-			const { region } = args;
+			const { region, indexID } = args;
 			const objectId = new ObjectId();
-			const { id , parentRegion, capital, name, leader, Flag} = region;
-			const newList = new Region({
-				_id: objectId,
-				id: id,
-                capital: capital,
-				name : name,
-                leader: leader,
-                Flag: Flag,
-                parentRegion: parentRegion,
-                landmark: [] ,
-			});
-			const updated = await newList.save();
-			
-			if(updated) return objectId;
-			else return ('Could not add region');
+			const { _id, id , parentRegion, capital, name, leader, Flag} = region;
+			let RegionID ='';
+			if(_id === ''){ 
+				RegionID = objectId;
+
+				const newList = new Region({
+					_id: RegionID,
+					id: id,
+					capital: capital,
+					name : name,
+					leader: leader,
+					Flag: Flag,
+					parentRegion: parentRegion,
+					landmark: [] ,
+					forOrder: "1",
+				});
+				const updated = await newList.save();
+	
+				if(updated) return RegionID;
+				else return ('Could not add region');								
+			}
+			else{
+				RegionID = _id;
+				const newList = new Region({
+					_id: RegionID,
+					id: id,
+					capital: capital,
+					name : name,
+					leader: leader,
+					Flag: Flag,
+					parentRegion: parentRegion,
+					landmark: [] ,
+					forOrder: "1",
+				});
+				const updated = await newList.save();
+				for(let i = 0;i<indexID.length;i++){
+					let aa = await Region.updateOne({_id: indexID[i]}, { forOrder: "1" })
+				}	
+				
+				if(updated) return RegionID;
+				else return ('Could not add region');					
+			}
+			return;
 		},		
 		deleteRegion: async (_, args) => {
-			const { _id } = args;
+			const { _id , indexID} = args;
 			const objectId = new ObjectId(_id);
-			const deleted = await Region.deleteOne({_id: objectId});
-			if(deleted) return true;
-			else return false;
+			const deleted = await Region.deleteOne({_id: objectId})
+			for(let i = 0;i<indexID.length;i++){
+				let aa = await Region.updateOne({_id: indexID[i]}, { forOrder: "1" })
+			}		
+			if(deleted) return objectId;
+			else return "Could not delete region";
 		},
 		updateRegionField: async (_, args) => {
-			const { itemId, field } = args;
+			const { itemId, field, indexID } = args;
 			let { value } = args
 			const RegionId = new ObjectId(itemId);
 			let updated = await Region.findOne({_id: RegionId});
+			console.log(RegionId);
+			console.log(itemId);
 			
 			switch(field) {
 				case 'capital':
@@ -97,6 +130,10 @@ module.exports = {
 				default:
 					return ;
 			}
+			console.log(indexID);
+			for(let i = 0;i<indexID.length;i++){
+				let aa = await Region.updateOne({_id: indexID[i]}, { forOrder: "1" })
+			}		
 			if(updated) return "a";
 			else return;
 		},

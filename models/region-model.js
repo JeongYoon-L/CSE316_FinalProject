@@ -32,8 +32,13 @@ const RegionSchema = new Schema(
         landmark: { //each regions's landmark
 			type: [String],
 			required: true
+		},
+		forOrder: { //each regions's landmark
+			type: String,
+			required: true
 		}
-	}
+	},
+	{ timestamps: true }
 );
 const Region = model('Region', RegionSchema);
 module.exports = Region;

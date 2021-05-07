@@ -77,19 +77,20 @@ export class SortItems_Transaction extends jsTPS_Transaction{
 }
 
 export class EditItem_Transaction extends jsTPS_Transaction {
-	constructor(itemID, field, prev, update, callback) {
+	constructor(itemID, field, prev, update, callback, indexID) {
 		super();
 		this.itemID = itemID;
 		this.field = field;
 		this.prev = prev;
 		this.update = update;
 		this.updateFunction = callback;
+        this.indexID = indexID;        
 	}	
 
 	async doTransaction() {
 		const { data } = await this.updateFunction({ 
 				variables:{  itemId: this.itemID, 
-							 field: this.field, value: this.update, 
+							 field: this.field, value: this.update, indexID: this.indexID
 						  }
 			});
 		return data;
@@ -99,7 +100,7 @@ export class EditItem_Transaction extends jsTPS_Transaction {
         console.log('undo: ', this.prev, this.update)
 		const { data } = await this.updateFunction({ 
 				variables:{ itemId: this.itemID,
-							field: this.field, value: this.prev, 
+							field: this.field, value: this.prev , indexID: this.indexID
 						  }
 			});
         if(data) console.log(data)
@@ -111,36 +112,38 @@ export class EditItem_Transaction extends jsTPS_Transaction {
 /*  Handles create/delete of list items */
 export class UpdateListItems_Transaction extends jsTPS_Transaction {
     // opcodes: 0 - delete, 1 - add 
-    constructor(listID, itemID, item, opcode, addfunc, delfunc, index = -1) {
+    constructor(itemID, item, opcode, addfunc, delfunc, indexID) {
         super();
-        this.listID = listID;
 		this.itemID = itemID;
 		this.item = item;
         this.addFunction = addfunc;
         this.deleteFunction = delfunc;
         this.opcode = opcode;
-        this.index = index;
+        this.indexID = indexID;
     }
     async doTransaction() {
 		let data;
+        console.log("fordo");
+        console.log(this.indexID);
         this.opcode === 0 ? { data } = await this.deleteFunction({
-							variables: {itemId: this.itemID, _id: this.listID}})
+							variables: {_id: this.itemID, indexID: this.indexID}})  
 						  : { data } = await this.addFunction({
-							variables: {item: this.item, _id: this.listID, index: this.index}})  
+							variables: {region: this.item, indexID: this.indexID}})  
 		if(this.opcode !== 0) {
-            this.item._id = this.itemID = data.addItem;
+            this.item._id = this.itemID = data.addRegion;
 		}
 		return data;
     }
     // Since delete/add are opposites, flip matching opcode
     async undoTransaction() {
 		let data;
-        this.opcode === 1 ? { data } = await this.deleteFunction({
-							variables: {itemId: this.itemID, _id: this.listID}})
+        console.log("forUndo");
+        console.log(this.indexID);
+        this.opcode === 1 ? { data } = await this.deleteFunction({variables: { _id : this.itemID, indexID: this.indexID}})  
                           : { data } = await this.addFunction({
-							variables: {item: this.item, _id: this.listID, index: this.index}})
+							variables: {region: this.item, indexID: this.indexID}})  
 		if(this.opcode !== 1) {
-            this.item._id = this.itemID = data.addItem;
+            this.item._id = this.itemID = data.addRegion;
         }
 		return data;
     }

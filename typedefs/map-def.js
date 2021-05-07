@@ -17,6 +17,7 @@ type Region {
     Flag: String!
     parentRegion:  String!
     landmark: [String]
+    forOrder: String!
 }
 extend type Query {
     getAllMaps: [Map]
@@ -50,6 +51,7 @@ input RegionInput {
     Flag: String
     parentRegion:  String
     landmark: [String]
+    forOrder: String
 }
 `;
 

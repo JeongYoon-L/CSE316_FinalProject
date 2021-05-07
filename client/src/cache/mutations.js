@@ -37,8 +37,8 @@ export const UPDATE = gql`
 	}
 `;
 export const UPDATE_ITEM_FIELD = gql`
-	mutation UpdateRegionField($itemId: String!, $field: String!, $value: String!) {
-		updateRegionField(itemId: $itemId, field: $field, value: $value) 
+	mutation UpdateRegionField($itemId: String!, $field: String!, $value: String!,   $indexID : [String]!) {
+		updateRegionField(itemId: $itemId, field: $field, value: $value, indexID: $indexID) 
 	}
 `;
 
@@ -148,14 +148,14 @@ export const EDIT_MAP_NAME = gql`
 `;
 
 export const CREATE_SUBREGION = gql`
-	mutation AddRegion($region: RegionInput!) {
-		addRegion(region: $region) 
+	mutation AddRegion($region: RegionInput!, $indexID : [String]! ) {
+		addRegion(region: $region, indexID: $indexID) 
 	}
 `;
 
 export const DELETE_REGION = gql`
-	mutation DeleteRegion($_id: String!) {
-		deleteRegion(_id: $_id) 
+	mutation DeleteRegion($_id: String!,  $indexID : [String]!) {
+		deleteRegion(_id: $_id, indexID: $indexID) 
 	}
 `;
 

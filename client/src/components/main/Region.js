@@ -25,6 +25,7 @@ const Region = (props) => {
 	const [checkRedo, togglecheckRedo] 	= useState(false);
     const [showCreateMap, toggleShowCreateMap] 	= useState(false);
     let subregions 	= [];
+    let indexID = [];
     let pathname =useHistory().location.pathname;
     let connectedParendId = pathname.substring(8, pathname.length);
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS, {variables : {parentID : connectedParendId}});
@@ -36,6 +37,7 @@ const Region = (props) => {
 		// Assign subregions 
 		for(let todo of data.getAllRegions) {
 			subregions.push(todo)
+            indexID.push(todo._id);
 		}
     }
     }
@@ -92,29 +94,51 @@ const tpsRedo = async () => {
 		const id = length >= 1 ? Maxid +1 : 1;	
         if(props.user){
             let list = {
-                _id: " ",
+                _id: '',
                 id: id,
                 name : "Enter Name",
                 capital: "Enter Capital",
                 leader: "Who's Leader",
                 Flag: "Flag",
                 parentRegion: connectedParendId,
-                landmark: [],            
+                landmark: [],   
+                forOrder: "1",         
             }
-            const { data } = await AddRegion({ variables: { region: list } });
-            refetch();
-            
+            //indexID.push(list._id);
+            let opcode = 1;
+            let itemID = list._id;
+            let transaction = new UpdateListItems_Transaction(itemID, list, opcode, AddRegion, DeleteRegion, indexID);
+            props.tps.addTransaction(transaction);  
+            tpsRedo();
+            //const { data } = await AddRegion({ variables: { region: list } });
+            //refetch();
         }
 		
     };
 
-    const DeleteRegionHere = async (_id) => {
-        const { data } = await DeleteRegion({ variables: { _id: _id}});
-        refetch();
+    const DeleteRegionHere = async (todo) => {
+        let opcode = 0;
+        let itemID = todo._id;
+        let list = {
+            _id: todo._id,
+            id: todo.id,
+            name : todo.name,
+            capital: todo.capital,
+            leader: todo.leader,
+            Flag: todo.Flag,
+            parentRegion: todo.parentRegion,
+            landmark: todo.landmark,     
+            forOrder: todo.forOrder,       
+        }
+        let transaction = new UpdateListItems_Transaction(itemID, list, opcode, AddRegion, DeleteRegion, indexID);
+        props.tps.addTransaction(transaction);  
+        tpsRedo();
+        //const { data } = await DeleteRegion({ variables: { _id: _id}});
+        //refetch();
     }
     const editItem = async (itemID, field, value, prev) => {
 //		let listID = activeList._id;
-		let transaction = new EditItem_Transaction(itemID, field, prev, value, UpdateTodoItemField);
+		let transaction = new EditItem_Transaction(itemID, field, prev, value, UpdateTodoItemField, indexID);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
 
