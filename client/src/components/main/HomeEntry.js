@@ -59,14 +59,14 @@ const HomeEntry = (props) => {
                                 {props.name}
                             </WCol>
                             <WCol size = "1" onClick={handleEditing}  >
-                                <WButton className = "iconHandle">
+                                <WButton className = "iconHandle buttonhover ">
                                     <i className = "material-icons ">
                                         edit
                                     </i>
                                 </WButton>
                             </WCol>
                             <WCol size = "1">
-                                <WButton className = "iconHandle" onClick = {setShowDeleteMap}>
+                                <WButton className = "iconHandle buttonhover " onClick = {setShowDeleteMap}>
                                     <i className = "material-icons ">
                                         delete
                                     </i>

@@ -49,8 +49,8 @@ const LeftViewer = (props) => {
 		<WCol size="3">
 			<div className = "viewerTextBlue" onClick = {gobacktoParentRegion} >{parentRegionID}</div>
 		</WCol>
-		<WCol size = "4" className = "iconHandleViewer" >
-        <i className = "material-icons ">edit</i>          
+		<WCol size = "4" className = "iconHandleViewer buttonhover " >
+        <i className = "material-icons  ">edit</i>          
         </WCol>
 	</WRow>
 

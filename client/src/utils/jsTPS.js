@@ -66,12 +66,12 @@ export class SortItems_Transaction extends jsTPS_Transaction{
 
     async undoTransaction() {
 		const { data } = await this.updateFunction({ variables: {  updateitems: this.prevSortRule}});
+        console.log("asadfafa");
         if(data) {
             console.log(data)
             return data;
 
         }
-
     }
 }
 
@@ -273,6 +273,7 @@ export class jsTPS {
 		let retVal;
         if(this.isPerformingDo() || this.isPerformingUndo()) return;
         if (this.hasTransactionToUndo()) {
+            console.log("들어옵니까?");
             this.performingUndo = true;
             let transaction = this.transactions[this.mostRecentTransaction];
 			retVal = await transaction.undoTransaction();

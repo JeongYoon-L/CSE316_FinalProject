@@ -9,8 +9,8 @@ const RightViewer = (props) => {
                 
             }
             <WRow>
-            <WCol size = "1" className = "addButtonHalf"  wType="texted" >
-                <i className="material-icons">add</i>
+            <WCol size = "1" className = "addButtonHalf buttonhover "  wType="texted" >
+                <i className="material-icons ">add</i>
                 </WCol>
                 <WCol size = "9" >
             <WInput className = "landmarkInput" 

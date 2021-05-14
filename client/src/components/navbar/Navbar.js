@@ -1,4 +1,4 @@
-import React, { useState } 				from 'react';
+import React, { useState, useReducer } 				from 'react';
 import { WNavbar, WSidebar, WNavItem , WRow, WCol} 	from 'wt-frontend';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import NavigateToParent 					from '../navbar/NavigateToParent';
@@ -19,7 +19,6 @@ const Navbar = (props) => {
 	const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showWelcome, toggleShowWelcome] 	= useState(false);
 	const [showUpdate, toggleShowUpdate] 	= useState(false);
-
     const loadTodoList = (list) => {
 		setActiveList(list);
 
@@ -61,8 +60,10 @@ const Navbar = (props) => {
 		toggleShowWelcome(false);
 		
 	};	
-
-
+	const cleartransaction = () => {		
+		props.tps.clearAllTransactions();	
+	}      
+	
     return (
         <WNavbar color="colored">
 					<ul>
@@ -72,18 +73,18 @@ const Navbar = (props) => {
 					</ul>
 					<ul className = "branchLeft">
 						{showWelcome ?
-					<NavigateToParent setParentBranch = {props.setParentBranch } />	:
+					<NavigateToParent setParentBranch = {props.setParentBranch } cleartransaction = {cleartransaction} />	:
 					<></>
 						}
 					</ul> 
 					<ul className = "arrowMid" >
 						{toggleArrow ?
 						<WRow>
-							<WCol>
-							<i className="material-icons">arrow_backward</i>
+							<WCol className = "buttonhover ">
+							<i className="material-icons ">arrow_backward</i>
 							</WCol>
-							<WCol>
-							<i className="material-icons">arrow_forward</i>
+							<WCol className = "buttonhover ">
+							<i className="material-icons ">arrow_forward</i>
 							</WCol>
 						</WRow>
 

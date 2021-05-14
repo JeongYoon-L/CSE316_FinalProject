@@ -16,7 +16,6 @@ import { UpdateListField_Transaction,
 	ReorderItems_Transaction, 
 	SortItems_Transaction,
 	EditItem_Transaction } 				from '../../utils/jsTPS';
-
 const Region = (props) => {
     const [AddRegion] 			= useMutation(mutations.CREATE_SUBREGION);
     const [DeleteRegion] 			= useMutation(mutations.DELETE_REGION);
@@ -38,7 +37,7 @@ const Region = (props) => {
 		// Assign subregions 
 		for(let todo of data.getAllRegions) {
 			subregions.push(todo)
-            indexID.push(todo._id);
+            indexID.push(todo._id);          
 		}
     }
     }
@@ -71,16 +70,16 @@ const Region = (props) => {
  const tpsUndo = async () => {
     const retVal = await props.tps.undoTransaction();
     await refetch();
-    togglecheckUndo(props.tps.hasTransactionToUndo());
-    togglecheckRedo(props.tps.hasTransactionToRedo());
+    togglecheckUndo(props.tps.hasTransactionToUndo() && props.tps.getSize() !== 0 );
+    togglecheckRedo(props.tps.hasTransactionToRedo() && props.tps.getSize() !== 0 );
     return retVal;
 }
 
 const tpsRedo = async () => {
     const retVal = await props.tps.doTransaction();
     await refetch();
-    togglecheckUndo(props.tps.hasTransactionToUndo());
-    togglecheckRedo(props.tps.hasTransactionToRedo());
+    togglecheckUndo(props.tps.hasTransactionToUndo() && props.tps.getSize() !== 0 );
+    togglecheckRedo(props.tps.hasTransactionToRedo()&& props.tps.getSize() !== 0 );
     return retVal;
 }
 
@@ -193,11 +192,17 @@ const tpsRedo = async () => {
 		tpsRedo();
 	}
             };
+	const cleartransaction = () => {
+		props.tps.clearAllTransactions();
+		togglecheckUndo(props.tps.hasTransactionToUndo());
+		togglecheckRedo(props.tps.hasTransactionToRedo());
+	}            
     return (
         
         <WCard wCard="header-content-media" className = "regionPage">
             <RegionNavbar 
                 createNewSubRegion = {createNewSubRegion} RegionNameHere = {RegionNameHere} undo={tpsUndo} redo={tpsRedo}
+                checkUndo= {checkUndo} checkRedo= {checkRedo} tps= {props.tps}
                 />
 			<WCHeader className = "RegionHeader">
                 <RegionHeader sortRegions = {sortRegions} >
@@ -207,7 +212,7 @@ const tpsRedo = async () => {
                 <RegionContents 
                  setParentBranch = {props.setParentBranch } 
                     subregions = {subregions} DeleteRegionHere = {DeleteRegionHere} RegionNameHere = {RegionNameHere}
-                    editItem = {editItem} />
+                    editItem = {editItem} cleartransaction = {cleartransaction} />
                 
 			</WCContent>
             

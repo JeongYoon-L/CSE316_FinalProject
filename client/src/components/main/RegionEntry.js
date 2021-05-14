@@ -72,12 +72,14 @@ const RegionEntry = (props) => {
 
     const changeRoute = async () => {
         props.setParentBranch([]);
+        props.cleartransaction();
         history.push(RouteSubRegionID);
         
     }
 
     const changeRouteToLandmark = async () => {
         props.setParentBranch([]);
+        props.cleartransaction();
         history.push({
             pathname : RouteViewerRegionID,
             state : {todo : todo, regionNameViewer : regionNameViewer}}
@@ -90,7 +92,7 @@ const RegionEntry = (props) => {
         <div>
         <WRow className='table-entry'>
             <WCol size = "1">
-                <WButton  className = "regionDeleteButton " >
+                <WButton  className = "regionDeleteButton buttonhover " >
                 <i className = "material-icons " onClick = {setShowDeleteRegion}>
                     delete
                     </i>

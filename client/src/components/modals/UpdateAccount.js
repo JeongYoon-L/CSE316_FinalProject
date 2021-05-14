@@ -1,13 +1,14 @@
 import React, { useState } 	from 'react';
 import { UPDATE }			from '../../cache/mutations';
 import { useMutation }    	from '@apollo/client';
-
+import { useHistory } from "react-router-dom";
 import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput, WRow, WCol } from 'wt-frontend';
 
 const UpdateAccount = (props) => {
 	const [input, setInput] = useState({ email: '', password: '', Name: '' });
 	const [loading, toggleLoading] = useState(false);
 	const [Update] = useMutation(UPDATE);
+	let history = useHistory();
     const CurrentUser = props.user;
 	const errorMsg = "User with that email already registered.";
 	const [showErr, displayErrorMsg] = useState(false);
@@ -54,6 +55,8 @@ const UpdateAccount = (props) => {
 				toggleLoading(false);
 				props.fetchUser();
 				props.setShowUpdate(false);
+				let UserRoute = "/home/" + data.update._id;
+				history.replace(UserRoute);
 			}
 			
 

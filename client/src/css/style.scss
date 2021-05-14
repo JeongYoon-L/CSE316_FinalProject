@@ -425,6 +425,13 @@ html, body {
     height: 80%;
     width: 80%;
 }
+.subregionButton-disabled{
+    color: gray;
+    background-color: #282828;
+    height: 80%;
+    width: 80%;
+    cursor : default !important;
+}
 .NameHeader{
     padding-left: 65px;
 }

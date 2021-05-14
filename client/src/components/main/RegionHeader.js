@@ -13,7 +13,6 @@ const RegionHeader = (props) => {
 
     const closefunc = () => {
         props.cleartransaction();
-        props.setActiveList({});
     }
     const sortRegionsName = () => {
         props.sortRegions("Name");
@@ -26,27 +25,27 @@ const RegionHeader = (props) => {
             <WCol size="3" className = "NameHeader" >
                 <WButton className={`${headerStyle}`} wType="texted" onClick = {sortRegionsName} >
                     Name
-                <i className="material-icons">arrow_downward</i></WButton>
+                <i className="material-icons ">arrow_downward</i></WButton>
                 
             </WCol>
 
             <WCol size="2">
                 <WButton className={`${headerStyle}`} wType="texted" onClick = {sortRegionsCapital } >Capital
-                <i className="material-icons">arrow_downward</i></WButton>
+                <i className="material-icons ">arrow_downward</i></WButton>
             </WCol>
 
             <WCol size="2">
                 <WButton className={`${headerStyle}`} wType="texted" onClick = {() =>  props.sortRegions("Leader") }  >Leader
-                <i className="material-icons">arrow_downward</i></WButton>
+                <i className="material-icons ">arrow_downward</i></WButton>
             </WCol>
             
             <WCol size="2">
                 <WButton className={`${headerStyle}`}   wType="texted" >Flag
-                <i className="material-icons">arrow_downward</i></WButton>
+                <i className="material-icons  ">arrow_downward</i></WButton>
             </WCol>
             <WCol size="3">
                 <WButton className={`${headerStyle}`}  wType="texted" >Landmark
-                <i className="material-icons">arrow_downward</i></WButton>
+                <i className="material-icons  ">arrow_downward</i></WButton>
             </WCol>
 
 
