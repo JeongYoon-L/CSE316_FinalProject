@@ -4,7 +4,7 @@ import LeftViewer    from './LeftViewer';
 import RightViewer    from './RightViewer';
 import { WButton, WCHeader, WCContent, WCMedia, WCard, WRow, WCol } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
-import { GET_DB_MAPS } 				from '../../cache/queries';
+import { GET_DB_CHILDS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import CreateMapModal 							from '../modals/CreateMapModal';
 import { AddLandmark_Transaction, EditLandmark_Transaction} 				from '../../utils/jsTPS';
@@ -28,6 +28,14 @@ const Viewer = (props) => {
     if(dataR && dataR.getAllCurrentRegions && dataR.getAllCurrentRegions !== null) { 
         todoNew = dataR.getAllCurrentRegions; 
     }
+
+    let allchild = [];
+    const { data : dataChild, refetch : refetchChild } = useQuery(GET_DB_CHILDS, {variables : {CurrentID : ViewerInfomation._id}});
+    if(dataChild && dataChild.getAllChildInfo && dataChild.getAllChildInfo !== null) { 
+        allchild = dataChild.getAllChildInfo; 
+    }
+
+    
     const addLandmark = async () =>{
         if(landmarkInput !== "" && todoNew !== []){
             let itemID = todoNew._id;
@@ -112,7 +120,7 @@ const tpsRedo = async () => {
             <WCol size="6">
                 {
                     <WCMedia   >
-                               <RightViewer addLandmark={addLandmark} toggleInputLandmark= {toggleInputLandmark} landmarkInput= {landmarkInput}
+                               <RightViewer addLandmark={addLandmark} toggleInputLandmark= {toggleInputLandmark} landmarkInput= {landmarkInput} allchild= {allchild}
                 ViewerInfomation = {ViewerInfomation} todoNew= {todoNew} editLandmark={editLandmark} />
             
                     </WCMedia>

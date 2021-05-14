@@ -72,6 +72,20 @@ export const GET_DB_CURRENT_REGIONS = gql`
 		}
 	}
 `;
+export const GET_DB_CHILDS = gql`
+	query GetAllChildInfo($CurrentID : String!) {
+		getAllChildInfo(CurrentID : $CurrentID) {
+			_id
+    		id
+    		capital
+			name
+    		leader
+    		Flag
+    		parentRegion
+    		landmark
+		}
+	}
+`;
 
 
 // export const GET_ALLPARENTS_BRANCHMAP = gql`

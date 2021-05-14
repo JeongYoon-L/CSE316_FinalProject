@@ -9,10 +9,33 @@ const RightViewer = (props) => {
     const handleLandmarkAdd = async (e) =>{
         props.toggleInputLandmark(e.target.value);
     }
+    console.log(props.allchild);
+    let childLandmark = [];
+    if(props.allchild !== []){
+        for(let i = 0;i<props.allchild.length; i++){
+            let eachLand = props.allchild[i].landmark;
+            for(let j = 0; j<eachLand.length; j++){
+                let sentence = eachLand[j]+ "  -  " + props.allchild[i].name;
+                childLandmark.push(sentence);
+            }
+            
+        }
+        
+    }
+    
+let checkchild = childLandmark !== [];
+
     return (
         <>
         {
             <div className = "landmarkViewer">
+                {checkchild&&
+                childLandmark.map(item =>(
+                            <div className = "landmarkStyle-disabled "> 
+                                {item}
+                            </div>
+                            ))
+                }
                 {canshowLandmark &&
                 landmark.map((todo , index)=> (
                     <LandmarkTable      

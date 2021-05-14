@@ -21,6 +21,25 @@ module.exports = {
 			if(updated) return updated;
 		},
 		getAllLandmark: async (_, __, { req }) => { },
+		getAllChildInfo: async (_, args) => {
+			const { CurrentID } = args;
+			let _id = CurrentID;
+			let returnArray = [];
+			const updated = await Region.find({parentRegion: _id});
+			if(updated){
+				returnArray.push(...updated);
+				for (let i = 0; i< returnArray.length; i++){
+					_id = returnArray[i]._id;
+					let findUpdate = await Region.find({parentRegion: _id});
+					if(findUpdate && findUpdate !== []){
+						returnArray.push(...findUpdate);
+					}
+					
+				}
+			}
+			console.log(returnArray);
+			return returnArray;
+		 },
 		getViewerRegions: async (_, __, { req }) => { },
 		getAllParentsBranchRegion: async (_, args) => {
 			let { _id } = args;

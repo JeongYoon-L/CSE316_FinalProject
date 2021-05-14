@@ -8,6 +8,7 @@ extend type Query {
     getAllRegions(parentID : String! ): [Region]
     getRegionById(_id: String!): Region
     getAllLandmark(_id : String!) : [String]
+    getAllChildInfo(CurrentID : String!) : [Region]
     getViewerRegions(_id : String!): Region
     getAllCurrentRegions(CurrentID: String!):Region
     getAllParentsBranchRegion(_id: String!): [forName]

@@ -476,6 +476,14 @@ html, body {
     cursor: pointer;
     color: white;
 }
+.landmarkStyle-disabled{
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 7px;
+    cursor: cursor;
+    color: gray;
+    padding-left:40px;
+}
 .landmarkStyle:hover{
     background-color: var(--warm-white-transparent);
 }
