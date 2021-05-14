@@ -16,7 +16,7 @@ const RightViewer = (props) => {
                 {canshowLandmark &&
                 landmark.map((todo , index)=> (
                     <LandmarkTable      
-                        todo= {todo} landmark= {landmark} editLandmark= {props.editLandmark}
+                        todo= {todo} landmark= {landmark} editLandmark= {props.editLandmark} 
                     />   
                 ))
         }

@@ -67,11 +67,12 @@ const Navbar = (props) => {
 		props.tps.clearAllTransactions();	
 	}      
 	const movetoNextViewer = async (direction) => {	
+		props.tps.clearAllTransactions();
+		props.setParentBranch([]);
 		let pathname =history.location.pathname;
     	let currentID = pathname.substring(8, pathname.length);	
 		const { data } = await findwithArrowViewer({ variables: {  _id : currentID, direction: direction}});
 		let cur = data.findwithArrowViewer;
-		console.log(cur);
 		if(cur !== null){
 			const RouteViewerRegionID = "/viewer/" + cur._id;
 			history.push({

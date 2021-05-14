@@ -1,9 +1,11 @@
 import React, { useState } 				from 'react';
 import { WInput, WButton, WCol, WRow} from 'wt-frontend';
+import DeleteLandmarkModal from '../modals/DeleteLandmarkModal';
 
 
 const LandmarkTable = (props) => {
     const [editLandmark, toggleEditLandmark] 	= useState(false);
+    const [showDeleteLandmark, toggleShowDeleteLandmark] 	= useState(false);
     let landmarkArray = props.landmark;
     const handleLandmarkEdit = (e) => {
         if(props.todo !== null){
@@ -25,6 +27,9 @@ const LandmarkTable = (props) => {
         toggleEditLandmark(false);
         
     };
+    const setShowDeleteLandmark = () => {
+		toggleShowDeleteLandmark(!showDeleteLandmark)
+	}
     return (
         <>
         {
@@ -34,7 +39,7 @@ const LandmarkTable = (props) => {
                                     />
                                 :<WRow>
                                     <WCol size = "1">
-                                        <WButton className = "closeButtonForLandmark buttonhover " onClick = {() => toggleEditLandmark(true)}>
+                                        <WButton className = "closeButtonForLandmark buttonhover " onClick = {setShowDeleteLandmark}>
                                             <i className = "material-icons ">
                                                 close
                                             </i>
@@ -46,10 +51,11 @@ const LandmarkTable = (props) => {
                                 </WRow>         
              
         }
-        
+        {
+            showDeleteLandmark && (<DeleteLandmarkModal todo = {props.todo} setShowDeleteLandmark={setShowDeleteLandmark} editLandmark = {props.editLandmark} setShowDeleteLandmark = {setShowDeleteLandmark} landmark = {props.landmark}/>)
+            }
             
         </>
-        
     );
 };
 

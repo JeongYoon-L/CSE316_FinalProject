@@ -20,6 +20,9 @@ const Viewer = (props) => {
     const [checkUndo, togglecheckUndo] 	= useState(false);
 	const [checkRedo, togglecheckRedo] 	= useState(false);
 
+    let canUndo = checkUndo && (props.tps.getSize() !== 0);
+    let canRedo = checkRedo && (props.tps.getSize() !== 0);
+
     let todoNew = [];
     const { data : dataR, refetch : refetchR } = useQuery(GET_DB_CURRENT_REGIONS, {variables : {CurrentID : ViewerInfomation._id}});
     if(dataR && dataR.getAllCurrentRegions && dataR.getAllCurrentRegions !== null) { 
@@ -43,6 +46,7 @@ const Viewer = (props) => {
             tpsRedo();
     }
     
+    
  const tpsUndo = async () => {
     const retVal = await props.tps.undoTransaction();
     await refetchR();
@@ -63,7 +67,7 @@ const tpsRedo = async () => {
         <WCard wCard="header-content-media" className = "viewerPage">
 			<WCHeader className = "ViewerHeader">
             <WRow>
-                {checkUndo ?            
+                {canUndo ?            
                 <WButton className = "subregionButton buttonhover " onClick={tpsUndo} >
                 <i className="material-icons ">undo</i>
                 </WButton>:
@@ -71,7 +75,7 @@ const tpsRedo = async () => {
                 <i className="material-icons ">undo</i>
                 </WButton>
                 }
-               {checkRedo ? 
+               {canRedo ? 
                 <WButton className = "redoStyle buttonhover "onClick={tpsRedo} >
                 <i className="material-icons ">redo</i>
                 </WButton>:
@@ -109,7 +113,7 @@ const tpsRedo = async () => {
                 {
                     <WCMedia   >
                                <RightViewer addLandmark={addLandmark} toggleInputLandmark= {toggleInputLandmark} landmarkInput= {landmarkInput}
-                ViewerInfomation = {ViewerInfomation} todoNew= {todoNew} editLandmark={editLandmark}/>
+                ViewerInfomation = {ViewerInfomation} todoNew= {todoNew} editLandmark={editLandmark} />
             
                     </WCMedia>
                 }
