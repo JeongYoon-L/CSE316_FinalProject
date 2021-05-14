@@ -164,3 +164,9 @@ export const TOP_MAP = gql`
 		currentMapOnTop(mapID: $mapID) 
 	}
 `;
+
+export const SORT_ITEMS = gql`
+	mutation SortTodoItems($updateitems: [String]!) {
+		sortTodoItems(updateitems: $updateitems)
+	}
+`;

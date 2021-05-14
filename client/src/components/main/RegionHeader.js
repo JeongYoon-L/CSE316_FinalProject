@@ -15,22 +15,28 @@ const RegionHeader = (props) => {
         props.cleartransaction();
         props.setActiveList({});
     }
+    const sortRegionsName = () => {
+        props.sortRegions("Name");
+    }
+    const sortRegionsCapital = () => {
+        props.sortRegions("Capital");
+    }
     return (
         <WRow className="table-header">
             <WCol size="3" className = "NameHeader" >
-                <WButton className={`${headerStyle}`} wType="texted" >
+                <WButton className={`${headerStyle}`} wType="texted" onClick = {sortRegionsName} >
                     Name
                 <i className="material-icons">arrow_downward</i></WButton>
                 
             </WCol>
 
             <WCol size="2">
-                <WButton className={`${headerStyle}`} wType="texted">Capital
+                <WButton className={`${headerStyle}`} wType="texted" onClick = {sortRegionsCapital } >Capital
                 <i className="material-icons">arrow_downward</i></WButton>
             </WCol>
 
             <WCol size="2">
-                <WButton className={`${headerStyle}`} wType="texted" >Leader
+                <WButton className={`${headerStyle}`} wType="texted" onClick = {() =>  props.sortRegions("Leader") }  >Leader
                 <i className="material-icons">arrow_downward</i></WButton>
             </WCol>
             

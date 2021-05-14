@@ -20,6 +20,7 @@ import { UpdateListField_Transaction,
 const Region = (props) => {
     const [AddRegion] 			= useMutation(mutations.CREATE_SUBREGION);
     const [DeleteRegion] 			= useMutation(mutations.DELETE_REGION);
+    const [SortTodoItems] 		= useMutation(mutations.SORT_ITEMS);
     const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
     const [checkUndo, togglecheckUndo] 	= useState(false);
 	const [checkRedo, togglecheckRedo] 	= useState(false);
@@ -69,7 +70,7 @@ const Region = (props) => {
 
  const tpsUndo = async () => {
     const retVal = await props.tps.undoTransaction();
-    refetch();
+    await refetch();
     togglecheckUndo(props.tps.hasTransactionToUndo());
     togglecheckRedo(props.tps.hasTransactionToRedo());
     return retVal;
@@ -77,7 +78,7 @@ const Region = (props) => {
 
 const tpsRedo = async () => {
     const retVal = await props.tps.doTransaction();
-    refetch();
+    await refetch();
     togglecheckUndo(props.tps.hasTransactionToUndo());
     togglecheckRedo(props.tps.hasTransactionToRedo());
     return retVal;
@@ -143,7 +144,55 @@ const tpsRedo = async () => {
 		tpsRedo();
 
 	};
-
+    const sortRegions = async (content) => {
+        let prevList = [];
+		let newList = [];
+		if(subregions){
+		let sorteditem = [];
+		subregions.map(itemArray => {
+			prevList.push(itemArray._id);
+		});
+		if(content === "Name")
+		{
+			sorteditem = subregions.slice().sort((a,b) => a.name.localeCompare(b.name));
+			sorteditem.map(itemArray => {
+				newList.push(itemArray._id);
+			});
+			let joinprev = prevList.slice().join('/');
+			let joinnew = newList.slice().join('/');
+			if(joinprev === joinnew){
+				newList.reverse();
+			}			
+		}
+		else if(content === "Capital")
+		{
+			sorteditem = subregions.slice().sort((a,b) => a.capital.localeCompare(b.capital));
+			sorteditem.map(itemArray => {
+				newList.push(itemArray._id);
+			});
+			let joinprev = prevList.slice().join('/');
+			let joinnew = newList.slice().join('/');
+			if(joinprev === joinnew){
+				newList.reverse();
+			}			
+		}
+		else if(content === "Leader")
+		{
+			sorteditem = subregions.slice().sort((a,b) => a.leader.localeCompare(b.leader));
+			sorteditem.map(itemArray => {
+				newList.push(itemArray._id);
+			});
+			let joinprev = prevList.slice().join('/');
+			let joinnew = newList.slice().join('/');
+			if(joinprev === joinnew){
+				newList.reverse();
+			}			
+		}
+		let transaction = new SortItems_Transaction(newList,prevList, SortTodoItems);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+	}
+            };
     return (
         
         <WCard wCard="header-content-media" className = "regionPage">
@@ -151,8 +200,7 @@ const tpsRedo = async () => {
                 createNewSubRegion = {createNewSubRegion} RegionNameHere = {RegionNameHere} undo={tpsUndo} redo={tpsRedo}
                 />
 			<WCHeader className = "RegionHeader">
-                <RegionHeader>
-
+                <RegionHeader sortRegions = {sortRegions} >
                 </RegionHeader>
 			</WCHeader>
 			<WCContent  >

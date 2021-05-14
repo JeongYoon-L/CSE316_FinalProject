@@ -141,7 +141,14 @@ module.exports = {
         deleteLandMarkField: async (_, args) => {},
         addLandMarkField: async (_, args) => {},
 		updateLandMarkField: async (_, args) => {},
-		sortRegions: async (_, args) => {} //when sorting Regions
+		sortTodoItems: async (_, args) => {
+			const {updateitems} = args;
+			for(let i = 0;i<updateitems.length;i++){
+				let aa = await Region.updateOne({_id: updateitems[i]}, { forOrder: "1" })
+			}	
+			return "A"
+
+		} //when sorting Regions
 
 	}
 }
