@@ -469,3 +469,23 @@ html, body {
     align-items: center;
     padding-left:13%;
 }
+.landmarkStyle{
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 7px;
+    cursor: pointer;
+    color: white;
+}
+.landmarkStyle:hover{
+    background-color: var(--warm-white-transparent);
+}
+.closeButtonForLandmark{
+    background-color: black;
+    color : red;
+    padding : 5px;
+}
+.landmarkStyle-input{
+    height: 40px !important;
+    color : rgb(110, 108, 108) !important;
+    width: 100%;
+}

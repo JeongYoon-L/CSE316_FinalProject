@@ -184,3 +184,8 @@ export const ARROW_VIEWER = gql`
 		}
 	}
 `;
+export const ADD_LANDMARK = gql`
+	mutation AddLandmarkfield($_id: String!, $landmark: [String]) {
+		addLandmarkfield(_id:$_id , landmark:$landmark)
+	}
+`;

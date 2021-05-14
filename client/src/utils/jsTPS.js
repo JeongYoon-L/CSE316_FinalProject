@@ -148,7 +148,32 @@ export class UpdateListItems_Transaction extends jsTPS_Transaction {
 }
 
 
+export class AddLandmark_Transaction extends jsTPS_Transaction{
+    constructor( itemID, prevLandmark, newLandmark, callback) {
+        super();
+        this.itemID = itemID;
+        this.newLandmark = newLandmark;
+        this.prevLandmark = prevLandmark;
+        this.updateFunction = callback;
+    }
+    async doTransaction() {
+		const { data } = await this.updateFunction({ variables: { _id : this.itemID, landmark: this.newLandmark}})  
+        if(data) {
+            console.log(data)
+            return data;
 
+        }
+    }
+
+    async undoTransaction() {
+		const { data } = await this.updateFunction({ variables: { _id : this.itemID, landmark: this.prevLandmark}})
+        if(data) {
+            console.log(data)
+            return data;
+
+        }
+    }
+}
 
 export class jsTPS {
     constructor() {

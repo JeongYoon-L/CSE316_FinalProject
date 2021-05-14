@@ -11,9 +11,13 @@ const RegionEntry = (props) => {
     const name = props.todo.name;
     const capital = props.todo.capital;
     const leader = props.todo.leader;
-    const landmark = props.todo.landmark;
+    const landmark = props.todo.landmark; //string array
     const flag = props.todo.Flag;
     const RouteSubRegionID = "/region/" + props._id;
+
+    let landmarkForSpreadsheet = "";
+    landmark.map(item => landmarkForSpreadsheet = item +","+ landmarkForSpreadsheet);
+
     
     const [editingName, toggleNameEdit] = useState(false);
     const [editingCapital, toggleCapitalEdit] = useState(false);
@@ -182,7 +186,7 @@ const RegionEntry = (props) => {
                     <div 
                     className="table-text-blue"
                     onClick={changeRouteToLandmark} 
-                >Insert Landmark
+                >{landmarkForSpreadsheet}
                 </div>
                 }
             </WCol>

@@ -19,7 +19,7 @@ extend type Mutation {
     updateParent_RegionIDField(_id: String!, parentID : String!): String
     sortTodoItems(updateitems: [String]!): String
     deleteLandMarkField(_id : String! , deleteValue : String!) : [String]
-    addLandMarkField(_id : String!, value : String!) : [String]
+    addLandmarkfield(_id : String!, landmark : [String]) : [String]
     updateLandMarkField(_id: String!, field: String!, value: String!): String
     findwithArrowViewer(_id: String!, direction: String!): ViewerInput
 }

@@ -139,7 +139,12 @@ module.exports = {
 		},
 		updateParent_RegionIDField: async (_, args) => {}, // update ParentRegionID
         deleteLandMarkField: async (_, args) => {},
-        addLandMarkField: async (_, args) => {},
+        addLandmarkfield: async (_, args) => {
+			const { _id , landmark} = args;
+			let updated = await Region.updateOne({_id: _id}, { landmark: landmark })
+			//let aa = await Region.findOne({_id: _id});
+				return landmark;
+		},
 		findwithArrowViewer: async (_, args) => {
 			const { _id , direction} = args;
 			let currentArray = "";

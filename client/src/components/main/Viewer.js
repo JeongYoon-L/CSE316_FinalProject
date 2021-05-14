@@ -7,24 +7,72 @@ import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_MAPS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import CreateMapModal 							from '../modals/CreateMapModal';
-
+import { AddLandmark_Transaction} 				from '../../utils/jsTPS';
+import { GET_DB_CURRENT_REGIONS } 				from '../../cache/queries';
 
 const Viewer = (props) => {
     const location = useLocation();
     const ViewerInfomation =location.state.todo ;
     const ParentName =location.state.regionNameViewer ;
+    const [addLandmarkfield] 			= useMutation(mutations.ADD_LANDMARK);
+    const [landmarkInput, toggleInputLandmark] 	= useState("");
+    const [checkUndo, togglecheckUndo] 	= useState(false);
+	const [checkRedo, togglecheckRedo] 	= useState(false);
 
+    let todoNew = [];
+    const { data : dataR, refetch : refetchR } = useQuery(GET_DB_CURRENT_REGIONS, {variables : {CurrentID : ViewerInfomation._id}});
+    if(dataR && dataR.getAllCurrentRegions && dataR.getAllCurrentRegions !== null) { 
+        todoNew = dataR.getAllCurrentRegions; 
+    }
+    const addLandmark = async () =>{
+        if(landmarkInput !== "" && todoNew !== []){
+            let itemID = todoNew._id;
+            let prevLandmark = todoNew.landmark;
+            let newLandmark = prevLandmark.concat(landmarkInput);
+            console.log(newLandmark);
+            let transaction = new AddLandmark_Transaction(itemID, prevLandmark, newLandmark, addLandmarkfield);
+            props.tps.addTransaction(transaction);  
+            tpsRedo();
+        }
+
+    }
+    
+ const tpsUndo = async () => {
+    const retVal = await props.tps.undoTransaction();
+    await refetchR();
+    togglecheckUndo(props.tps.hasTransactionToUndo() && props.tps.getSize() !== 0 );
+    togglecheckRedo(props.tps.hasTransactionToRedo() && props.tps.getSize() !== 0 );
+    return retVal;
+}
+
+const tpsRedo = async () => {
+    const retVal = await props.tps.doTransaction();
+    await refetchR();
+    togglecheckUndo(props.tps.hasTransactionToUndo() && props.tps.getSize() !== 0 );
+    togglecheckRedo(props.tps.hasTransactionToRedo()&& props.tps.getSize() !== 0 );
+    return retVal;
+}
 
     return (
         <WCard wCard="header-content-media" className = "viewerPage">
 			<WCHeader className = "ViewerHeader">
             <WRow>
-                <WCol size="1" className = "buttonhover ">
+                {checkUndo ?            
+                <WButton className = "subregionButton buttonhover " onClick={tpsUndo} >
                 <i className="material-icons ">undo</i>
-                </WCol>
-                <WCol size="1" className = "redoStyle buttonhover ">
+                </WButton>:
+                <WButton className = "subregionButton-disabled ">
+                <i className="material-icons ">undo</i>
+                </WButton>
+                }
+               {checkRedo ? 
+                <WButton className = "redoStyle buttonhover "onClick={tpsRedo} >
                 <i className="material-icons ">redo</i>
-                </WCol>
+                </WButton>:
+               <WButton className = "subregionButton-disabled " >
+               <i className="material-icons ">redo</i>
+               </WButton>               
+                }
                 <WCol size="1"></WCol>
                 <WCol size="1"></WCol>
                 <WCol size="1"></WCol>
@@ -54,8 +102,8 @@ const Viewer = (props) => {
             <WCol size="6">
                 {
                     <WCMedia   >
-                               <RightViewer 
-                ViewerInfomation = {ViewerInfomation} />
+                               <RightViewer addLandmark={addLandmark} toggleInputLandmark= {toggleInputLandmark} landmarkInput= {landmarkInput}
+                ViewerInfomation = {ViewerInfomation} todoNew= {todoNew} />
             
                     </WCMedia>
                 }
