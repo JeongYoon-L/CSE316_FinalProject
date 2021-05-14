@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { useHistory } from "react-router-dom";
 import Viewer    from './Viewer';
 import { WNavItem, WInput, WCol, WRow, WButton } from 'wt-frontend';
@@ -26,11 +26,34 @@ const RegionEntry = (props) => {
     const [editingLandmark, toggleLandmarkEdit] = useState(false);
     const [showDeleteRegion, toggleShowDeleteRegion] 	= useState(false);
     const [showWelcome, toggleShowWelcome] 	= useState(true);
+
     
     
     let history = useHistory();
     const regionNameViewer = props.RegionNameHere;
     const RouteViewerRegionID = "/viewer/" + props._id;
+    useEffect(() => {
+        
+      if (props.changeindex) {
+ console.log(props.changeindex, props.index, props.changefield);
+ 
+    if(props.changeindex === props.index){
+        
+        if(props.changefield == "Name"){
+            toggleNameEdit(true);
+        }
+        else if(props.changefield == "Capital"){
+            toggleCapitalEdit(true);
+            
+        }
+        else if(props.changefield == "Leader"){
+            toggleLeaderEdit(true);
+        }
+    }
+          
+        }
+    }, [props.changeindex])
+
     
 
     const setShowDeleteRegion = () => {
@@ -59,6 +82,29 @@ const RegionEntry = (props) => {
                 toggleCapitalEdit(true);
             }				
 		  }
+          if(e.keyCode === 38 && (props.index !== 0)){ //up key
+            console.log(editingCapital, props.index);
+            if(editingCapital){
+                props.moveSubregionUpDown("Capital", props.index-1);
+            }
+			else if(editingName){
+                props.moveSubregionUpDown("Name", props.index-1);
+            }		
+            else if(editingLeader){
+                props.moveSubregionUpDown("Leader", props.index-1);
+            }				
+		  }
+          if(e.keyCode === 40 && (props.index !== props.subregions.length)){ //down key
+            if(editingCapital){
+                props.moveSubregionUpDown("Capital", props.index+1);
+            }
+			else if(editingName){
+                props.moveSubregionUpDown("Name", props.index+1);
+            }		
+            else if(editingLeader){
+                props.moveSubregionUpDown("Leader", props.index+1);
+            }			
+		  }
 		  
 		}
 	
@@ -74,12 +120,16 @@ const RegionEntry = (props) => {
     };
 
     const handleCapitalEdit = (e) => {
-        toggleCapitalEdit(false);
+        console.log("여기?");
+        console.log(props.index);
+        props.togglecheckIndex(-1);
+        props.togglecheckField("");
          const newCapital = e.target.value ? e.target.value : 'No Capital';
          const prevCapital = capital;
          if(newCapital !== prevCapital){
              props.editItem(props._id, 'capital', newCapital, prevCapital);
          }
+         toggleCapitalEdit(false);
     };
 
     const handleNameEdit = (e) => {
@@ -89,6 +139,9 @@ const RegionEntry = (props) => {
         if(newName !== prevName){
             props.editItem(props._id, 'name', newName, prevName);
         }
+        
+        props.togglecheckIndex(-1);
+        props.togglecheckField("");
     };
 
     const handleLeaderEdit = (e) => {
@@ -98,6 +151,8 @@ const RegionEntry = (props) => {
         if(newLeader !== prevLeader){
             props.editItem(props._id, 'leader', newLeader, prevLeader);
         }
+        props.togglecheckIndex(-1);
+        props.togglecheckField("");
     };
 
     const changeRoute = async () => {

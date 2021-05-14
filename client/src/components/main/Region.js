@@ -82,8 +82,15 @@ const tpsRedo = async () => {
     togglecheckRedo(props.tps.hasTransactionToRedo()&& props.tps.getSize() !== 0 );
     return retVal;
 }
+const [changefield, togglecheckField] 	= useState("");
+const [changeindex, togglecheckIndex] 	= useState(-1);
 
-    
+const moveSubregionUpDown = async (field, index) => {
+    togglecheckField(field);
+    togglecheckIndex(index);
+    //await refetch();
+}
+
     const setShowCreateMap = () => {
 		toggleShowCreateMap(!showCreateMap)
 	}
@@ -210,7 +217,7 @@ const tpsRedo = async () => {
 			</WCHeader>
 			<WCContent  >
                 <RegionContents 
-                 setParentBranch = {props.setParentBranch } 
+                 setParentBranch = {props.setParentBranch } moveSubregionUpDown = {moveSubregionUpDown} changeindex = {changeindex} changefield = {changefield} togglecheckIndex={togglecheckIndex} togglecheckField={togglecheckField}
                     subregions = {subregions} DeleteRegionHere = {DeleteRegionHere} RegionNameHere = {RegionNameHere}
                     editItem = {editItem} cleartransaction = {cleartransaction} />
                 
