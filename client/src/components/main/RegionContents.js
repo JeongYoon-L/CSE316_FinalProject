@@ -6,8 +6,9 @@ const RegionContents = (props) => {
         <>
             {
                 props.subregions &&
-                props.subregions.map(todo => (
+                props.subregions.map((todo , index)=> (
                     <RegionEntry
+                    index = {index}
                     subregions = {props.subregions} todo = {todo}  setParentBranch = {props.setParentBranch } cleartransaction= {props.cleartransaction}
                     id={todo.id} key={todo.id} name={todo.name} _id={todo._id} DeleteRegionHere = {props.DeleteRegionHere}
                     RegionNameHere = {props.RegionNameHere} editItem= {props.editItem}

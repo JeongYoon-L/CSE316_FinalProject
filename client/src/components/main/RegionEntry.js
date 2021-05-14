@@ -33,6 +33,32 @@ const RegionEntry = (props) => {
 		toggleShowDeleteRegion(!showDeleteRegion)
 	}
 
+    const keydown = async () => {
+		window.onkeydown = async (e) => {
+		  if(e.keyCode === 37){ //left key
+            if(editingCapital){
+                toggleCapitalEdit(false);
+                toggleNameEdit(true);
+            }
+			else if(editingLeader){
+                toggleLeaderEdit(false);
+                toggleCapitalEdit(true);
+            }
+		  }
+		  if(e.keyCode === 39){ //right key
+            if(editingCapital){
+                toggleCapitalEdit(false);
+                toggleLeaderEdit(true);
+            }
+			else if(editingName){
+                toggleNameEdit(false);
+                toggleCapitalEdit(true);
+            }				
+		  }
+		  
+		}
+	
+	  }
 
     const handleLandmarkEdit = (e) => {
         toggleLandmarkEdit(false);
@@ -54,11 +80,11 @@ const RegionEntry = (props) => {
 
     const handleNameEdit = (e) => {
         toggleNameEdit(false);
-        // const newDescr = e.target.value ? e.target.value : 'No Description';
-        // const prevDescr = description;
-        // if(newDescr !== prevDescr){
-        //     props.editItem(data._id, 'description', newDescr, prevDescr);
-        // }
+        const newName = e.target.value ? e.target.value : 'No Name';
+        const prevName = name;
+        if(newName !== prevName){
+            props.editItem(props._id, 'name', newName, prevName);
+        }
     };
 
     const handleLeaderEdit = (e) => {
@@ -87,7 +113,7 @@ const RegionEntry = (props) => {
         
     }
     
-    
+    keydown();
     return (
         <div>
         <WRow className='table-entry'>
@@ -99,12 +125,18 @@ const RegionEntry = (props) => {
                 </WButton>
             </WCol>
             <WCol size="2">
-                    <div className="table-text-blue"
-                    onClick={changeRoute } 
-                >
-                {name}
-                </div>
-                
+            {
+                    editingName || name === ''
+                        ? <WInput
+                            className='table-input' onBlur={handleNameEdit}
+                            autoFocus={true} defaultValue={name} type='text'
+                            wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                        />
+                        : <div className="table-text-blue"
+                        onClick={changeRoute } 
+                        >{name}
+                        </div>
+                }                
             </WCol>
 
             <WCol size="2">
