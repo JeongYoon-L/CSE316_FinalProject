@@ -170,3 +170,17 @@ export const SORT_ITEMS = gql`
 		sortTodoItems(updateitems: $updateitems)
 	}
 `;
+export const ARROW_VIEWER = gql`
+	mutation FindwithArrowViewer($_id: String!, $direction: String!) {
+		findwithArrowViewer(_id: $_id, direction : $direction ){
+			_id
+			id
+			capital
+			name
+			leader
+			parentRegion
+			landmark
+			parentName
+		}
+	}
+`;

@@ -140,6 +140,67 @@ module.exports = {
 		updateParent_RegionIDField: async (_, args) => {}, // update ParentRegionID
         deleteLandMarkField: async (_, args) => {},
         addLandMarkField: async (_, args) => {},
+		findwithArrowViewer: async (_, args) => {
+			const { _id , direction} = args;
+			let currentArray = "";
+			let parent = "";
+			let parentName = "";
+			let returnArray = [];
+			let currentID = await Region.findOne({_id: _id});
+			if(currentID){
+				let parentID = currentID.parentRegion;
+				currentArray = await Region.find({parentRegion: parentID}).sort({updatedAt: 'ascending'});
+
+				parent = await Region.findOne({_id: parentID});
+				if(!parent){
+					parent = await Map.findOne({_id: parentID});
+				}
+				parentName = parent.name;
+				let index = -1;
+				for(i = 0 ; i<currentArray.length; i++){
+					if(currentArray[i]._id == _id){
+						index = i;
+					}
+				}
+				if(direction == "left" && index !== 0){
+					returnArray = currentArray[index-1];
+					returnArray.parentName = parentName;
+			
+					let newList = {
+						_id: returnArray._id,
+						id: returnArray.id,
+						capital: returnArray.capital,
+						name : returnArray.name,
+						leader: returnArray.leader,
+						parentRegion: returnArray.parentRegion,
+						landmark: returnArray.landmark ,
+						parentName : parentName
+					};
+				
+					return newList
+				}
+				else if(direction == "right" && index !== currentArray.length-1){
+					returnArray = currentArray[index+1];
+					returnArray.parentName = parentName;
+			
+					let newList = {
+						_id: returnArray._id,
+						id: returnArray.id,
+						capital: returnArray.capital,
+						name : returnArray.name,
+						leader: returnArray.leader,
+						parentRegion: returnArray.parentRegion,
+						landmark: returnArray.landmark ,
+						parentName : parentName
+					};
+				
+					return newList
+				}
+
+		}
+		return ;
+
+		},
 		updateLandMarkField: async (_, args) => {},
 		sortTodoItems: async (_, args) => {
 			const {updateitems} = args;

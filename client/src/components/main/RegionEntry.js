@@ -82,7 +82,7 @@ const RegionEntry = (props) => {
         props.cleartransaction();
         history.push({
             pathname : RouteViewerRegionID,
-            state : {todo : todo, regionNameViewer : regionNameViewer}}
+            state : {todo : todo,regionNameViewer : regionNameViewer}}
             );
         
     }

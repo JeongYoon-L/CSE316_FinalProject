@@ -21,6 +21,18 @@ extend type Mutation {
     deleteLandMarkField(_id : String! , deleteValue : String!) : [String]
     addLandMarkField(_id : String!, value : String!) : [String]
     updateLandMarkField(_id: String!, field: String!, value: String!): String
+    findwithArrowViewer(_id: String!, direction: String!): ViewerInput
+}
+
+type ViewerInput {
+    _id: String
+    id: Int
+    capital: String
+    name : String
+    leader: String
+    parentRegion:  String
+    landmark: [String]
+    parentName : String
 }
 
 

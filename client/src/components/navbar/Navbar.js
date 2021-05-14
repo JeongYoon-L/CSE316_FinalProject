@@ -1,17 +1,19 @@
-import React, { useState, useReducer } 				from 'react';
+import React, { useState } 				from 'react';
 import { WNavbar, WSidebar, WNavItem , WRow, WCol} 	from 'wt-frontend';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import NavigateToParent 					from '../navbar/NavigateToParent';
 import Logo 							from '../navbar/Logo';
-import { GET_DB_MAPS } 				from '../../cache/queries';
+import { GET_DB_MAPS, GET_DB_REGIONS } 				from '../../cache/queries';
 import { useMutation, useQuery } 		from '@apollo/client';
 import CreateAccount 					from '../modals/CreateAccount';
 import UpdateAccount 					from '../modals/UpdateAccount';
 import Login 							from '../modals/Login';
+import * as mutations 					from '../../cache/mutations';
 import { useHistory } from "react-router-dom";
 
 const Navbar = (props) => {
     const { loading, error, data, refetch } = useQuery(GET_DB_MAPS);
+	const [findwithArrowViewer] 			= useMutation(mutations.ARROW_VIEWER);
     const [activeList, setActiveList] 		= useState({});
     const auth = props.user === null ? false : true;
     const [showDelete, toggleShowDelete] 	= useState(false);
@@ -23,6 +25,7 @@ const Navbar = (props) => {
 		setActiveList(list);
 
 	}
+	let history = useHistory();
 	let toggleArrow = false;
 	let pathname =useHistory().location.pathname;
 	if(pathname.startsWith("/viewer")){
@@ -63,7 +66,22 @@ const Navbar = (props) => {
 	const cleartransaction = () => {		
 		props.tps.clearAllTransactions();	
 	}      
-	
+	const movetoNextViewer = async (direction) => {	
+		let pathname =history.location.pathname;
+    	let currentID = pathname.substring(8, pathname.length);	
+		const { data } = await findwithArrowViewer({ variables: {  _id : currentID, direction: direction}});
+		let cur = data.findwithArrowViewer;
+		console.log(cur);
+		if(cur !== null){
+			const RouteViewerRegionID = "/viewer/" + cur._id;
+			history.push({
+				pathname : RouteViewerRegionID,
+				state : {todo : cur, regionNameViewer : cur.parentName}}
+				);
+		}
+		
+        
+	}      
     return (
         <WNavbar color="colored">
 					<ul>
@@ -80,12 +98,23 @@ const Navbar = (props) => {
 					<ul className = "arrowMid" >
 						{toggleArrow ?
 						<WRow>
-							<WCol className = "buttonhover ">
-							<i className="material-icons ">arrow_backward</i>
+							{true ?    
+							<WCol className = "buttonhover " >
+							<i className="material-icons " onClick = {() => movetoNextViewer("left")} >arrow_backward</i>
+							</WCol>:
+							<WCol className = "buttonhover " >
+							<i className="material-icons " >arrow_backward</i>
 							</WCol>
-							<WCol className = "buttonhover ">
-							<i className="material-icons ">arrow_forward</i>
+							}
+							{true ? 
+							<WCol className = "buttonhover "  >
+							<i className="material-icons " onClick = {() => movetoNextViewer("right")} >arrow_forward</i>
+							</WCol>:
+							<WCol className = "buttonhover "  >
+							<i className="material-icons "  >arrow_forward</i>
 							</WCol>
+							}
+							
 						</WRow>
 
 					:
