@@ -139,6 +139,13 @@ module.exports = {
 		},
 		updateParent_RegionIDField: async (_, args) => {}, // update ParentRegionID
         deleteLandMarkField: async (_, args) => {},
+		editLandmarkfield: async (_, args) => {
+			const { _id , landmark} = args;
+			let updated = await Region.updateOne({_id: _id}, { landmark: landmark })
+			//let aa = await Region.findOne({_id: _id});
+				return landmark;
+				
+		},
         addLandmarkfield: async (_, args) => {
 			const { _id , landmark} = args;
 			let updated = await Region.updateOne({_id: _id}, { landmark: landmark })

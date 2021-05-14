@@ -9,7 +9,6 @@ const RightViewer = (props) => {
     const handleLandmarkAdd = async (e) =>{
         props.toggleInputLandmark(e.target.value);
     }
-
     return (
         <>
         {
@@ -17,7 +16,7 @@ const RightViewer = (props) => {
                 {canshowLandmark &&
                 landmark.map((todo , index)=> (
                     <LandmarkTable      
-                        todo= {todo}
+                        todo= {todo} landmark= {landmark} editLandmark= {props.editLandmark}
                     />   
                 ))
         }

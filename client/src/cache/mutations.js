@@ -189,3 +189,8 @@ export const ADD_LANDMARK = gql`
 		addLandmarkfield(_id:$_id , landmark:$landmark)
 	}
 `;
+export const EDIT_LANDMARK_FIELD = gql`
+	mutation EditLandmarkfield($_id: String!, $landmark: [String]) {
+		editLandmarkfield(_id:$_id , landmark:$landmark)
+	}
+`;

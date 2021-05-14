@@ -20,6 +20,7 @@ extend type Mutation {
     sortTodoItems(updateitems: [String]!): String
     deleteLandMarkField(_id : String! , deleteValue : String!) : [String]
     addLandmarkfield(_id : String!, landmark : [String]) : [String]
+    editLandmarkfield(_id : String!, landmark : [String]) : [String]
     updateLandMarkField(_id: String!, field: String!, value: String!): String
     findwithArrowViewer(_id: String!, direction: String!): ViewerInput
 }

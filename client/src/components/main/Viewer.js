@@ -7,7 +7,7 @@ import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_MAPS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import CreateMapModal 							from '../modals/CreateMapModal';
-import { AddLandmark_Transaction} 				from '../../utils/jsTPS';
+import { AddLandmark_Transaction, EditLandmark_Transaction} 				from '../../utils/jsTPS';
 import { GET_DB_CURRENT_REGIONS } 				from '../../cache/queries';
 
 const Viewer = (props) => {
@@ -15,6 +15,7 @@ const Viewer = (props) => {
     const ViewerInfomation =location.state.todo ;
     const ParentName =location.state.regionNameViewer ;
     const [addLandmarkfield] 			= useMutation(mutations.ADD_LANDMARK);
+    const [editLandmarkfield] 			= useMutation(mutations.EDIT_LANDMARK_FIELD);
     const [landmarkInput, toggleInputLandmark] 	= useState("");
     const [checkUndo, togglecheckUndo] 	= useState(false);
 	const [checkRedo, togglecheckRedo] 	= useState(false);
@@ -29,12 +30,17 @@ const Viewer = (props) => {
             let itemID = todoNew._id;
             let prevLandmark = todoNew.landmark;
             let newLandmark = prevLandmark.concat(landmarkInput);
-            console.log(newLandmark);
             let transaction = new AddLandmark_Transaction(itemID, prevLandmark, newLandmark, addLandmarkfield);
             props.tps.addTransaction(transaction);  
             tpsRedo();
         }
 
+    }
+    const editLandmark = async ( newLandmark, prevLandmark) =>{
+            let itemID = todoNew._id;
+            let transaction = new EditLandmark_Transaction(itemID, prevLandmark, newLandmark, editLandmarkfield);
+            props.tps.addTransaction(transaction);  
+            tpsRedo();
     }
     
  const tpsUndo = async () => {
@@ -103,7 +109,7 @@ const tpsRedo = async () => {
                 {
                     <WCMedia   >
                                <RightViewer addLandmark={addLandmark} toggleInputLandmark= {toggleInputLandmark} landmarkInput= {landmarkInput}
-                ViewerInfomation = {ViewerInfomation} todoNew= {todoNew} />
+                ViewerInfomation = {ViewerInfomation} todoNew= {todoNew} editLandmark={editLandmark}/>
             
                     </WCMedia>
                 }

@@ -4,19 +4,33 @@ import { WInput, WButton, WCol, WRow} from 'wt-frontend';
 
 const LandmarkTable = (props) => {
     const [editLandmark, toggleEditLandmark] 	= useState(false);
-
-    const handleSubmitLandmark = async () =>{
+    let landmarkArray = props.landmark;
+    const handleLandmarkEdit = (e) => {
+        if(props.todo !== null){
+            const newName = e.target.value ? e.target.value : props.todo ;
+            let newLandmarkArray = [];
+            for(let i=0; i<landmarkArray.length ; i++){
+                if(landmarkArray[i] == props.todo){
+                    newLandmarkArray.push(newName);
+                }
+                else {
+                    newLandmarkArray.push(landmarkArray[i]);
+                }
+            }
+            const prevName = props.todo;
+            if(newName !== prevName){
+                props.editLandmark( newLandmarkArray, props.landmark);
+            }
+        }
         toggleEditLandmark(false);
-    }
-    const openInput = async () =>{
-        toggleEditLandmark(true);
-    }
+        
+    };
     return (
         <>
         {
           
                     editLandmark ?   <WInput className="landmarkStyle-input" inputClass="landmarkStyle-input"
-                                        name='name' onBlur={handleSubmitLandmark} autoFocus={true} defaultValue={props.todo} 
+                                        name='name' onBlur={handleLandmarkEdit} autoFocus={true} defaultValue={props.todo} 
                                     />
                                 :<WRow>
                                     <WCol size = "1">
