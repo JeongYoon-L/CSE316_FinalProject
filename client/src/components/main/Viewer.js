@@ -2,13 +2,15 @@ import React, { useState } 				from 'react';
 import {useLocation} from "react-router";
 import LeftViewer    from './LeftViewer';
 import RightViewer    from './RightViewer';
+import { useHistory } from "react-router-dom";
 import { WButton, WCHeader, WCContent, WCMedia, WCard, WRow, WCol } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_CHILDS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import CreateMapModal 							from '../modals/CreateMapModal';
-import { AddLandmark_Transaction, EditLandmark_Transaction} 				from '../../utils/jsTPS';
+import { AddLandmark_Transaction, EditLandmark_Transaction, EditParentRegion_Transaction} 				from '../../utils/jsTPS';
 import { GET_DB_CURRENT_REGIONS } 				from '../../cache/queries';
+import { GET_ALLPARENTS_BRANCHREGION } 				from '../../cache/queries';
 
 const Viewer = (props) => {
     const location = useLocation();
@@ -16,12 +18,13 @@ const Viewer = (props) => {
     const ParentName =location.state.regionNameViewer ;
     const [addLandmarkfield] 			= useMutation(mutations.ADD_LANDMARK);
     const [editLandmarkfield] 			= useMutation(mutations.EDIT_LANDMARK_FIELD);
+    const [updateParent_RegionIDField] 			= useMutation(mutations.EDIT_PARENT_REGION);
     const [landmarkInput, toggleInputLandmark] 	= useState("");
     const [checkUndo, togglecheckUndo] 	= useState(false);
 	const [checkRedo, togglecheckRedo] 	= useState(false);
 
-    let canUndo = checkUndo && (props.tps.getSize() !== 0);
-    let canRedo = checkRedo && (props.tps.getSize() !== 0);
+    let canUndo = checkUndo;
+    let canRedo = checkRedo ;
 
     let todoNew = [];
     const { data : dataR, refetch : refetchR } = useQuery(GET_DB_CURRENT_REGIONS, {variables : {CurrentID : ViewerInfomation._id}});
@@ -35,6 +38,19 @@ const Viewer = (props) => {
         allchild = dataChild.getAllChildInfo; 
     }
 
+    let pathname =useHistory().location.pathname;
+    let connectedParendId = " ";
+    
+    connectedParendId = pathname.substring(8, pathname.length);
+    console.log(connectedParendId);
+
+    let parents = [];
+    const { data : dataBranch, refetch : parentRefetch, error: errorBranch, refetch:BranchRefetch } = useQuery(GET_ALLPARENTS_BRANCHREGION, {variables : {_id : connectedParendId}});
+       if(errorBranch) { console.log(errorBranch, 'error'); }
+       if(dataBranch && dataBranch.getAllParentsBranchRegion && dataBranch.getAllParentsBranchRegion !== null) { 
+           parents = dataBranch.getAllParentsBranchRegion;  
+           console.log(parents);
+       }
     
     const addLandmark = async () =>{
         if(landmarkInput !== "" && todoNew !== []){
@@ -53,11 +69,21 @@ const Viewer = (props) => {
             props.tps.addTransaction(transaction);  
             tpsRedo();
     }
+    const editParentRegion = async ( newParentRegion, prevParentRegion) =>{
+        let itemID = todoNew._id;
+        let transaction = new EditParentRegion_Transaction(itemID, prevParentRegion, newParentRegion, updateParent_RegionIDField);
+        props.tps.addTransaction(transaction);  
+        tpsRedo();
+        props.setParentBranch([]);
+}
     
     
  const tpsUndo = async () => {
     const retVal = await props.tps.undoTransaction();
     await refetchR();
+    await parentRefetch();
+    await refetchChild();
+    
     togglecheckUndo(props.tps.hasTransactionToUndo() && props.tps.getSize() !== 0 );
     togglecheckRedo(props.tps.hasTransactionToRedo() && props.tps.getSize() !== 0 );
     return retVal;
@@ -66,6 +92,8 @@ const Viewer = (props) => {
 const tpsRedo = async () => {
     const retVal = await props.tps.doTransaction();
     await refetchR();
+    await parentRefetch();
+    await refetchChild();
     togglecheckUndo(props.tps.hasTransactionToUndo() && props.tps.getSize() !== 0 );
     togglecheckRedo(props.tps.hasTransactionToRedo()&& props.tps.getSize() !== 0 );
     return retVal;
@@ -110,7 +138,7 @@ const tpsRedo = async () => {
                     
 
 			<WCContent >
-            <LeftViewer 
+            <LeftViewer  parents={parents} editParentRegion={editParentRegion}
                 ViewerInfomation = {ViewerInfomation} ParentName = {ParentName} setParentBranch={props.setParentBranch} />
             
         </WCContent>

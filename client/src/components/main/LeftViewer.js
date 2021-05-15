@@ -8,7 +8,10 @@ const LeftViewer = (props) => {
     const [editingParentRegion, toggleParentRegionEdit] = useState(false);
     const ViewerInfomation = props.ViewerInfomation;
     const name = "Region Name : " + ViewerInfomation.name;
-    const parentRegionID = props.ParentName;
+    let parentRegionID = "";
+    if(props.parents[1]){
+        parentRegionID = props.parents[1].name;
+    }
     const capital = "Region Capital : " + ViewerInfomation.capital;
     const leader = "Region Leader : " + ViewerInfomation.leader;
     let subregions 	= [];
@@ -23,10 +26,11 @@ const LeftViewer = (props) => {
     };
     const handleParentRegionEdit = (e) => {
         toggleParentRegionEdit(false);
-        const newParentRegion = e.target.value ? e.target.value : false;
+        const newParentRegion = e.target.value ? e.target.value : "";
         const prevParentRegion = ViewerInfomation.parentRegion;
         if(newParentRegion !== prevParentRegion){
-            props.editItem(data._id, 'completed', newParentRegion, prevParentRegion);
+            props.editParentRegion( newParentRegion, prevParentRegion);
+            refetch();
         }
     };
 
@@ -58,10 +62,12 @@ const LeftViewer = (props) => {
         {editingParentRegion ? 
         <WCol size="7"><select
                         className='table-select' onBlur={handleParentRegionEdit}
-                        autoFocus={true} defaultValue={ViewerInfomation.name}
+                        autoFocus={true} 
                     >
-                        <option value="complete">complete</option>
-                        <option value="incomplete">incomplete</option>
+                        {props.parents.map(item => {
+                            return <option value={item._id}>{item.name}</option>
+                        })}
+
                     </select>
         </WCol>
         :

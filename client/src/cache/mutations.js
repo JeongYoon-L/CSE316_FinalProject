@@ -194,3 +194,8 @@ export const EDIT_LANDMARK_FIELD = gql`
 		editLandmarkfield(_id:$_id , landmark:$landmark)
 	}
 `;
+export const EDIT_PARENT_REGION = gql`
+	mutation UpdateParent_RegionIDField($itemId: String!, $parentRegion: String! ) {
+		updateParent_RegionIDField(itemId:$itemId , parentRegion:$parentRegion)
+	}
+`;

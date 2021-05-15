@@ -17,7 +17,7 @@ extend type Mutation {
     addRegion(region: RegionInput!, indexID : [String]! ): String
     deleteRegion(_id: String!, indexID : [String]! ): String
     updateRegionField(itemId: String!, field: String!, value: String!, indexID : [String]!): String
-    updateParent_RegionIDField(_id: String!, parentID : String!): String
+    updateParent_RegionIDField(itemId: String!, parentRegion : String!): String
     sortTodoItems(updateitems: [String]!): String
     deleteLandMarkField(_id : String! , deleteValue : String!) : [String]
     addLandmarkfield(_id : String!, landmark : [String]) : [String]
