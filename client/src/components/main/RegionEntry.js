@@ -29,6 +29,7 @@ const RegionEntry = (props) => {
 
     
     
+    
     let history = useHistory();
     const regionNameViewer = props.RegionNameHere;
     const RouteViewerRegionID = "/viewer/" + props._id;
@@ -60,9 +61,12 @@ const RegionEntry = (props) => {
 		toggleShowDeleteRegion(!showDeleteRegion)
 	}
 
-    const keydown = async () => {
-		window.onkeydown = async (e) => {
+    const leftRgihtArrow = (e) => {
+        window.onkeydown = async (e) => {
 		  if(e.keyCode === 37){ //left key
+            e.target.blur();
+            console.log(editingCapital);
+            console.log("Check here");
             if(editingCapital){
                 toggleCapitalEdit(false);
                 toggleNameEdit(true);
@@ -72,7 +76,8 @@ const RegionEntry = (props) => {
                 toggleCapitalEdit(true);
             }
 		  }
-		  if(e.keyCode === 39){ //right key
+		  else if(e.keyCode === 39){ //right key
+            e.target.blur();
             if(editingCapital){
                 toggleCapitalEdit(false);
                 toggleLeaderEdit(true);
@@ -82,7 +87,37 @@ const RegionEntry = (props) => {
                 toggleCapitalEdit(true);
             }				
 		  }
+        }
+    }
+    leftRgihtArrow();
+    const keydown = (e) => {
+        console.log(editingCapital, props.index);
+		 //window.onkeydown = async (e) => {
+		//   if(e.keyCode === 37){ //left key
+        //     console.log(editingCapital);
+        //     console.log("Check here");
+        //     if(editingCapital){
+        //         toggleCapitalEdit(false);
+        //         toggleNameEdit(true);
+        //     }
+		// 	else if(editingLeader){
+        //         toggleLeaderEdit(false);
+        //         toggleCapitalEdit(true);
+        //     }
+		//   }
+		//   else if(e.keyCode === 39){ //right key
+        //     if(editingCapital){
+        //         toggleCapitalEdit(false);
+        //         toggleLeaderEdit(true);
+        //     }
+		// 	else if(editingName){
+        //         toggleNameEdit(false);
+        //         toggleCapitalEdit(true);
+        //     }				
+		//   }
+        
           if(e.keyCode === 38 && (props.index !== 0)){ //up key
+            e.target.blur();
             console.log(editingCapital, props.index);
             if(editingCapital){
                 props.moveSubregionUpDown("Capital", props.index-1);
@@ -94,7 +129,8 @@ const RegionEntry = (props) => {
                 props.moveSubregionUpDown("Leader", props.index-1);
             }				
 		  }
-          if(e.keyCode === 40 && (props.index !== props.subregions.length)){ //down key
+          else if(e.keyCode === 40 && (props.index !== props.subregions.length)){ //down key
+            e.target.blur();
             if(editingCapital){
                 props.moveSubregionUpDown("Capital", props.index+1);
             }
@@ -106,7 +142,7 @@ const RegionEntry = (props) => {
             }			
 		  }
 		  
-		}
+		 //}
 	
 	  }
 
@@ -122,8 +158,7 @@ const RegionEntry = (props) => {
     const handleCapitalEdit = (e) => {
         console.log("여기?");
         console.log(props.index);
-        props.togglecheckIndex(-1);
-        props.togglecheckField("");
+
          const newCapital = e.target.value ? e.target.value : 'No Capital';
          const prevCapital = capital;
          if(newCapital !== prevCapital){
@@ -139,9 +174,7 @@ const RegionEntry = (props) => {
         if(newName !== prevName){
             props.editItem(props._id, 'name', newName, prevName);
         }
-        
-        props.togglecheckIndex(-1);
-        props.togglecheckField("");
+    
     };
 
     const handleLeaderEdit = (e) => {
@@ -151,8 +184,7 @@ const RegionEntry = (props) => {
         if(newLeader !== prevLeader){
             props.editItem(props._id, 'leader', newLeader, prevLeader);
         }
-        props.togglecheckIndex(-1);
-        props.togglecheckField("");
+
     };
 
     const changeRoute = async () => {
@@ -172,7 +204,7 @@ const RegionEntry = (props) => {
         
     }
     
-    keydown();
+    //keydown();
     return (
         <div>
         <WRow className='table-entry'>
@@ -187,7 +219,7 @@ const RegionEntry = (props) => {
             {
                     editingName || name === ''
                         ? <WInput
-                            className='table-input' onBlur={handleNameEdit}
+                            className='table-input' onBlur={handleNameEdit} onKeyDown ={keydown}
                             autoFocus={true} defaultValue={name} type='text'
                             wType="outlined" barAnimation="solid" inputClass="table-input-class"
                         />
@@ -202,7 +234,7 @@ const RegionEntry = (props) => {
                 {
                     editingCapital || capital === ''
                         ? <WInput
-                            className='table-input' onBlur={handleCapitalEdit}
+                            className='table-input' onBlur={handleCapitalEdit} onKeyDown ={keydown}
                             autoFocus={true} defaultValue={capital} type='text'
                             wType="outlined" barAnimation="solid" inputClass="table-input-class"
                         />
@@ -217,7 +249,7 @@ const RegionEntry = (props) => {
             {
                     editingLeader || leader === ''
                         ? <WInput
-                            className='table-input' onBlur={handleLeaderEdit}
+                            className='table-input' onBlur={handleLeaderEdit} onKeyDown ={keydown}
                             autoFocus={true} defaultValue={leader} type='text'
                             wType="outlined" barAnimation="solid" inputClass="table-input-class"
                         />
