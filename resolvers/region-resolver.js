@@ -6,10 +6,14 @@ module.exports = {
 	Query: {
 		getAllRegions: async (_, args) => { 
 			const { parentID } = args;
+			console.log("왜안들어와/");
 			if(!parentID) { return };
 			const _id = new ObjectId(parentID);
 			const todolists = await Region.find({parentRegion: _id}).sort({updatedAt: 'ascending'});
-
+			console.log("쿼리출력앞");
+			console.log(todolists);
+			console.log(_id);
+			console.log("쿼리출력뒤");
 			if(todolists) {
 				return (todolists);
 			} 

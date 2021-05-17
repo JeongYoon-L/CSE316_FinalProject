@@ -218,6 +218,7 @@ export class EditParentRegion_Transaction extends jsTPS_Transaction{
     }
 
     async undoTransaction() {
+        console.log(this.prevParentRegion);
 		const { data } = await this.updateFunction({ variables: { itemId : this.itemID, parentRegion: this.prevParentRegion}})
         if(data) {
             console.log(data)

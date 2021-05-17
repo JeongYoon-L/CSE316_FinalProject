@@ -28,7 +28,7 @@ const Region = (props) => {
     let indexID = [];
     let pathname =useHistory().location.pathname;
     let connectedParendId = pathname.substring(8, pathname.length);
-    const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS, {variables : {parentID : connectedParendId}});
+    const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS, {variables : {parentID : connectedParendId }, fetchPolicy: 'no-cache'});
 
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }

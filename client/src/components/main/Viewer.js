@@ -45,7 +45,7 @@ const Viewer = (props) => {
     console.log(connectedParendId);
 
     let parents = [];
-    const { data : dataBranch, refetch : parentRefetch, error: errorBranch, refetch:BranchRefetch } = useQuery(GET_ALLPARENTS_BRANCHREGION, {variables : {_id : connectedParendId}});
+    const { data : dataBranch, error: errorBranch, refetch:BranchRefetch } = useQuery(GET_ALLPARENTS_BRANCHREGION, {variables : {_id : connectedParendId}});
        if(errorBranch) { console.log(errorBranch, 'error'); }
        if(dataBranch && dataBranch.getAllParentsBranchRegion && dataBranch.getAllParentsBranchRegion !== null) { 
            parents = dataBranch.getAllParentsBranchRegion;  
@@ -74,14 +74,14 @@ const Viewer = (props) => {
         let transaction = new EditParentRegion_Transaction(itemID, prevParentRegion, newParentRegion, updateParent_RegionIDField);
         props.tps.addTransaction(transaction);  
         tpsRedo();
-        props.setParentBranch([]);
+        //props.setParentBranch([]);
 }
     
     
  const tpsUndo = async () => {
     const retVal = await props.tps.undoTransaction();
     await refetchR();
-    await parentRefetch();
+    await BranchRefetch();
     await refetchChild();
     
     togglecheckUndo(props.tps.hasTransactionToUndo() && props.tps.getSize() !== 0 );
@@ -92,7 +92,7 @@ const Viewer = (props) => {
 const tpsRedo = async () => {
     const retVal = await props.tps.doTransaction();
     await refetchR();
-    await parentRefetch();
+    await BranchRefetch();
     await refetchChild();
     togglecheckUndo(props.tps.hasTransactionToUndo() && props.tps.getSize() !== 0 );
     togglecheckRedo(props.tps.hasTransactionToRedo()&& props.tps.getSize() !== 0 );

@@ -92,7 +92,7 @@ const Navbar = (props) => {
 					</ul>
 					<ul className = "branchLeft">
 						{showWelcome ?
-					<NavigateToParent setParentBranch = {props.setParentBranch } cleartransaction = {cleartransaction} />	:
+					<NavigateToParent fetchUser={props.fetchUser} setParentBranch = {props.setParentBranch } cleartransaction = {cleartransaction} />	:
 					<></>
 						}
 					</ul> 

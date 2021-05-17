@@ -37,7 +37,7 @@ const NavigateToParent = (props) => {
         parents !== undefined && parents.length > 0 &&
         parents.slice(0).reverse().map(entry => (
             <NavigateToParentEntry
-                data={entry} setParentBranch = {props.setParentBranch } cleartransaction = {props.cleartransaction}
+                data={entry} setParentBranch = {props.setParentBranch } cleartransaction = {props.cleartransaction} BranchRefetch={BranchRefetch} fetchUser={props.fetchUser}
             />
         ))
     );
