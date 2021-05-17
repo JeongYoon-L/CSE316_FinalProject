@@ -192,7 +192,19 @@ const RegionEntry = (props) => {
             );
         
     }
-    
+
+    function importAll(r) {
+        let images = {};
+        r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+        let imgName = name + " Flag.png";
+        if(images[imgName]){
+            return images[imgName];
+        }
+        return images["No Flag.png"];
+      }
+      
+      const images = importAll(require.context('../imageSrc/The World', true, /\.(png|jpe?g|svg)$/));
+
     //keydown();
     return (
         <div>
@@ -250,10 +262,10 @@ const RegionEntry = (props) => {
             </WCol>
             <WCol size="2">
                 {
-                    <div className="table-text"
+                    <img className="table-text flagStyle" src = {images}
                     onClick={() => toggleFlagEdit(!editingFlag)} 
-                >{flag}
-                </div>
+                >
+                </img>
 
                 }
             </WCol>

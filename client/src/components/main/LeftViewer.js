@@ -9,7 +9,9 @@ const LeftViewer = (props) => {
     const ViewerInfomation = props.ViewerInfomation;
     const name = "Region Name : " + ViewerInfomation.name;
     let parentRegionID = "";
+    let selectParents = [];
     if(props.parents[1]){
+        selectParents = props.parents.filter(item => item._id !==ViewerInfomation._id );
         parentRegionID = props.parents[1].name;
     }
     const capital = "Region Capital : " + ViewerInfomation.capital;
@@ -64,7 +66,7 @@ const LeftViewer = (props) => {
                         className='table-select' onBlur={handleParentRegionEdit}
                         autoFocus={true} 
                     >
-                        {props.parents.map(item => {
+                        {selectParents.map(item => {
                             return <option value={item._id}>{item.name}</option>
                         })}
 
