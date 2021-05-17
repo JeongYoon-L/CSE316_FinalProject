@@ -63,8 +63,27 @@ const RegionEntry = (props) => {
 		toggleShowDeleteRegion(!showDeleteRegion)
 	}
 
+  
+
+
     const leftRgihtArrow = (e) => {
         window.onkeydown = async (e) => {
+
+            var keyCode = e.keyCode ? e.keyCode : e.which;
+		  if(keyCode === 90 && e.ctrlKey){
+			if(props.tps.hasTransactionToUndo()){
+				props.undo();
+                props.refetch();
+			}
+		  }
+		  if(keyCode === 89 && e.ctrlKey){
+			if(props.tps.hasTransactionToRedo()){                
+				props.redo();
+                props.refetch();
+			}	
+		  }		  
+
+
 		  if(e.keyCode === 37){ //left key
             e.target.blur();
             props.moveSubregionUpDown("", props.index);

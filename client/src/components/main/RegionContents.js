@@ -29,7 +29,7 @@ const RegionContents = (props) => {
                     index = {index} moveSubregionUpDown={props.moveSubregionUpDown} changefield={props.changefield} changeindex= {props.changeindex}
                     subregions = {props.subregions} todo = {todo}  setParentBranch = {props.setParentBranch } cleartransaction= {props.cleartransaction}
                     id={todo.id} key={todo.id} name={todo.name} _id={todo._id} DeleteRegionHere = {props.DeleteRegionHere}
-                    RegionNameHere = {props.RegionNameHere} editItem= {props.editItem}
+                    RegionNameHere = {props.RegionNameHere} editItem= {props.editItem} refetch = {props.refetch} tps = {props.tps}  undo={props.undo} redo={props.redo}
                         
                     />
                 ))

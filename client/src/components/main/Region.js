@@ -203,7 +203,11 @@ const moveSubregionUpDown = async (field, index) => {
 		props.tps.clearAllTransactions();
 		togglecheckUndo(props.tps.hasTransactionToUndo());
 		togglecheckRedo(props.tps.hasTransactionToRedo());
-	}            
+	}
+
+    const refetchRegion = async () =>{
+        await refetch();
+    }
     return (
         
         <WCard wCard="header-content-media" className = "regionPage">
@@ -218,8 +222,8 @@ const moveSubregionUpDown = async (field, index) => {
 			<WCContent  >
                 <RegionContents 
                  setParentBranch = {props.setParentBranch } moveSubregionUpDown = {moveSubregionUpDown} changeindex = {changeindex} changefield = {changefield} togglecheckIndex={togglecheckIndex} togglecheckField={togglecheckField}
-                    subregions = {subregions} DeleteRegionHere = {DeleteRegionHere} RegionNameHere = {RegionNameHere}
-                    editItem = {editItem} cleartransaction = {cleartransaction} />
+                    subregions = {subregions} DeleteRegionHere = {DeleteRegionHere} RegionNameHere = {RegionNameHere} tps = {props.tps}
+                    editItem = {editItem} cleartransaction = {cleartransaction} undo={tpsUndo} redo={tpsRedo} refetch = {refetchRegion}/>
                 
 			</WCContent>
             
