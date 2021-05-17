@@ -15,7 +15,7 @@ const NavigateToParentEntry = (props) => {
 
 
     
-    let printString = data.name + " > ";
+    let printString = data.name + " >  ";
     return (
         <div className='branch' onClick = {changeRoute} >
             {printString}

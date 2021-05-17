@@ -33,11 +33,13 @@ const RegionEntry = (props) => {
     let history = useHistory();
     const regionNameViewer = props.RegionNameHere;
     const RouteViewerRegionID = "/viewer/" + props._id;
-    useEffect(() => {
-        
-      if (props.changeindex) {
+    useEffect(() => {        
+      if (props.moveSubregionUpDown) {
  console.log(props.changeindex, props.index, props.changefield);
- 
+ console.log(editingName);
+ console.log(editingCapital);
+ console.log(editingLeader);
+
     if(props.changeindex === props.index){
         
         if(props.changefield == "Name"){
@@ -53,7 +55,7 @@ const RegionEntry = (props) => {
     }
           
         }
-    }, [props.changeindex])
+    }, [props.moveSubregionUpDown])
 
     
 
@@ -65,8 +67,7 @@ const RegionEntry = (props) => {
         window.onkeydown = async (e) => {
 		  if(e.keyCode === 37){ //left key
             e.target.blur();
-            console.log(editingCapital);
-            console.log("Check here");
+            props.moveSubregionUpDown("", props.index);
             if(editingCapital){
                 toggleCapitalEdit(false);
                 toggleNameEdit(true);
@@ -75,9 +76,13 @@ const RegionEntry = (props) => {
                 toggleLeaderEdit(false);
                 toggleCapitalEdit(true);
             }
+            else if(editingName){
+                toggleNameEdit(true);
+            }
 		  }
 		  else if(e.keyCode === 39){ //right key
             e.target.blur();
+            props.moveSubregionUpDown("", props.index);
             if(editingCapital){
                 toggleCapitalEdit(false);
                 toggleLeaderEdit(true);
@@ -86,58 +91,41 @@ const RegionEntry = (props) => {
                 toggleNameEdit(false);
                 toggleCapitalEdit(true);
             }				
+            else if(editingLeader){
+                toggleLeaderEdit(true);
+            }
 		  }
         }
     }
     leftRgihtArrow();
-    const keydown = (e) => {
-        console.log(editingCapital, props.index);
-		 //window.onkeydown = async (e) => {
-		//   if(e.keyCode === 37){ //left key
-        //     console.log(editingCapital);
-        //     console.log("Check here");
-        //     if(editingCapital){
-        //         toggleCapitalEdit(false);
-        //         toggleNameEdit(true);
-        //     }
-		// 	else if(editingLeader){
-        //         toggleLeaderEdit(false);
-        //         toggleCapitalEdit(true);
-        //     }
-		//   }
-		//   else if(e.keyCode === 39){ //right key
-        //     if(editingCapital){
-        //         toggleCapitalEdit(false);
-        //         toggleLeaderEdit(true);
-        //     }
-		// 	else if(editingName){
-        //         toggleNameEdit(false);
-        //         toggleCapitalEdit(true);
-        //     }				
-		//   }
-        
+    const keydown = (e) => {        
           if(e.keyCode === 38 && (props.index !== 0)){ //up key
-            e.target.blur();
             console.log(editingCapital, props.index);
             if(editingCapital){
+                e.target.blur();
                 props.moveSubregionUpDown("Capital", props.index-1);
+                console.log(props.index-1);
             }
 			else if(editingName){
+                e.target.blur();
                 props.moveSubregionUpDown("Name", props.index-1);
             }		
             else if(editingLeader){
+                e.target.blur();
                 props.moveSubregionUpDown("Leader", props.index-1);
             }				
 		  }
-          else if(e.keyCode === 40 && (props.index !== props.subregions.length)){ //down key
-            e.target.blur();
+          else if(e.keyCode === 40 && (props.index !== props.subregions.length-1)){ //down key
             if(editingCapital){
+                e.target.blur();
                 props.moveSubregionUpDown("Capital", props.index+1);
             }
 			else if(editingName){
+                e.target.blur();
                 props.moveSubregionUpDown("Name", props.index+1);
             }		
             else if(editingLeader){
+                e.target.blur();
                 props.moveSubregionUpDown("Leader", props.index+1);
             }			
 		  }
@@ -156,9 +144,8 @@ const RegionEntry = (props) => {
     };
 
     const handleCapitalEdit = (e) => {
-        console.log("여기?");
         console.log(props.index);
-
+        props.moveSubregionUpDown("", props.index);
          const newCapital = e.target.value ? e.target.value : 'No Capital';
          const prevCapital = capital;
          if(newCapital !== prevCapital){
@@ -169,6 +156,7 @@ const RegionEntry = (props) => {
 
     const handleNameEdit = (e) => {
         toggleNameEdit(false);
+        props.moveSubregionUpDown("", props.index);
         const newName = e.target.value ? e.target.value : 'No Name';
         const prevName = name;
         if(newName !== prevName){
@@ -179,6 +167,7 @@ const RegionEntry = (props) => {
 
     const handleLeaderEdit = (e) => {
         toggleLeaderEdit(false);
+        props.moveSubregionUpDown("", props.index);
         const newLeader = e.target.value ? e.target.value : 'No Leader';
         const prevLeader = leader;
         if(newLeader !== prevLeader){
