@@ -262,10 +262,7 @@ const RegionEntry = (props) => {
             </WCol>
             <WCol size="2">
                 {
-                    <img className="table-text flagStyle" src = {images}
-                    onClick={() => toggleFlagEdit(!editingFlag)} 
-                >
-                </img>
+                    <img className="table-text flagStyle" src = {images}></img>
 
                 }
             </WCol>

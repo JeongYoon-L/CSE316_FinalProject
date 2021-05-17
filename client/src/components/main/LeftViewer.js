@@ -51,10 +51,24 @@ const LeftViewer = (props) => {
     numOfSubRegion = subregions.length;
     const number = "# of Sub Regions : " + numOfSubRegion ;
 
+    function importAll(r) {
+        let images = {};
+        r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+        let imgName = ViewerInfomation.name + " Flag.png";
+        if(images[imgName]){
+            return images[imgName];
+        }
+        return images["No Flag.png"];
+      }
+      
+      const images = importAll(require.context('../imageSrc/The World', true, /\.(png|jpe?g|svg)$/));
+
 
     return (
         <WCol>
-    <WRow className = " image " >Image</WRow>
+    <WRow className = " image " >
+        <img  className = "flagStyleForViewer" src = {images}></img>
+    </WRow>
     <div className = " viewerText ">{name}</div>
     <WRow>
         <WCol size = "1"></WCol>

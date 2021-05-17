@@ -27,13 +27,13 @@ const Viewer = (props) => {
     let canRedo = checkRedo ;
 
     let todoNew = [];
-    const { data : dataR, refetch : refetchR } = useQuery(GET_DB_CURRENT_REGIONS, {variables : {CurrentID : ViewerInfomation._id}});
+    const { data : dataR, refetch : refetchR } = useQuery(GET_DB_CURRENT_REGIONS, {variables : {CurrentID : ViewerInfomation._id}, fetchPolicy:'no-cache'});
     if(dataR && dataR.getAllCurrentRegions && dataR.getAllCurrentRegions !== null) { 
         todoNew = dataR.getAllCurrentRegions; 
     }
 
     let allchild = [];
-    const { data : dataChild, refetch : refetchChild } = useQuery(GET_DB_CHILDS, {variables : {CurrentID : ViewerInfomation._id}});
+    const { data : dataChild, refetch : refetchChild } = useQuery(GET_DB_CHILDS, {variables : {CurrentID : ViewerInfomation._id}, fetchPolicy:'no-cache'});
     if(dataChild && dataChild.getAllChildInfo && dataChild.getAllChildInfo !== null) { 
         allchild = dataChild.getAllChildInfo; 
     }
@@ -45,7 +45,7 @@ const Viewer = (props) => {
     console.log(connectedParendId);
 
     let parents = [];
-    const { data : dataBranch, error: errorBranch, refetch:BranchRefetch } = useQuery(GET_ALLPARENTS_BRANCHREGION, {variables : {_id : connectedParendId}});
+    const { data : dataBranch, error: errorBranch, refetch:BranchRefetch } = useQuery(GET_ALLPARENTS_BRANCHREGION, {variables : {_id : connectedParendId}, fetchPolicy:'no-cache'});
        if(errorBranch) { console.log(errorBranch, 'error'); }
        if(dataBranch && dataBranch.getAllParentsBranchRegion && dataBranch.getAllParentsBranchRegion !== null) { 
            parents = dataBranch.getAllParentsBranchRegion;  
