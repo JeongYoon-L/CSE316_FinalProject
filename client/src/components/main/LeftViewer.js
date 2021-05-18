@@ -1,6 +1,6 @@
 import React, { useState } 				from 'react';
 import { WNavItem, WButton, WCol, WRow } from 'wt-frontend';
-import { useHistory } from "react-router-dom";
+import { useHistory , useLocation} from "react-router-dom";
 import { GET_DB_REGIONS } 				from '../../cache/queries';
 import { useMutation, useQuery } 		from '@apollo/client';
 
@@ -28,7 +28,6 @@ const LeftViewer = (props) => {
     };
  
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS, {variables : {parentID : ViewerInfomation._id, fetchPolicy:'no-cache'}});
-    
     const handleParentRegionEdit = (e) => {
         toggleParentRegionEdit(false);
         const newParentRegion = e.target.value ? e.target.value : "";
@@ -37,7 +36,11 @@ const LeftViewer = (props) => {
             props.editParentRegion( newParentRegion, prevParentRegion);
             refetch();
         }
+        // const myModule = require('../navbar/NavigateToParent.js');
+        //      myModule.hello(); // val is "Hello"
     };
+
+
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
 	if(data && data !== null) { 

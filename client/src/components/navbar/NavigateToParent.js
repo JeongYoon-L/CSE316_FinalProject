@@ -25,8 +25,11 @@ const NavigateToParent = (props) => {
     if(errorBranch) { console.log(errorBranch, 'error'); }
     if(dataBranch && dataBranch.getAllParentsBranchRegion && dataBranch.getAllParentsBranchRegion !== null) { 
         parents = dataBranch.getAllParentsBranchRegion;  
+        // exports.hello = function() {
+        //     BranchRefetch();
+        //     return "Hello";
+        //   }
     }
-
     if(pathname.startsWith("/viewer")){
         console.log(parents);
         let a = parents.slice(1);

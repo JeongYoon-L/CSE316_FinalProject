@@ -74,6 +74,7 @@ const Viewer = (props) => {
         let transaction = new EditParentRegion_Transaction(itemID, prevParentRegion, newParentRegion, updateParent_RegionIDField);
         props.tps.addTransaction(transaction);  
         tpsRedo();
+        //props.setParentBranch([]);
         
 }
 

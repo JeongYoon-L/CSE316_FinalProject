@@ -43,6 +43,7 @@ const App = () => {
             	<Route path = "/region" render={() => <Region  tps={transactionStack} user={user} fetchUser={refetch} setParentBranch = {setParentBranch } />}/>
 				<Route path = "/region/:id" children={<Child />}/>
 				<Route path = "/viewer" render={() => <Viewer tps={transactionStack} user={user} fetchUser={refetch}  setParentBranch = {setParentBranch} />}/>
+				<Route path = "/viewer" render={() => <Navbar  fetchUser={refetch} user={user} refreshTps={refreshTps} setParentBranch = {setParentBranch } tps={transactionStack} />}/>
 				<Route path = "/viewer/:id" children={<Child />}/>
 		
 			</Switch>

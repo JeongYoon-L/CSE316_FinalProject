@@ -3,7 +3,7 @@ import { WNavbar, WSidebar, WNavItem , WRow, WCol} 	from 'wt-frontend';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import NavigateToParent 					from '../navbar/NavigateToParent';
 import Logo 							from '../navbar/Logo';
-import { GET_DB_MAPS, GET_DB_REGIONS } 				from '../../cache/queries';
+import { GET_DB_MAPS, GET_DB_REGIONS} 				from '../../cache/queries';
 import { useMutation, useQuery } 		from '@apollo/client';
 import CreateAccount 					from '../modals/CreateAccount';
 import UpdateAccount 					from '../modals/UpdateAccount';
@@ -70,7 +70,7 @@ const Navbar = (props) => {
 		props.tps.clearAllTransactions();
 		props.setParentBranch([]);
 		let pathname =history.location.pathname;
-    	let currentID = pathname.substring(8, pathname.length);	
+		let currentID = pathname.substring(8, pathname.length); 
 		const { data } = await findwithArrowViewer({ variables: {  _id : currentID, direction: direction}});
 		let cur = data.findwithArrowViewer;
 		if(cur !== null){
@@ -103,7 +103,7 @@ const Navbar = (props) => {
 							<WCol size = "1" className = "buttonhover ViewerleftButton " >
 							<i className="material-icons " onClick = {() => movetoNextViewer("left")} >arrow_backward</i>
 							</WCol>:
-							<WCol  size = "1"  className = "buttonhover ViewerleftButton " >
+							<WCol  size = "1"  className = "buttonhover ViewerleftButton-disabled " >
 							<i className="material-icons " >arrow_backward</i>
 							</WCol>
 							}

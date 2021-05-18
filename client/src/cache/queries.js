@@ -101,3 +101,18 @@ query GetAllParentsBranchRegion($_id: String!) {
 		}
 	}
 `;
+
+// export const FIND_LAST_INDEX = gql`
+// query Find_last_index {
+// 		find_last_index{
+// 			_id
+//     		id
+//     		capital
+// 			name
+//     		leader
+//     		Flag
+//     		parentRegion
+//     		landmark
+// 		}
+// 	}
+// `;
