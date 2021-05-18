@@ -26,6 +26,9 @@ const LeftViewer = (props) => {
         history.replace(gotoParent);
 
     };
+ 
+    const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS, {variables : {parentID : ViewerInfomation._id, fetchPolicy:'no-cache'}});
+    
     const handleParentRegionEdit = (e) => {
         toggleParentRegionEdit(false);
         const newParentRegion = e.target.value ? e.target.value : "";
@@ -35,9 +38,6 @@ const LeftViewer = (props) => {
             refetch();
         }
     };
-
-    const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS, {variables : {parentID : ViewerInfomation._id, fetchPolicy:'no-cache'}});
-
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
 	if(data && data !== null) { 

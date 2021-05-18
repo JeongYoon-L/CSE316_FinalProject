@@ -100,18 +100,19 @@ const Navbar = (props) => {
 						{toggleArrow ?
 						<WRow>
 							{true ?    
-							<WCol className = "buttonhover " >
+							<WCol size = "1" className = "buttonhover ViewerleftButton " >
 							<i className="material-icons " onClick = {() => movetoNextViewer("left")} >arrow_backward</i>
 							</WCol>:
-							<WCol className = "buttonhover " >
+							<WCol  size = "1"  className = "buttonhover ViewerleftButton " >
 							<i className="material-icons " >arrow_backward</i>
 							</WCol>
 							}
+							<div>&nbsp;</div>
 							{true ? 
-							<WCol className = "buttonhover "  >
+							<WCol className = "buttonhover ViewerrightButton "  >
 							<i className="material-icons " onClick = {() => movetoNextViewer("right")} >arrow_forward</i>
 							</WCol>:
-							<WCol className = "buttonhover "  >
+							<WCol className = "buttonhover ViewerrightButton "  >
 							<i className="material-icons "  >arrow_forward</i>
 							</WCol>
 							}

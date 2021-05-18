@@ -1,5 +1,5 @@
 import React from 'react';
-
+//import { useHistory } from "react-router-dom";
 import { WButton, WRow, WCol } from 'wt-frontend';
 
 const RegionNavbar = (props) => {
@@ -8,6 +8,16 @@ const RegionNavbar = (props) => {
     const headerStyle = props.disabled ? ' table-header-section-disabled ' : 'table-header-section ';
     let canUndo = (props.checkUndo);
     let canRedo = (props.checkRedo);
+    // let history = useHistory();
+
+    // const changeRouteToParent = async () => {
+    //     alert();
+    //     props.setParentBranch([]);
+    //     props.cleartransaction();
+    //     let ReouteParentRegionID = "/viewer/" + props.Region_IDHere;
+    //     history.push(ReouteParentRegionID);
+        
+    // }
     
     return (
         <WRow className="regionNavbarPage">

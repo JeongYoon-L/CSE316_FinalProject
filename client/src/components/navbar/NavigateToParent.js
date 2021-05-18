@@ -21,7 +21,7 @@ const NavigateToParent = (props) => {
     }
 
     let parents = [];
- const { data : dataBranch, error: errorBranch, refetch:BranchRefetch } = useQuery(GET_ALLPARENTS_BRANCHREGION, {variables : {_id : connectedParendId}});
+ const { data : dataBranch, error: errorBranch, refetch:BranchRefetch } = useQuery(GET_ALLPARENTS_BRANCHREGION, {variables : {_id : connectedParendId}, fetchPolicy: 'no-cache'});
     if(errorBranch) { console.log(errorBranch, 'error'); }
     if(dataBranch && dataBranch.getAllParentsBranchRegion && dataBranch.getAllParentsBranchRegion !== null) { 
         parents = dataBranch.getAllParentsBranchRegion;  

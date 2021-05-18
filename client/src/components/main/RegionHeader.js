@@ -40,11 +40,11 @@ const RegionHeader = (props) => {
             </WCol>
             
             <WCol size="2">
-                <WButton className={`${headerStyle}`}   wType="texted" >Flag
+                <WButton className= "table-header-section-disabled"   wType="texted" >Flag
                 <i className="material-icons  ">arrow_downward</i></WButton>
             </WCol>
             <WCol size="3">
-                <WButton className={`${headerStyle}`}  wType="texted" >Landmark
+                <WButton className= "table-header-section-disabled"  wType="texted" >Landmark
                 <i className="material-icons  ">arrow_downward</i></WButton>
             </WCol>
 

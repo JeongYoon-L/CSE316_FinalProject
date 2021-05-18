@@ -74,9 +74,35 @@ const Viewer = (props) => {
         let transaction = new EditParentRegion_Transaction(itemID, prevParentRegion, newParentRegion, updateParent_RegionIDField);
         props.tps.addTransaction(transaction);  
         tpsRedo();
-        //props.setParentBranch([]);
+        
 }
-    
+
+
+
+const keydown = (e) => {
+    window.onkeydown = async (e) => {
+
+        var keyCode = e.keyCode ? e.keyCode : e.which;
+      if(keyCode === 90 && e.ctrlKey){
+        if(props.tps.hasTransactionToUndo()){
+            tpsUndo();
+            await refetchR();
+            await BranchRefetch();
+            await refetchChild();
+        }
+      }
+      if(keyCode === 89 && e.ctrlKey){
+        if(props.tps.hasTransactionToRedo()){                
+            tpsRedo();
+            await refetchR();
+            await BranchRefetch();
+            await refetchChild();
+        }	
+      }		  
+
+    }
+}
+keydown();
     
  const tpsUndo = async () => {
     const retVal = await props.tps.undoTransaction();
@@ -112,7 +138,7 @@ const tpsRedo = async () => {
                 </WButton>
                 }
                {canRedo ? 
-                <WButton className = "redoStyle buttonhover "onClick={tpsRedo} >
+                <WButton className = "subregionButton buttonhover "onClick={tpsRedo} >
                 <i className="material-icons ">redo</i>
                 </WButton>:
                <WButton className = "subregionButton-disabled " >

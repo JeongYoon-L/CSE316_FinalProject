@@ -16,7 +16,12 @@ const RegionEntry = (props) => {
     const RouteSubRegionID = "/region/" + props._id;
 
     let landmarkForSpreadsheet = "";
-    landmark.map(item => landmarkForSpreadsheet = item +","+ landmarkForSpreadsheet);
+    landmark.map(item => {
+        if(!landmarkForSpreadsheet || landmarkForSpreadsheet == ""){
+            landmarkForSpreadsheet = item
+        }
+        else{landmarkForSpreadsheet = item +","+ landmarkForSpreadsheet;}
+});
 
     
     const [editingName, toggleNameEdit] = useState(false);

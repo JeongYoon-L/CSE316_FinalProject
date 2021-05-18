@@ -47,6 +47,7 @@ const Region = (props) => {
     let RegionNameHereM = "";
     let RegionNameHereR = "";
     let RegionNameHere = "";    
+    let Region_IDHere = "";
 
     const { data : dataM, error: errorM } = useQuery(GET_DB_CURRENT_MAPS, {variables : {CurrentID : connectedParendId}});
     if(errorM) { console.log(errorM, 'error'); }
@@ -61,9 +62,11 @@ const Region = (props) => {
         
  if(RegionNameHereM.name == "" || RegionNameHereM.name == undefined ||RegionNameHereM.name == null){
         RegionNameHere = RegionNameHereR.name;
+        Region_IDHere = RegionNameHereR._id;
  }
  else{
     RegionNameHere = RegionNameHereM.name;
+    Region_IDHere = RegionNameHereM._id;
  }
 
 
@@ -213,7 +216,8 @@ const moveSubregionUpDown = async (field, index) => {
         <WCard wCard="header-content-media" className = "regionPage">
             <RegionNavbar 
                 createNewSubRegion = {createNewSubRegion} RegionNameHere = {RegionNameHere} undo={tpsUndo} redo={tpsRedo}
-                checkUndo= {checkUndo} checkRedo= {checkRedo} tps= {props.tps}
+                checkUndo= {checkUndo} checkRedo= {checkRedo} tps= {props.tps} Region_IDHere= {Region_IDHere} cleartransaction = {cleartransaction}
+                setParentBranch = {props.setParentBranch }
                 />
 			<WCHeader className = "RegionHeader">
                 <RegionHeader sortRegions = {sortRegions} >
