@@ -245,7 +245,10 @@ html {
     padding-top: 12px;
     cursor: pointer;
 }
-
+.handleoverflow{
+    overflow: hidden;
+    text-overflow : ellipsis;
+}
 .buttonhover {
     cursor: pointer;
 }

@@ -39,48 +39,6 @@ module.exports = {
 			console.log(returnArray);
 			return returnArray;
 		 },
-// 		 find_last_index: async (_, { args }) => {
-
-// 			let cArray = await Region.find();
-// 			return cArray;
-
-
-// 			const { _id , direction} = args;
-// 			let currentArray = "";
-// 			let parent = "";
-// 			let parentName = "";
-// 			let returnArray = [];
-// 			let currentID = await Region.findOne({_id: _id});
-// 			console.log(currentID);
-// 			if(currentID){
-// 				let parentID = currentID.parentRegion;
-// 				currentArray = await Region.find({parentRegion: parentID}).sort({updatedAt: 'ascending'});
-
-// 				parent = await Region.findOne({_id: parentID});
-// 				if(!parent){
-// 					parent = await Map.findOne({_id: parentID});
-// 				}
-// 				parentName = parent.name;
-// 				let index = -1;
-// 				for(i = 0 ; i<currentArray.length; i++){
-// 					if(currentArray[i]._id == _id){
-// 						index = i;
-// 					}
-// 				}
-// 				if(direction == "left" && index == 0){
-					
-// 					return 0
-// 				}
-// 				else if(direction == "right" && index == currentArray.length-1){
-				
-// 					return 0
-// 				}
-// console.log(index);
-
-// 		}
-// 		return 1;
-
-// 		  },
 
 		getViewerRegions: async (_, __, { req }) => { },
 		getAllParentsBranchRegion: async (_, args) => {

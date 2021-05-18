@@ -478,6 +478,8 @@ html, body {
     padding-left: 7px;
     cursor: pointer;
     color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .landmarkStyle-disabled{
     height: 40px;
@@ -486,6 +488,8 @@ html, body {
     cursor: cursor;
     color: gray;
     padding-left:40px;
+    overflow: hidden;
+    text-overflow: ellipsis;    
 }
 .landmarkStyle:hover{
     background-color: var(--warm-white-transparent);

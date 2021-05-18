@@ -240,7 +240,7 @@ const RegionEntry = (props) => {
                     </i>
                 </WButton>
             </WCol>
-            <WCol size="2">
+            <WCol size="2" className = 'handleoverflow '>
             {
                     editingName || name === ''
                         ? <WInput
@@ -255,7 +255,7 @@ const RegionEntry = (props) => {
                 }                
             </WCol>
 
-            <WCol size="2">
+            <WCol size="2" className = 'handleoverflow '>
                 {
                     editingCapital || capital === ''
                         ? <WInput
@@ -270,7 +270,7 @@ const RegionEntry = (props) => {
                 }
             </WCol>
 
-            <WCol size="2">
+            <WCol size="2" className = 'handleoverflow '>
             {
                     editingLeader || leader === ''
                         ? <WInput
@@ -290,7 +290,7 @@ const RegionEntry = (props) => {
 
                 }
             </WCol>
-            <WCol size="3">
+            <WCol size="3" className = 'handleoverflow '>
                 {
                     <div 
                     className="table-text-blue"
